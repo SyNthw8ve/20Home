@@ -19,6 +19,9 @@ DROP TABLE IF EXISTS Region;
 DROP TABLE IF EXISTS RecordsCountry;
 DROP TABLE IF EXISTS Country;
 
+CREATE TYPE medical_role AS ENUM ('doctor', 'nurse', 'other');
+CREATE TYPE not_type AS ENUM ('region', 'proximity');
+
 CREATE TABLE Country (
 
     country_code char(2),
@@ -90,7 +93,7 @@ CREATE TABLE HealthProfissional (
     lat decimal,
     health_code char(9),
     institution text,
-    position varchar(16),
+    position medical_role,
 
     PRIMARY KEY (username)
 );
@@ -118,7 +121,7 @@ CREATE TABLE Notifications (
 
     ID serial,
     notification_time timestamp,
-    notification_type char(1),
+    notification_type not_type,
 
     PRIMARY KEY (id)
 );
