@@ -1,10 +1,32 @@
 /*SECTION: Tables*/
 
+DROP TABLE IF EXISTS WorksIn;
+DROP TABLE IF EXISTS LivesIn;
+DROP TABLE IF EXISTS FromCountry;
+DROP TABLE IF EXISTS CountryCases;
+DROP TABLE IF EXISTS RegionCases;
+DROP TABLE IF EXISTS HasRegions;
+DROP TABLE IF EXISTS Notify;
+DROP TABLE IF EXISTS NewCase;
+DROP TABLE IF EXISTS HasSymptoms;
+DROP TABLE IF EXISTS Notifications;
+DROP TABLE IF EXISTS PointCases;
+DROP TABLE IF EXISTS Symptom;
+DROP TABLE IF EXISTS HealthProfissional;
+DROP TABLE IF EXISTS DBUser;
+DROP TABLE IF EXISTS RecordsRegion;
+DROP TABLE IF EXISTS Region;
+DROP TABLE IF EXISTS RecordsCountry;
+DROP TABLE IF EXISTS Country;
+
 CREATE TABLE Country (
 
-    country_code char(3),
+    country_code char(2),
     country_name varchar(32),
-    lat decimal,
+    confirmed integer,
+    deaths integer,
+    recovered integer,
+    lat decimal, 
     long decimal,
 
     PRIMARY KEY (country_code)
@@ -12,16 +34,12 @@ CREATE TABLE Country (
 
 CREATE TABLE RecordsCountry (
 
-    country_code char(3),
-    record_date date,
-    record_time time,
-    recovered_cases integer,
-    total_deaths integer,
-    new_deaths integer,
-    critical_cases integer,
-    total_cases integer,
-    active_cases integer,
-    new_cases integer,
+    country_code char(2),
+    record_date timestamp,
+    recovered integer,
+    deaths integer,
+    cases integer,
+    active integer, 
 
     FOREIGN KEY (country_code) REFERENCES Country(country_code),
     PRIMARY KEY (country_code, record_date)
@@ -29,30 +47,33 @@ CREATE TABLE RecordsCountry (
 
 CREATE TABLE Region (
 
-    region_code char(5),
     region_name varchar(32),
     long decimal,
     lat decimal,
 
-    PRIMARY KEY (region_code)
+    PRIMARY KEY (region_name)
 );
 
 CREATE TABLE RecordsRegion (
 
-    region_code char(5),
-    record_date date,
+    region_name varchar(32),
+    record_date timestamp,
     confirmed_cases integer,
+    recovered integer,
+    deaths integer,
 
-    FOREIGN KEY (region_code) REFERENCES Region(region_code),
-    PRIMARY KEY (region_code, record_date)
+    FOREIGN KEY (region_name) REFERENCES Region(region_name),
+    PRIMARY KEY (region_name, record_date)
 );
 
-CREATE TABLE User (
+CREATE TABLE DBUser (
 
     first_name varchar(32),
     last_name varchar(32),
     username varchar(32),
     email text,
+    long decimal,
+    lat decimal,
     password varchar(32),
 
     PRIMARY KEY (username)
@@ -65,6 +86,8 @@ CREATE TABLE HealthProfissional (
     username varchar(32),
     email text,
     password varchar(32),
+    long decimal,
+    lat decimal,
     health_code char(9),
     institution text,
     position varchar(16),
@@ -75,7 +98,7 @@ CREATE TABLE HealthProfissional (
 CREATE TABLE Symptom (
 
     symptom_name text,
-    percentage decimal,
+    percentage decimal, 
 
     PRIMARY KEY (symptom_name)
 );
@@ -85,8 +108,7 @@ CREATE TABLE PointCases (
     ID serial,
     long decimal,
     lat decimal,
-    region_code char(5),
-    case_date date,
+    region_name varchar(32),
     case_time timestamp,
 
     PRIMARY KEY (id)
@@ -95,9 +117,8 @@ CREATE TABLE PointCases (
 CREATE TABLE Notifications (
 
     ID serial,
-    case_date date,
-    region_code char(5),
-    case_time timestamp,
+    notification_time timestamp,
+    notification_type char(1),
 
     PRIMARY KEY (id)
 );
@@ -130,41 +151,42 @@ CREATE TABLE Notify (
 
     not_id integer,
     username varchar(32),
+    has_read boolean,
 
     FOREIGN KEY (not_id) REFERENCES Notifications(ID),
-    FOREIGN KEY (username) REFERENCES User(username),
+    FOREIGN KEY (username) REFERENCES DBUser(username),
 
     PRIMARY KEY (not_id, username)
 );
 
 CREATE TABLE HasRegions (
 
-    country_code char(3),
-    region_code char(5),
+    country_code char(2),
+    region_name varchar(32),
 
     FOREIGN KEY (country_code) REFERENCES Country(country_code),
-    FOREIGN KEY (region_code) REFERENCES Region(region_code),
+    FOREIGN KEY (region_name) REFERENCES Region(region_name),
 
-    PRIMARY KEY (country_code, region_code)
+    PRIMARY KEY (country_code, region_name)
 );
 
 CREATE TABLE RegionCases (
 
-    record_date date,
-    region_code char(5),
+    record_date timestamp,
+    region_name varchar(32),
 
-    FOREIGN KEY (record_date) REFERENCES RecordsRegion(record_date),
-    FOREIGN KEY (region_code) REFERENCES Region(region_code),
+    FOREIGN KEY (region_name, record_date) REFERENCES RecordsRegion(region_name, record_date),
+    FOREIGN KEY (region_name) REFERENCES Region(region_name),
 
-    PRIMARY KEY (region_code, record_date)
+    PRIMARY KEY (region_name, record_date)
 );
 
 CREATE TABLE CountryCases (
 
-    record_date date,
-    country_code char(3),
+    record_date timestamp,
+    country_code char(2),
 
-    FOREIGN KEY (record_date) REFERENCES RecordsCountry(record_date),
+    FOREIGN KEY (country_code, record_date) REFERENCES RecordsCountry(country_code, record_date),
     FOREIGN KEY (country_code) REFERENCES Country(country_code),
 
     PRIMARY KEY (country_code, record_date)
@@ -173,33 +195,32 @@ CREATE TABLE CountryCases (
 CREATE TABLE FromCountry (
 
     username varchar(32),
-    country_code char(3),
+    country_code char(2),
 
-    FOREIGN KEY (username) REFERENCES Username(username),
+    FOREIGN KEY (username) REFERENCES DBUser(username),
     FOREIGN KEY (country_code) REFERENCES Country(country_code),
 
     PRIMARY KEY (username, country_code)
 );
 
-
 CREATE TABLE LivesIn (
 
     username varchar(32),
-    region_code char(5),
+    region_name varchar(32),
 
-    FOREIGN KEY (username) REFERENCES Username(username),
-    FOREIGN KEY (region_code) REFERENCES Region(region_code),
+    FOREIGN KEY (username) REFERENCES DBUser(username),
+    FOREIGN KEY (region_name) REFERENCES Region(region_name),
 
-    PRIMARY KEY (username, region_code)
+    PRIMARY KEY (username, region_name)
 );
 
 CREATE TABLE WorksIn (
 
     username varchar(32),
-    region_code char(5),
+    region_name varchar(32),
 
-    FOREIGN KEY (username) REFERENCES Username(username),
-    FOREIGN KEY (region_code) REFERENCES Region(region_code),
+    FOREIGN KEY (username) REFERENCES DBUser(username),
+    FOREIGN KEY (region_name) REFERENCES Region(region_name),
 
-    PRIMARY KEY (username, region_code)
+    PRIMARY KEY (username, region_name)
 );
