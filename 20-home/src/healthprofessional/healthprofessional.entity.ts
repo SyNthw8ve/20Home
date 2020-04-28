@@ -1,7 +1,14 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 
+export enum Position {
+
+    DOC="doctor",
+    NUR="nurse",
+    OTHER="other"
+}
+
 @Entity()
-export class DBUser {
+export class HealthProfessional {
 
     @Column('varchar')
     first_name: string;
@@ -23,4 +30,13 @@ export class DBUser {
 
     @Column('decimal')
     lat: number;
+
+    @Column('char')
+    health_code: string;
+
+    @Column('text')
+    institution: string;
+
+    @Column({type: 'enum', enum: Position})
+    position: Position;
 }
