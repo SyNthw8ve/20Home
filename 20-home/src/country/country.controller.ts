@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { CountryService } from './country.service';
 import { Country } from './country.entity';
 
-@Controller('countries')
+@Controller('country')
 export class CountryController {
 
   constructor(private country_service: CountryService) {}

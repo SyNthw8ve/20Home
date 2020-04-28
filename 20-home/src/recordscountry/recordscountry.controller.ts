@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { RecordsCountryService } from './recordscountry.service';
 import { RecordsCountry } from './recordscountry.entity';
 
-@Controller('records_countries')
+@Controller('records_country')
 export class RecordsCountryController {
 
     constructor(private records_country_service: RecordsCountryService) {}

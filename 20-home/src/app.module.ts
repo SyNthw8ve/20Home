@@ -6,13 +6,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CountryModule } from './country/country.module';
 import { RegionModule } from './region/region.module';
 import { RecordsCountryModule } from './recordscountry/recordscountry.module';
+import { RecordsRegionModule } from './recordsregion/recordsregion.module';
 
 @Module({
   imports: [
             TypeOrmModule.forRoot(), 
             CountryModule,
             RegionModule,
-            RecordsCountryModule
+            RecordsCountryModule,
+            RecordsRegionModule
           ],
   controllers: [AppController],
   providers: [AppService],
