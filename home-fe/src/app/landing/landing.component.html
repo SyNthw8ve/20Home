@@ -1,7 +1,55 @@
-<p>landing works!</p>
-<div class="map-container">
-    <div class="map-frame">
-      <div id="map"></div>
+<div class="row full-height">
+  <div class="col s4 white">
+    <div class="container">
+      <h1 id="title">20Home</h1>
+    </div>
+    <div class="container valign-wrapper">
+      <div class="row">
+        <form class="col s12">
+          <div class="row form-elem">
+            <div class="input-field col s10 offset-s1">
+              <i class="material-icons prefix">person</i>
+              <input id="username" type="text" class="validate">
+              <label for="username">Username</label>
+            </div>
+          </div>
+          <div class="row form-elem">
+            <div class="input-field col s10 offset-s1">
+              <i class="material-icons prefix">lock</i>
+              <input id="pass" type="password" class="validate">
+              <label for="pass">Password</label>
+            </div>
+          </div>
+          <div class="row form-elem">
+            <div class="col s10 offset-s2">
+              <div class="switch left-align">
+                <label>
+                  Health Profissional
+                  <input id="health" type="checkbox">
+                  <span id="health-lever" class="lever indigo lighten-3"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row form-elem">
+              <div class="col s12 center-align">
+                <button class="btn btn-large waves-effect waves-light" type="submit" name="action">Login
+                 
+                </button>
+                <p id="register">Not registered yet? <a>Do it here</a></p>
+              </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row center-align">
+      <p>Login with</p>
+      <a id="google" class="o-auth-icon btn-floating waves-effect white"></a>
+      <a id="facebook" class="o-auth-icon btn-floating waves-effect white"></a>
+      <a id="twitter" class="o-auth-icon btn-floating waves-effect white"></a>
     </div>
   </div>
-          
+  <div class="col s8 no-padd">
+    <div id="map"></div>
+  </div>
+</div>

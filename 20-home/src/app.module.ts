@@ -7,6 +7,7 @@ import { CountryModule } from './country/country.module';
 import { RegionModule } from './region/region.module';
 import { RecordsCountryModule } from './recordscountry/recordscountry.module';
 import { RecordsRegionModule } from './recordsregion/recordsregion.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { RecordsRegionModule } from './recordsregion/recordsregion.module';
             CountryModule,
             RegionModule,
             RecordsCountryModule,
-            RecordsRegionModule
+            RecordsRegionModule,
+            NotificationsModule
           ],
   controllers: [AppController],
   providers: [AppService],

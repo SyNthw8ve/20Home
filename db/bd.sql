@@ -77,7 +77,7 @@ CREATE TABLE DBUser (
     email text,
     long decimal,
     lat decimal,
-    password varchar(32),
+    password char(60),
 
     PRIMARY KEY (username)
 );

@@ -7,7 +7,7 @@ export class CountryController {
 
   constructor(private country_service: CountryService) {}
 
-  @Get()
+  @Get('all')
   async findAll(): Promise<Country[]> {
 
     let result = await this.country_service.findAll();

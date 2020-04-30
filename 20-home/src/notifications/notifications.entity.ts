@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, AfterInsert } from 'typeorm';
 
 export enum NotificationType {
 
@@ -10,7 +10,7 @@ export enum NotificationType {
 export class Notifications {
 
     @PrimaryGeneratedColumn()
-    ID: number;
+    id: number;
 
     @Column('timestamp')
     notification_time: Date;
