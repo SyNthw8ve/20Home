@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
+import { Region } from '../region/region.entity';
 
 export enum Position {
 
@@ -39,4 +40,7 @@ export class HealthProfessional {
 
     @Column({type: 'enum', enum: Position})
     position: Position;
+
+    @ManyToOne(type => Region, region => region.health_professionals)
+    region: Region;
 }
