@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
 import { RecordsCountry } from '../recordscountry/recordscountry.entity';
 import { Region } from '../region/region.entity';
+import { DBUser } from '../dbuser/dbuser.entity';
 
 @Entity()
 export class Country {
@@ -31,4 +32,7 @@ export class Country {
 
   @OneToMany(type => Region, region => region.country)
   regions: Region[];
+
+  @OneToMany(type => DBUser, dbuser => dbuser.country)
+  users: DBUser[];
 }
