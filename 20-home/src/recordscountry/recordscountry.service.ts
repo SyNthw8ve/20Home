@@ -16,12 +16,12 @@ export class RecordsCountryService {
         return this.records_country_repository.find({country_code: country_code});
     }
 
-    async find_one(country_code: string, date: Date): Promise<RecordsCountry> {
-
+    find_one(country_code: string, date: Date): Promise<RecordsCountry> {
+        
+        //REVIEW:
         let date_val =  new Date(date).toLocaleString().split(" ")[0]
         let date_local = (date_val.split("/").reverse().join("-") + " 00:00:00").replace(',', '');
 
-        return this.records_country_repository.findOne({where: 
-            {country_code: country_code, record_date: date_local}});
+        return this.records_country_repository.findOne({country_code: country_code, record_date: date_local});
     }
 }

@@ -6,7 +6,7 @@ export class RecordsRegion {
     @PrimaryColumn('varchar')
     region_name: string;
 
-    @PrimaryColumn('timestamp')
+    @PrimaryColumn('timestamp without time zone')
     record_date: Date;
 
     @Column('integer')
