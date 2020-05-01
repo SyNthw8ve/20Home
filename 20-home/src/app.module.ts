@@ -9,6 +9,7 @@ import { RecordsCountryModule } from './recordscountry/recordscountry.module';
 import { RecordsRegionModule } from './recordsregion/recordsregion.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { PointcasesModule } from './pointcases/pointcases.module';
+import { DBUserModule } from './dbuser/dbuser.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -20,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
             RecordsRegionModule,
             NotificationsModule,
             PointcasesModule,
+            DBUserModule,
             AuthModule
           ],
   controllers: [AppController],
