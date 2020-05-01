@@ -1,17 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { RecordsCountryService } from './recordscountry.service';
 import { RecordsCountry } from './recordscountry.entity';
 
-@Controller('records_country')
+@Controller('records_country/:country_code')
 export class RecordsCountryController {
 
     constructor(private records_country_service: RecordsCountryService) {}
 
-    @Get()
-    async findAll(): Promise<RecordsCountry[]> {
+    @Get('')
+    findAll(@Param() params): Promise<RecordsCountry[]> {
 
-        let result = await this.records_country_service.findAll();
+       return this.records_country_service.find_all(params.country_code);
+    }
 
-        return result;
+    @Get(':date')
+    find_one(@Param() params): Promise<RecordsCountry> {
+
+        return this.records_country_service.find_one(params.country_code, params.data);
     }
 }

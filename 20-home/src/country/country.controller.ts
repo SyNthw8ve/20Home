@@ -10,12 +10,12 @@ export class CountryController {
   @Get('')
   afindAll(): Promise<Country[]> {
 
-    return this.country_service.findAll();
+    return this.country_service.find_all();
   }
 
   @Get(':country_code')
   find_one(@Param() params) : Promise<Country> {
 
-    return this.country_service.findOne(params.country_code);
+    return this.country_service.find_one(params.country_code);
   }
 }

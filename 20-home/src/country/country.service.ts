@@ -11,11 +11,13 @@ export class CountryService {
     private country_repository: Repository<Country>,
   ) {}
 
-  findAll(): Promise<Country[]> {
+  find_all(): Promise<Country[]> {
+
     return this.country_repository.find();
   }
 
-  findOne(country_code: string): Promise<Country> {
+  find_one(country_code: string): Promise<Country> {
+    
     return this.country_repository.findOne(country_code);
   }
 
