@@ -11,7 +11,18 @@ export class RegionService {
     private region_repository: Repository<Region>,
   ) {}
 
-  findAll(): Promise<Region[]> {
+  find_all(): Promise<Region[]> {
+
     return this.region_repository.find();
+  }
+
+  find_one(region_name: string): Promise<Region> {
+
+    return this.region_repository.findOne(region_name);
+  }
+
+  find_all_country(country_name: string): Promise<Region[]> {
+
+    
   }
 }

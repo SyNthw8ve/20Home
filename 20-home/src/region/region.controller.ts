@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { RegionService } from './region.service';
 import { Region } from './region.entity';
 
@@ -8,10 +8,20 @@ export class RegionController {
   constructor(private region_service: RegionService) {}
 
   @Get()
-  async findAll(): Promise<Region[]> {
+  find_all(): Promise<Region[]> {
 
-    let result = await this.region_service.findAll();
+    return this.region_service.find_all();
+  }
 
-    return result;
+  @Get(':region_name')
+  find_regions(@Param() params): Promise<Region> {
+
+    return this.region_service.find_one(params.region_name);
+  }
+
+  @Get(':country_code')
+  find_regions_country(@Param() params): Promise<Region[]> {
+
+    return this.region_service.find_all_country(params.country_code);
   }
 }
