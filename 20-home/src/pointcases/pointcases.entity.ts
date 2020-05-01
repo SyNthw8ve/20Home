@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import { Symptom } from '../symptom/symptom.entity';
 
 @Entity()
 export class PointCases {
@@ -17,4 +18,7 @@ export class PointCases {
 
     @Column('timestamp')
     case_time: Date;
+
+    @ManyToMany(type => Symptom, symptom => symptom.cases)
+    symptoms: Symptom[];
 }

@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToMany } from 'typeorm';
+import { PointCases } from '../pointcases/pointcases.entity';
 
 @Entity()
 export class Symptom {
@@ -8,4 +9,7 @@ export class Symptom {
 
     @Column('decimal')
     percentage: number;
+
+    @ManyToMany(type => PointCases, pointcases => pointcases.symptoms)
+    cases: PointCases[];
 }
