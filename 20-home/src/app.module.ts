@@ -8,7 +8,6 @@ import { RegionModule } from './region/region.module';
 import { RecordsCountryModule } from './recordscountry/recordscountry.module';
 import { RecordsRegionModule } from './recordsregion/recordsregion.module';
 import { NotificationsModule } from './notifications/notifications.module';
-import { PointcasesController } from './pointcases/pointcases.controller';
 import { PointcasesModule } from './pointcases/pointcases.module';
 
 @Module({
@@ -21,7 +20,7 @@ import { PointcasesModule } from './pointcases/pointcases.module';
             NotificationsModule,
             PointcasesModule
           ],
-  controllers: [AppController, PointcasesController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

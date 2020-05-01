@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
+import { RecordsCountry } from '../recordscountry/recordscountry.entity';
 
 @Entity()
 export class Country {
@@ -23,4 +24,7 @@ export class Country {
 
   @Column('decimal')
   long: number;
+
+  @OneToMany(type => RecordsCountry, recordscountry => recordscountry.country)
+  records: RecordsCountry[];
 }

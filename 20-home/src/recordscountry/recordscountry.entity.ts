@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
+import { Country } from '../country/country.entity';
 
 @Entity('recordscountry')
 export class RecordsCountry {
@@ -20,4 +21,7 @@ export class RecordsCountry {
 
     @Column('integer')
     cases: number;
+
+    @ManyToOne(type => Country, country => country.records)
+    country: Country;
 }
