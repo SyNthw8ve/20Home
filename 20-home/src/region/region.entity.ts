@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryColumn, OneToMany, ManyToOne } from 'typeorm';
 import { DBUser } from '../dbuser/dbuser.entity';
 import { HealthProfessional } from '../healthprofessional/healthprofessional.entity';
 import { RecordsRegion } from '../recordsregion/recordsregion.entity';
+import { Country } from '../country/country.entity';
 
 @Entity()
 export class Region {
@@ -23,4 +24,7 @@ export class Region {
 
     @OneToMany(type => RecordsRegion, records_region => records_region.region)
     records: RecordsRegion[];
+
+    @ManyToOne(type => Country, country => country.regions)
+    country: Country;
 }

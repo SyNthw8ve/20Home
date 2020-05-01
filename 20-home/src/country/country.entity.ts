@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
 import { RecordsCountry } from '../recordscountry/recordscountry.entity';
+import { Region } from '../region/region.entity';
 
 @Entity()
 export class Country {
@@ -27,4 +28,7 @@ export class Country {
 
   @OneToMany(type => RecordsCountry, recordscountry => recordscountry.country)
   records: RecordsCountry[];
+
+  @OneToMany(type => Region, region => region.country)
+  regions: Region[];
 }
