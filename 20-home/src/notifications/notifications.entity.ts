@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, ManyToOne } from 'typeorm';
 import { DBUser } from '../dbuser/dbuser.entity';
+import { PointCases } from '../pointcases/pointcases.entity';;
 
 export enum NotificationType {
 
@@ -21,4 +22,7 @@ export class Notifications {
 
     @ManyToMany(type => DBUser, dbuser => dbuser.notifications)
     users: DBUser[];
+
+    @ManyToOne(type => PointCases, pointcases => pointcases.notifications)
+    case: PointCases;
 }

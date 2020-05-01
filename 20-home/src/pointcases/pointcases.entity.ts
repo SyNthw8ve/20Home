@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToMany } from 'typeorm';
 import { Symptom } from '../symptom/symptom.entity';
+import { Notifications } from '../notifications/notifications.entity'; 
 
 @Entity()
 export class PointCases {
@@ -21,4 +22,7 @@ export class PointCases {
 
     @ManyToMany(type => Symptom, symptom => symptom.cases)
     symptoms: Symptom[];
+
+    @OneToMany(type => Notifications, notifications => notifications.case)
+    notifications: Notifications[];
 }
