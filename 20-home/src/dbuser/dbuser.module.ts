@@ -7,6 +7,7 @@ import { DBUserController } from './dbuser.controller';
 @Module({
     imports: [TypeOrmModule.forFeature([DBUser])],
     providers: [DBUserService],
+    exports: [DBUserService],
     controllers: [DBUserController]
 })
 export class DBUserModule {}
