@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
+import { DBUser } from '../dbuser/dbuser.entity';
 
 @Entity()
 export class Region {
@@ -12,5 +13,6 @@ export class Region {
     @Column('decimal')
     lat: number;
 
-    
+    @OneToMany(type => DBUser, dbuser => dbuser.region)
+    users: DBUser[];
 }

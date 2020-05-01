@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryColumn, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToMany, ManyToOne } from 'typeorm';
 import { Notifications } from '../notifications/notifications.entity';
+import { Region } from '../region/region.entity';
 
 @Entity()
 export class DBUser {
@@ -27,4 +28,7 @@ export class DBUser {
 
     @ManyToMany(type => Notifications, notifications => notifications.users)
     notifications: Notifications[];
+
+    @ManyToOne(type => Region, region => region.users)
+    region: Region;
 }
