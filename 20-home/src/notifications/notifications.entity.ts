@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, AfterInsert } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany} from 'typeorm';
+import { DBUser } from '../dbuser/dbuser.entity';
 
 export enum NotificationType {
 
@@ -17,4 +18,7 @@ export class Notifications {
     
     @Column({type: 'enum', enum: NotificationType})
     notification_type: NotificationType;
+
+    @ManyToMany(type => DBUser, dbuser => dbuser.notifications)
+    users: DBUser[];
 }

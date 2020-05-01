@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToMany } from 'typeorm';
+import { Notifications } from '../notifications/notifications.entity';
 
 @Entity()
 export class DBUser {
@@ -23,4 +24,7 @@ export class DBUser {
 
     @Column('decimal')
     lat: number;
+
+    @ManyToMany(type => Notifications, notifications => notifications.users)
+    notifications: Notifications[];
 }
