@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
+import { Region } from '../region/region.entity';
 
 @Entity('recordsregion')
 export class RecordsRegion {
@@ -17,4 +18,7 @@ export class RecordsRegion {
 
     @Column('integer')
     deaths: number;
+
+    @ManyToOne(type => Region, region => region.records)
+    region: Region;
 }
