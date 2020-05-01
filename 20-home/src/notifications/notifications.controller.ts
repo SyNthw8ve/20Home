@@ -8,10 +8,8 @@ export class NotificationsController {
   constructor(private notification_service: NotificationsService) {}
 
   @Get('')
-  async findAll(): Promise<Notifications[]> {
+  find_all(): Promise<Notifications[]> {
 
-    let result = await this.notification_service.findAll();
-
-    return result;
+    return this.notification_service.findAll();
   }
 }

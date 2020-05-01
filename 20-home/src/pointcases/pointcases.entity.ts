@@ -4,7 +4,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 export class PointCases {
 
     @PrimaryGeneratedColumn()
-    ID: number;
+    id: number;
 
     @Column('decimal')
     long: number;
@@ -13,7 +13,7 @@ export class PointCases {
     lat: number;
 
     @Column('varchar')
-    region_name: number;
+    region_name: string;
 
     @Column('timestamp')
     case_time: Date;
