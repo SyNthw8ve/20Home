@@ -6,7 +6,7 @@ export class RecordsCountry {
     @PrimaryColumn('char')
     country_code: string;
 
-    @PrimaryColumn('timestamp')
+    @PrimaryColumn('timestamp without time zone')
     record_date: Date;
     
     @Column('integer')

@@ -16,6 +16,6 @@ export class RecordsCountryController {
     @Get(':date')
     find_one(@Param() params): Promise<RecordsCountry> {
 
-        return this.records_country_service.find_one(params.country_code, params.data);
+        return this.records_country_service.find_one(params.country_code, params.date);
     }
 }
