@@ -9,6 +9,7 @@ import { RecordsCountryModule } from './recordscountry/recordscountry.module';
 import { RecordsRegionModule } from './recordsregion/recordsregion.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { PointcasesModule } from './pointcases/pointcases.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { PointcasesModule } from './pointcases/pointcases.module';
             RecordsCountryModule,
             RecordsRegionModule,
             NotificationsModule,
-            PointcasesModule
+            PointcasesModule,
+            AuthModule
           ],
   controllers: [AppController],
   providers: [AppService],

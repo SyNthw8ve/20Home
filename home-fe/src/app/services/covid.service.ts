@@ -10,6 +10,6 @@ export class CovidService {
 
   get_country_data() {
 
-    return this.http.get('/api/country/all');
+    return this.http.get('/api/country');
   }
 }
