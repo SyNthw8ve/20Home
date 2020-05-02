@@ -26,7 +26,7 @@ export class PointcasesController {
         return this.cases_service.find_date(params.date);
     }
 
-    @Post()
+    @Post('new')
     insert_new_case(@Body() new_case: NewCaseDto): void {
 
 

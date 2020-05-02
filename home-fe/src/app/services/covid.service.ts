@@ -12,4 +12,9 @@ export class CovidService {
 
     return this.http.get('/api/country');
   }
+
+  create_user() {
+
+    return this.http.post('/api/user/new', {body: ''});
+  }
 }
