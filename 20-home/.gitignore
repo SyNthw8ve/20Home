@@ -3,6 +3,7 @@
 /node_modules
 
 ormconfig.json
+src/auth/constants.ts
 
 # Logs
 logs
