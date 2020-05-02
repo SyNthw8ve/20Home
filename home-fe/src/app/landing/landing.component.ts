@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { CovidService } from '../services/covid.service'
+import { CovidService } from '../services/covid.service';
+import { StoreService } from '../services/store.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import * as L from 'leaflet';
 import { leaflet_token } from '../../../config.json';
@@ -14,11 +16,17 @@ export class LandingComponent implements OnInit, AfterViewInit {
   private map;
   private all_data;
 
-  constructor(private covid: CovidService) { }
+  login = new FormGroup({
+
+    username: new FormControl(''),
+    password: new FormControl('')
+  })
+
+  constructor(private covid: CovidService, private store: StoreService) { }
 
   ngOnInit(): void {
 
-    this.all_data = this.covid.get_country_data();
+    this.all_data = this.store.get_countries();
   }
 
   ngAfterViewInit(): void {

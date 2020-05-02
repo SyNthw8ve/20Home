@@ -8,7 +8,7 @@ export class CountryController {
   constructor(private country_service: CountryService) {}
 
   @Get('')
-  afindAll(): Promise<Country[]> {
+  findAll(): Promise<Country[]> {
 
     return this.country_service.find_all();
   }

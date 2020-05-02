@@ -7,7 +7,7 @@ export class RegionController {
 
   constructor(private region_service: RegionService) {}
 
-  @Get()
+  @Get('')
   find_all(): Promise<Region[]> {
 
     return this.region_service.find_all();
@@ -18,10 +18,4 @@ export class RegionController {
 
     return this.region_service.find_one(params.region_name);
   }
-
-  /* @Get(':country_code')
-  find_regions_country(@Param() params): Promise<Region[]> {
-
-    return this.region_service.find_all_country(params.country_code);
-  } */
 }

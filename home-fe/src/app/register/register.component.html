@@ -1,6 +1,6 @@
 <div class="container valign-wrapper">
     <div class="row">
-        <form class="col s12" [formGroup]="register">
+        <form class="col s12 card-panel" [formGroup]="register">
             <div class="row form-elem">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">person</i>
@@ -29,30 +29,35 @@
             </div>
             <div class="row form-elem">
                 <div class="input-field col s12">
-                    <select>
+                    <select formControlName="country" class="browser-default">
                         <option value="" disabled selected>Choose your country</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
+                        <option [ngValue]="country.country_code" *ngFor="let country of countries | async">
+                            {{ country.country_name }}
+                        </option>
                     </select>
-                    <label>Materialize Select</label>
+                </div>
+            </div>
+            <div class="row form-elem">
+                <div class="input-field col s12">
+                    <select formControlName="region" class="browser-default">
+                        <option value="" disabled selected>Choose your country</option>
+                        <option [ngValue]="region.region_name" *ngFor="let region of regions | async">
+                            {{ region.region_name }}
+                        </option>
+                    </select>
                 </div>
             </div>
             <div class="row form-elem">
                 <div class="col s10 offset-s1">
-                    Are you a health professional?
-                    <p class="radio-btn">
-                        <label>
-                            <input class="with-gap" name="group1" type="radio" />
-                            <span>Yes</span>
-                        </label>
-                    </p>
-                    <p class="radio-btn">
-                        <label>
-                            <input class="with-gap" name="group1" type="radio" checked />
-                            <span>No</span>
-                        </label>
-                    </p>
+                    <div class="col s10 offset-s2">
+                        <div class="switch left-align">
+                            <label>
+                                Are you a health professional?
+                                <input id="health" type="checkbox">
+                                <span id="health-lever" class="lever indigo lighten-3"></span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

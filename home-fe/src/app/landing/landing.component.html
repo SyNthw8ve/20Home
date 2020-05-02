@@ -5,18 +5,18 @@
     </div>
     <div class="container valign-wrapper">
       <div class="row">
-        <form class="col s12">
+        <form class="col s12" [formGroup]="login">
           <div class="row form-elem">
             <div class="input-field col s10 offset-s1">
               <i class="material-icons prefix">person</i>
-              <input id="username" type="text" class="validate">
+              <input id="username" type="text" class="validate" formControlName="username">
               <label for="username">Username</label>
             </div>
           </div>
           <div class="row form-elem">
             <div class="input-field col s10 offset-s1">
               <i class="material-icons prefix">lock</i>
-              <input id="pass" type="password" class="validate">
+              <input id="pass" type="password" class="validate" formControlName="password">
               <label for="pass">Password</label>
             </div>
           </div>

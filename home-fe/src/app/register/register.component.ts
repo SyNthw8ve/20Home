@@ -1,6 +1,11 @@
 import { Component, OnInit, AfterViewInit} from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+
+import { StoreService } from '../services/store.service';
+import { CovidService } from '../services/covid.service';
+
 import * as M from 'materialize-css/dist/js/materialize.js';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -9,37 +14,42 @@ import * as M from 'materialize-css/dist/js/materialize.js';
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
 
-  register = new FormGroup({
+  countries;
+  regions;
+  register: FormGroup;
 
-    username: new FormControl(''),
-    password: new FormControl(''),
-    long: new FormControl(),
-    lat: new FormControl(),
-  })
+  
   /* region_name = new FormControl('');
   country = new FormControl('');
   
   health_professional = new FormControl(false); */
 
-  constructor() { 
+  constructor(private store: StoreService, private form_builder: FormBuilder, private covid_service: CovidService) { 
 
-    
+   
   }
 
   ngAfterViewInit(): void {
     
-    /* if (navigator.geolocation) {
-
-      navigator.geolocation.getCurrentPosition(this.set_position);
-    } */
     var elems = document.querySelectorAll('select');
     var instances = M.FormSelect.init(elems, {});
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     
-    
+    this.register = this.form_builder.group({
+
+      username: '',
+      password: '',
+      long: null,
+      lat: null,
+      country: null,
+      region: null,
+    })
+
+    this.countries =  this.store.get_countries();
+    this.regions = this.store.get_regions();
   }
 
 

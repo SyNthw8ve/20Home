@@ -24,7 +24,7 @@ export class Region {
 
     @OneToMany(type => RecordsRegion, records_region => records_region.region)
     records: RecordsRegion[];
-
+/* 
     @ManyToOne(type => Country, country => country.regions)
-    country: Country;
+    country: Country; */
 }
