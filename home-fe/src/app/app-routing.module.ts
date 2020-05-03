@@ -5,11 +5,14 @@ import { LandingComponent } from './landing/landing.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 
+import { NavigateGuard } from './guards/navigate.guard';
+import { SessionGuard } from './guards/session.guard';
+
 const routes: Routes = 
 [
-  {path: '', component: LandingComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'home', component: HomeComponent}
+  {path: '', component: LandingComponent, canActivate: [SessionGuard]},
+  {path: 'register', component: RegisterComponent, canActivate: [SessionGuard]},
+  {path: 'home', component: HomeComponent, canActivate: [NavigateGuard]}
 ];
 
 @NgModule({
