@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CovidService } from '../services/covid.service';
 import { StoreService } from '../services/store.service';
+import { AuthService } from '../services/auth.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -19,6 +20,7 @@ export class LandingComponent implements OnInit, AfterViewInit {
   login;
 
   constructor(private covid_service: CovidService, private store: StoreService,
+              private auth_service: AuthService,
               private form_builder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
@@ -40,13 +42,10 @@ export class LandingComponent implements OnInit, AfterViewInit {
 
   on_submit() {
 
-    console.log(this.login.value);
-
-    this.covid_service.login(this.login.value).subscribe((res: any) => {
+    this.auth_service.login(this.login.value).subscribe((res: any) => {
 
       if (res) {
         
-        localStorage.setItem('access_token', res.access_token);
         this.router.navigate(['/home']);
       }
     })
