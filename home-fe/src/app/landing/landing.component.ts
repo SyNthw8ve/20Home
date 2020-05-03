@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CovidService } from '../services/covid.service';
 import { StoreService } from '../services/store.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import * as L from 'leaflet';
 import { leaflet_token } from '../../../config.json';
@@ -15,16 +16,19 @@ export class LandingComponent implements OnInit, AfterViewInit {
 
   private map;
   private all_data;
+  login;
 
-  login = new FormGroup({
-
-    username: new FormControl(''),
-    password: new FormControl('')
-  })
-
-  constructor(private covid: CovidService, private store: StoreService) { }
+  constructor(private covid_service: CovidService, private store: StoreService,
+              private form_builder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.login = this.form_builder.group({
+
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      health_professional: false
+    })
 
     this.all_data = this.store.get_countries();
   }
@@ -32,6 +36,20 @@ export class LandingComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
 
     this.initMap();
+  }
+
+  on_submit() {
+
+    console.log(this.login.value);
+
+    this.covid_service.login(this.login.value).subscribe((res: any) => {
+
+      if (res) {
+        
+        localStorage.setItem('access_token', res.access_token);
+        this.router.navigate(['/home']);
+      }
+    })
   }
 
   private initMap(): void {

@@ -16,8 +16,8 @@ export class Region {
     @Column('decimal')
     lat: number;
 
-    @OneToMany(type => DBUser, dbuser => dbuser.region)
-    users: DBUser[];
+    /* @OneToMany(type => DBUser, dbuser => dbuser.region)
+    users: DBUser[]; */
 
     @OneToMany(type => HealthProfessional, healthprofessional => healthprofessional.region)
     health_professionals: HealthProfessional[];

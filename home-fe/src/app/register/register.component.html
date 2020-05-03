@@ -1,35 +1,55 @@
 <div class="container valign-wrapper">
     <div class="row">
-        <form class="col s12 card-panel" [formGroup]="register">
+        <form class="col s12 card-panel center-align" [formGroup]="register" (ngSubmit)="on_submit()">
+            <h1 id="title">Register</h1>
             <div class="row form-elem">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">person</i>
-                    <input id="username" type="text" class="validate" formControlName="username">
+                    <input id="username" type="text" class="validate" formControlName="username" required>
                     <label for="username">Username</label>
+                </div>
+            </div>
+            <div class="row form-elem">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">edit</i>
+                    <input id="f_name" type="text" class="validate" formControlName="first_name" required>
+                    <label for="f_name">First Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">edit</i>
+                    <input id="l_name" type="text" class="validate" formControlName="last_name" required>
+                    <label for="l_name">Last Name</label>
+                </div>
+            </div>
+            <div class="row form-elem">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">mail</i>
+                    <input id="email" type="email" class="validate" formControlName="email" required>
+                    <label for="email">Email</label>
                 </div>
             </div>
             <div class="row form-elem">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
-                    <input id="pass" type="password" class="validate" formControlName="password">
+                    <input id="pass" type="password" class="validate" formControlName="password" required>
                     <label for="pass">Password</label>
                 </div>
             </div>
             <div class="row form-elem">
                 <div class="input-field col s6">
                     <i class="material-icons prefix">place</i>
-                    <input id="long" type="number" step="0.0001" class="validate" formControlName="long">
+                    <input id="long" type="number" step="0.0001" class="validate" formControlName="long" required>
                     <label for="long">Longitude</label>
                 </div>
                 <div class="input-field col s6">
                     <i class="material-icons prefix">place</i>
-                    <input id="lat" type="number" step="0.0001" class="validate" formControlName="lat">
+                    <input id="lat" type="number" step="0.0001" class="validate" formControlName="lat" required>
                     <label for="lat">Latitude</label>
                 </div>
             </div>
             <div class="row form-elem">
                 <div class="input-field col s12">
-                    <select formControlName="country" class="browser-default">
+                    <select id="country_select" formControlName="country" class="browser-default" required>
                         <option value="" disabled selected>Choose your country</option>
                         <option [ngValue]="country.country_code" *ngFor="let country of countries | async">
                             {{ country.country_name }}
@@ -40,7 +60,7 @@
             <div class="row form-elem">
                 <div class="input-field col s12">
                     <select formControlName="region" class="browser-default">
-                        <option value="" disabled selected>Choose your country</option>
+                        <option value="" disabled selected>Choose your region</option>
                         <option [ngValue]="region.region_name" *ngFor="let region of regions | async">
                             {{ region.region_name }}
                         </option>
@@ -53,11 +73,18 @@
                         <div class="switch left-align">
                             <label>
                                 Are you a health professional?
-                                <input id="health" type="checkbox">
+                                <input id="health" type="checkbox" formControlName="health_professional">
                                 <span id="health-lever" class="lever indigo lighten-3"></span>
                             </label>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row form-elem">
+                <div class="col s12 center-align">
+                    <button class="btn btn-large waves-effect waves-light" type="submit" name="action">SigIn
+
+                    </button>
                 </div>
             </div>
         </form>

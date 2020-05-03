@@ -33,6 +33,6 @@ export class Country {
   /* @OneToMany(type => Region, region => region.country)
   regions: Region[]; */
 
-  @OneToMany(type => DBUser, dbuser => dbuser.country)
-  users: DBUser[];
+ /*  @OneToMany(type => DBUser, dbuser => dbuser.country)
+  users: DBUser[]; */
 }

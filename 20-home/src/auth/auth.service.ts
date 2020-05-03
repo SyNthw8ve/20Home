@@ -13,10 +13,10 @@ export class AuthService {
         private jwt_service: JwtService
         ) {}
 
-    async validate_user(username: string, password: string, health_professional: boolean): Promise<any> {
-
+    async validate_user(username: string, password: string): Promise<any> {
+        
        const user : DBUser = await this.user_service.find_one(username);
-
+       
        if (user && await this.validate_password(user.password, password)) {
 
             const {password, ...result } = user;
@@ -29,7 +29,7 @@ export class AuthService {
 
     async login(user: any) {
 
-        const payload = {username: user.username};
+        const payload = user;
 
         return {
             access_token: this.jwt_service.sign(payload)

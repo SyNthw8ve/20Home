@@ -19,8 +19,13 @@ export class CovidService {
     return this.http.get('/api/region');
   }
 
-  create_user() {
+  create_user(user) {
 
-    return this.http.post('/api/user/new', {body: ''});
+    return this.http.post('/api/user/new', user, {});
+  }
+
+  login(user) {
+
+    return this.http.post('/api/auth/login', user, {});
   }
 }

@@ -1,6 +1,7 @@
 import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { DBUserService } from './dbuser.service';
 import { DBUser } from './dbuser.entity';
+import { User} from './dbuser.dto';
 
 @Controller('user')
 export class DBUserController {
@@ -8,8 +9,8 @@ export class DBUserController {
   constructor(private user_service: DBUserService) {}
 
   @Post('new')
-  async insert_new_user(@Body() body) {
+  insert_new_user(@Body() n_user: User) {
 
-    console.log(body);
+    return this.user_service.create_one(n_user);
   }
 }

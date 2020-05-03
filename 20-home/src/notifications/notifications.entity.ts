@@ -20,8 +20,8 @@ export class Notifications {
     @Column({type: 'enum', enum: NotificationType})
     notification_type: NotificationType;
 
-    @ManyToMany(type => DBUser, dbuser => dbuser.notifications)
-    users: DBUser[];
+    /* @ManyToMany(type => DBUser, dbuser => dbuser.notifications)
+    users: DBUser[]; */
 
     @ManyToOne(type => PointCases, pointcases => pointcases.notifications)
     case: PointCases;

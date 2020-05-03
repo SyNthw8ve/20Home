@@ -3,7 +3,7 @@ import { Notifications } from '../notifications/notifications.entity';
 import { Region } from '../region/region.entity';
 import { Country } from '../country/country.entity';
 
-@Entity()
+@Entity('dbuser')
 export class DBUser {
 
     @Column('varchar')
@@ -27,12 +27,12 @@ export class DBUser {
     @Column('decimal')
     lat: number;
 
-    @ManyToMany(type => Notifications, notifications => notifications.users)
+    /* @ManyToMany(type => Notifications, notifications => notifications.users)
     notifications: Notifications[];
 
     @ManyToOne(type => Region, region => region.users)
     region: Region;
 
     @ManyToOne(type => Country, country => country.users)
-    country: Country;
+    country: Country; */
 }

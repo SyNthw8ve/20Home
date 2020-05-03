@@ -5,18 +5,18 @@
     </div>
     <div class="container valign-wrapper">
       <div class="row">
-        <form class="col s12" [formGroup]="login">
+        <form class="col s12" [formGroup]="login" (ngSubmit)="on_submit()">
           <div class="row form-elem">
             <div class="input-field col s10 offset-s1">
               <i class="material-icons prefix">person</i>
-              <input id="username" type="text" class="validate" formControlName="username">
+              <input id="username" type="text" class="validate" formControlName="username" required>
               <label for="username">Username</label>
             </div>
           </div>
           <div class="row form-elem">
             <div class="input-field col s10 offset-s1">
               <i class="material-icons prefix">lock</i>
-              <input id="pass" type="password" class="validate" formControlName="password">
+              <input id="pass" type="password" class="validate" formControlName="password" required>
               <label for="pass">Password</label>
             </div>
           </div>
@@ -25,7 +25,7 @@
               <div class="switch left-align">
                 <label>
                   Health Profissional
-                  <input id="health" type="checkbox">
+                  <input id="health" type="checkbox" formControlName="health_professional">
                   <span id="health-lever" class="lever indigo lighten-3"></span>
                 </label>
               </div>
@@ -33,7 +33,7 @@
           </div>
           <div class="row form-elem">
               <div class="col s12 center-align">
-                <button class="btn btn-large waves-effect waves-light" type="submit" name="action">Login
+                <button class="btn btn-large waves-effect waves-light" type="submit">Login
                  
                 </button>
                 <p id="register">Not registered yet? <a [routerLink]="['/register']">Do it here</a></p>

@@ -1,5 +1,13 @@
 @import "../../styles"
 
+#title
+  font-size: 50px
+  width: 200px
+  margin-left: 25px
+  margin-bottom: 50px
+  font-family: $main-font
+  border-bottom: 4px solid $active-color
+
 .full-height
   height: 100%
 
@@ -12,10 +20,12 @@
 
 .row
   width: 100%
-  margin: 0px
 
 .input-field
   margin: 0px
+
+form
+  padding: 20px
 
 .form-elem
   margin-top: 30px
@@ -31,9 +41,11 @@
 
 .container
   width: 40%
+  margin-top: 150px
 
 .btn
   margin-top: 10px
+  margin-bottom: 50px
   width: 60%
   border-radius: 20px
   background-image: linear-gradient(to bottom, #7c4dff, #7157ff, #665fff, #5c66ff, #536dfe) !important
@@ -56,6 +68,13 @@
     color: $active-color
 
 .input-field input[type=text]:focus
+  border-bottom: 1px solid $active-color
+  box-shadow: 0 1px 0 0 $active-color
+
+.input-field input[type=number]:focus + label 
+    color: $active-color
+
+.input-field input[type=number]:focus
   border-bottom: 1px solid $active-color
   box-shadow: 0 1px 0 0 $active-color
 

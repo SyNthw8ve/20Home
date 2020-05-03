@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { StoreService } from '../services/store.service';
 import { CovidService } from '../services/covid.service';
@@ -19,8 +19,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   register: FormGroup;
 
   
-  /* region_name = new FormControl('');
-  country = new FormControl('');
+  /* 
   
   health_professional = new FormControl(false); */
 
@@ -36,16 +35,20 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     
     this.register = this.form_builder.group({
 
-      username: '',
-      password: '',
-      long: null,
-      lat: null,
-      country: null,
-      region: null,
+      username: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      long: [null, Validators.required],
+      lat: [null, Validators.required],
+      country:  ['', Validators.required],
+      region:  [''],
+      health_professional: false,
     })
 
     this.countries =  this.store.get_countries();
@@ -56,5 +59,13 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   set_position(position) {
     
     this.register.patchValue({long: position.coords.longitude, lat: position.coords.latitude});
+  }
+
+  on_submit() {
+    
+    this.covid_service.create_user(this.register.value).subscribe(res => {
+
+      console.log(res)
+    });
   }
 }
