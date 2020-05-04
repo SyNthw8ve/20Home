@@ -1,1 +1,23 @@
-<p>home works!</p>
+<div class="row">
+    <div class="col s3">
+        <ul class="sidenav sidenav-fixed">
+            <li>
+                <div class="user-view">
+                    <a><span class="name">{{user.first_name}} {{user.last_name}}</span></a>
+                    <a><span class="email">{{user.email}}</span></a>
+                </div>
+            </li>
+            <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+            <li><a href="#!">Second Link</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a class="subheader">Actions</a></li>
+            <li><a class="waves-effect waves-teal" (click)="logout()"><i
+                        class="material-icons">power_settings_new</i>Logout</a></li>
+        </ul>
+    </div>
+    <div class="col s9">
+        <router-outlet></router-outlet>
+    </div>
+</div>

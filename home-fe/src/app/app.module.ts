@@ -11,13 +11,15 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 
 import { httpInterceptorProviders } from './http-interceptors/index';
+import { HomeCountriesComponent } from './home-countries/home-countries.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeCountriesComponent
   ],
   imports: [
     BrowserModule,

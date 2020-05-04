@@ -1,6 +1,7 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { CountryService } from './country.service';
 import { Country } from './country.entity';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('country')
 export class CountryController {
@@ -13,6 +14,7 @@ export class CountryController {
     return this.country_service.find_all();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':country_code')
   find_one(@Param() params) : Promise<Country> {
 

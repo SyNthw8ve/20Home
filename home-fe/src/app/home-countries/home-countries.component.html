@@ -1,0 +1,14 @@
+<div class="row">
+    <h1 id="title">Countries</h1>
+    <div class="col s4" *ngFor="let country of $countries | async">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title truncate">{{country.country_name}}</span>
+            
+                <!-- <span class="new badge red accent-3" data-badge-caption="Deaths">{{country.deaths}}</span>
+                <span class="new badge teal accent-4" data-badge-caption="Recoveries">{{country.recovered}}</span>
+                <span class="new badge yellow accent-4" data-badge-caption="Confirmed">{{country.confirmed}}</span> -->
+            </div>
+        </div>
+    </div>
+</div>
