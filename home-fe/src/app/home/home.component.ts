@@ -12,7 +12,7 @@ import * as M from 'materialize-css/dist/js/materialize.js';
 })
 export class HomeComponent implements OnInit, AfterViewInit {
 
-  user;
+  $user;
   $countries;
 
   constructor(private user_service: UserService, private auth_service: AuthService,
@@ -26,11 +26,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.user_service.get_user_data().subscribe((res:any) => {
-
-      this.user = res.user;
-      console.log(this.user)
-    });
+    this.$user = this.user_service.get_user_data();
 
   }
 

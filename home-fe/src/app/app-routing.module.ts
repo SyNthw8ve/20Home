@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { HomeWorldComponent } from './home-world/home-world.component';
 import { HomeCountriesComponent } from './home-countries/home-countries.component';
 
 import { NavigateGuard } from './guards/navigate.guard';
@@ -15,7 +16,8 @@ const routes: Routes =
   {path: 'register', component: RegisterComponent, canActivate: [SessionGuard]},
   {path: 'home', component: HomeComponent, canActivate: [NavigateGuard], children: [
 
-    {path: '', component: HomeCountriesComponent }
+    {path: '', component: HomeWorldComponent},
+    {path: 'country', component: HomeCountriesComponent },
   ]}
 ];
 

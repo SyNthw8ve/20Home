@@ -49,7 +49,7 @@
       <a id="twitter" class="o-auth-icon btn-floating waves-effect white"></a>
     </div>
   </div>
-  <div class="col s8 no-padd">
-    <div id="map"></div>
+  <div class="col s8 no-padd" *ngIf="all_data | async as points">
+    <app-map  [points]="points"></app-map>
   </div>
 </div>

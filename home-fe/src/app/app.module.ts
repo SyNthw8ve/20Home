@@ -12,6 +12,8 @@ import { RegisterComponent } from './register/register.component';
 
 import { httpInterceptorProviders } from './http-interceptors/index';
 import { HomeCountriesComponent } from './home-countries/home-countries.component';
+import { MapComponent } from './map/map.component';
+import { HomeWorldComponent } from './home-world/home-world.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { HomeCountriesComponent } from './home-countries/home-countries.componen
     LandingComponent,
     HomeComponent,
     RegisterComponent,
-    HomeCountriesComponent
+    HomeCountriesComponent,
+    MapComponent,
+    HomeWorldComponent
   ],
   imports: [
     BrowserModule,
