@@ -18,6 +18,7 @@ import { MapComponent } from './map/map.component';
 import { HomeWorldComponent } from './home-world/home-world.component';
 import { HomeRegionsComponent } from './home-regions/home-regions.component';
 import { HomeCountryDetailsComponent } from './home-country-details/home-country-details.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HomeCountryDetailsComponent } from './home-country-details/home-country
     MapComponent,
     HomeWorldComponent,
     HomeRegionsComponent,
-    HomeCountryDetailsComponent
+    HomeCountryDetailsComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

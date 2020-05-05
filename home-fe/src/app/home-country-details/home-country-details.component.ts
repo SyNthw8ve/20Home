@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import * as M from 'materialize-css/dist/js/materialize.js';
 
 @Component({
   selector: 'app-home-country-details',
   templateUrl: './home-country-details.component.html',
   styleUrls: ['./home-country-details.component.sass']
 })
-export class HomeCountryDetailsComponent implements OnInit {
+export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
   country_records;
   country_details;
@@ -22,6 +23,12 @@ export class HomeCountryDetailsComponent implements OnInit {
       this.country_records = this.to_format(data.country_records);
       this.country_details = data.country;
     })
+  }
+
+  ngAfterViewInit() {
+
+    var elems = document.querySelectorAll('.tabs');
+    var instances = M.Tabs.init(elems, {});
   }
 
   private to_format(country_records) {

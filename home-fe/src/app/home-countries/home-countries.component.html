@@ -1,6 +1,9 @@
 <div class="row">
   <div class="row" id="title-row">
     <h1 id="title">Countries</h1>
+    
+      <app-search></app-search>
+    
   </div>
   <div class="col s4" *ngFor="let country of $countries | async">
     <div class="card" (click)="navigate_details(country.country_code)">
