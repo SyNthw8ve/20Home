@@ -1,0 +1,11 @@
+<h1 id="title">{{country_details.country_name}}</h1>
+<div class="row">
+    <div class="col s12">
+        <ngx-charts-line-chart 
+            [yAxis]="true" 
+            [xAxis]="true" 
+            [legend]="true"
+            [results]="country_records">
+        </ngx-charts-line-chart>
+    </div>
+</div>

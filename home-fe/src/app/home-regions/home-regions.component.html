@@ -1,0 +1,19 @@
+<div class="row">
+    <h1 id="title">Regions</h1>
+    <div class="col s4" *ngFor="let region of $regions | async">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title truncate">{{region.region_name}}</span>
+                <div class="chip red accent-3 white-text">
+                    Deaths: {{region.deaths}}
+                  </div>
+                  <div class="chip yellow accent-4 black-text">
+                    Confirmed: {{region.active}}
+                  </div>
+                  <div class="chip teal accent-4 white-text">
+                    Recovered: {{region.recovered}}
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>

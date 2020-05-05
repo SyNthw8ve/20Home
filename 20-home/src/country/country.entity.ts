@@ -27,8 +27,8 @@ export class Country {
   @Column('decimal')
   long: number;
 
-  @OneToMany(type => RecordsCountry, recordscountry => recordscountry.country)
-  records: RecordsCountry[];
+  /* @OneToMany(type => RecordsCountry, recordscountry => recordscountry.country)
+  records: RecordsCountry[]; */
 
   /* @OneToMany(type => Region, region => region.country)
   regions: Region[]; */

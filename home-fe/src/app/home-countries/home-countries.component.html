@@ -1,14 +1,21 @@
 <div class="row">
+  <div class="row" id="title-row">
     <h1 id="title">Countries</h1>
-    <div class="col s4" *ngFor="let country of $countries | async">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title truncate">{{country.country_name}}</span>
-            
-                <p class="a-badge red accent-3 white-text" >Deaths: {{country.deaths}}</p>
-                <p class="a-badge yellow accent-4 black-text">Confirmed: {{country.confirmed}}</p>
-                <p class="a-badge teal accent-4 white-text" >Recovered: {{country.recovered}}</p>
-            </div>
+  </div>
+  <div class="col s4" *ngFor="let country of $countries | async">
+    <div class="card" (click)="navigate_details(country.country_code)">
+      <div class="card-content">
+        <span class="card-title truncate">{{country.country_name}}</span>
+        <div class="chip red accent-3 white-text">
+          Deaths: {{country.deaths}}
         </div>
+        <div class="chip yellow accent-4 black-text">
+          Confirmed: {{country.confirmed}}
+        </div>
+        <div class="chip teal accent-4 white-text">
+          Recovered: {{country.recovered}}
+        </div>
+      </div>
     </div>
+  </div>
 </div>

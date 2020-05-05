@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,19 @@ export class CovidService {
     return this.http.get('/api/country');
   }
 
+  get_country(country_code: string) {
+
+    return this.http.get(`/api/country/${country_code}`);
+  }
+
+  get_country_records(country_code: string) {
+
+    return this.http.get(`/api/records_country/${country_code}`);
+  }
+
   get_region_data() {
 
-    return this.http.get('/api/region');
+    return this.http.get('/api/region', {});
   }
 
   create_user(user) {

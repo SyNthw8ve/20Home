@@ -22,6 +22,6 @@ export class RecordsCountry {
     @Column('integer')
     cases: number;
 
-    @ManyToOne(type => Country, country => country.records)
-    country: Country;
+   /*  @ManyToOne(type => Country, country => country.records)
+    country: Country; */
 }

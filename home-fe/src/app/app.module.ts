@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +16,8 @@ import { httpInterceptorProviders } from './http-interceptors/index';
 import { HomeCountriesComponent } from './home-countries/home-countries.component';
 import { MapComponent } from './map/map.component';
 import { HomeWorldComponent } from './home-world/home-world.component';
+import { HomeRegionsComponent } from './home-regions/home-regions.component';
+import { HomeCountryDetailsComponent } from './home-country-details/home-country-details.component';
 
 @NgModule({
   declarations: [
@@ -23,14 +27,18 @@ import { HomeWorldComponent } from './home-world/home-world.component';
     RegisterComponent,
     HomeCountriesComponent,
     MapComponent,
-    HomeWorldComponent
+    HomeWorldComponent,
+    HomeRegionsComponent,
+    HomeCountryDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    NgxChartsModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
