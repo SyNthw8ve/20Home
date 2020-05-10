@@ -9,6 +9,7 @@ import { StoreService } from '../services/store.service';
 export class HomeWorldComponent implements OnInit {
 
   public all_data;
+  zoom = 2.45;
 
   constructor(private store: StoreService) { }
 

@@ -13,6 +13,7 @@ export class LandingComponent implements OnInit {
 
   all_data;
   login;
+  zoom = 2.45;
 
   constructor(private store: StoreService, private auth_service: AuthService,
               private form_builder: FormBuilder, private router: Router) { }

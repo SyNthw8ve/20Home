@@ -51,8 +51,8 @@
                 <div class="input-field col s12">
                     <select id="country_select" formControlName="country" class="browser-default" required>
                         <option value="" disabled selected>Choose your country</option>
-                        <option [ngValue]="country.country_code" *ngFor="let country of countries | async">
-                            {{ country.country_name }}
+                        <option [ngValue]="country.countryCode" *ngFor="let country of countries | async">
+                            {{ country.countryName }}
                         </option>
                     </select>
                 </div>
@@ -61,8 +61,8 @@
                 <div class="input-field col s12">
                     <select formControlName="region" class="browser-default">
                         <option value="" disabled selected>Choose your region</option>
-                        <option [ngValue]="region.region_name" *ngFor="let region of regions | async">
-                            {{ region.region_name }}
+                        <option [ngValue]="region.regionName" *ngFor="let region of regions | async">
+                            {{ region.regionName }}
                         </option>
                     </select>
                 </div>

@@ -14,6 +14,7 @@ import { SessionGuard } from './guards/session.guard';
 
 import { CountryRecordsService } from './services/country-records-fetch.service';
 import { CountryFetchService } from './services/country-fetch.service';
+import { CountryRegionsFetchService } from './services/country-regions-fetch.service';
 
 const routes: Routes =
   [
@@ -30,7 +31,8 @@ const routes: Routes =
           component: HomeCountryDetailsComponent,
           resolve: {
             country_records: CountryRecordsService,
-            country: CountryFetchService
+            country: CountryFetchService,
+            country_regions: CountryRegionsFetchService
           }
         },
         { path: 'region', component: HomeRegionsComponent },

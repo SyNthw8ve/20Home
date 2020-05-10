@@ -50,6 +50,6 @@
     </div>
   </div>
   <div class="col s8 no-padd" *ngIf="all_data | async as points">
-    <app-map [points]="points" [view]="{lat: 0, long: 0}"></app-map>
+    <app-map [points]="points" [view]="{lat: 0, long: 0}" [zoom]="zoom"></app-map>
   </div>
 </div>

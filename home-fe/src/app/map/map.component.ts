@@ -12,6 +12,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   @Input() points: any[];
   @Input() view: any;
+  @Input() zoom: number;
   private map;
 
   constructor() { }
@@ -26,7 +27,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   
   private initMap(): void {
 
-    this.map = L.map('map').setView([this.view.lat, this.view.long], 2.45);
+    this.map = L.map('map').setView([this.view.lat, this.view.long], this.zoom);
 
     L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${leaflet_token}`, {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',

@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import * as M from 'materialize-css/dist/js/materialize.js';
 
 @Component({
@@ -13,8 +12,10 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
   country_records;
   country_details;
+  country_regions;
   nav_position = ['Countries'];
   view;
+  zoom = 6;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -22,10 +23,15 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
     this.route.data.subscribe((data) => {
 
-      this.country_records = this.to_format(data.country_records);
+      this.country_records = data.country_records.length > 0 ? this.to_format(data.country_records) : null;
       this.country_details = data.country;
       this.nav_position.push(data.country.countryName);
       this.view = {lat: data.country.lat, long: data.country.long};
+
+      this.country_regions = data.country_regions.length > 0 ? data.country_regions : null;
+
+      console.log(this.country_regions);
+      console.log(this.country_records);
     })
   }
 

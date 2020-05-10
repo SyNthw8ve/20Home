@@ -2,12 +2,15 @@
 
 .tabs
   margin-bottom: 10px
-
-  .indicator 
-    color: $active-color !important
+  
+  .indicator
+    background-color: $active-color !important
 
   .tab a.active 
-    background-color: transparent !important
+    background-color: $active-color !important
+
+    .material-icons
+      color: white !important
 
 #title
   margin-top: 0px
@@ -29,3 +32,9 @@
   padding-top: 6px
   font-size: 25px
   color: $non-active-color 
+
+.region-name
+  font-size: 20px
+
+.region-card
+  
