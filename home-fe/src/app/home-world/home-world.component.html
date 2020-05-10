@@ -1,5 +1,5 @@
 <h1 id="title">World View</h1>
 <div class="container" *ngIf="(all_data | async) as points">
-    <app-map [points]="points"></app-map>
+    <app-map [points]="points" [view]="{lat: 0, long: 0}"></app-map>
 </div>
 

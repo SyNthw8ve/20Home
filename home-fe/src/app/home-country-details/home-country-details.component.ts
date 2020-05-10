@@ -13,6 +13,8 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
   country_records;
   country_details;
+  nav_position = ['Countries'];
+  view;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -22,6 +24,8 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
       this.country_records = this.to_format(data.country_records);
       this.country_details = data.country;
+      this.nav_position.push(data.country.country_name);
+      this.view = {lat: data.country.lat, long: data.country.long};
     })
   }
 

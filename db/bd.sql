@@ -111,7 +111,6 @@ CREATE TABLE PointCases (
     ID serial,
     long decimal,
     lat decimal,
-    region_name varchar(32),
     case_time timestamp,
 
     PRIMARY KEY (id)
@@ -122,6 +121,7 @@ CREATE TABLE Notifications (
     ID serial,
     notification_time timestamp,
     notification_type not_type,
+    is_read boolean,
 
     PRIMARY KEY (id)
 );
@@ -154,7 +154,6 @@ CREATE TABLE Notify (
 
     not_id integer,
     username varchar(32),
-    has_read boolean,
 
     FOREIGN KEY (not_id) REFERENCES Notifications(ID),
     FOREIGN KEY (username) REFERENCES DBUser(username),
@@ -226,4 +225,26 @@ CREATE TABLE WorksIn (
     FOREIGN KEY (region_name) REFERENCES Region(region_name),
 
     PRIMARY KEY (username, region_name)
+);
+
+CREATE TABLE InCountry (
+
+    ID integer,
+    country_code char(2),
+
+    FOREIGN KEY (ID) REFERENCES PointCases(ID),
+    FOREIGN KEY (country_code) REFERENCES Country(country_code),
+
+    PRIMARY KEY (ID, country_code)
+);
+
+CREATE TABLE InRegion (
+
+    ID integer,
+    region_name varchar(32),
+
+    FOREIGN KEY (ID) REFERENCES PointCases(ID),
+    FOREIGN KEY (region_name) REFERENCES Region(region_name),
+
+    PRIMARY KEY (ID, region_name)
 );
