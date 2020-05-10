@@ -1,24 +1,41 @@
-import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
-import { Region } from '../region/region.entity';
-
-@Entity('recordsregion')
-export class RecordsRegion {
-
-    @PrimaryColumn('varchar')
-    region_name: string;
-
-    @PrimaryColumn('timestamp without time zone')
-    record_date: Date;
-
-    @Column('integer')
-    confirmed_cases: number;
-
-    @Column('integer')
-    recovered: number;
-
-    @Column('integer')
-    deaths: number;
-
-    @ManyToOne(type => Region, region => region.records)
-    region: Region;
-}
+import {
+    Column,
+    Entity,
+    Index,
+    JoinColumn,
+    ManyToOne,
+    OneToOne,
+  } from "typeorm";
+  import { Region } from "../region/region.entity";
+  import { Regioncases } from "../regioncases/regioncases.entity";
+  
+  @Index("recordsregion_pkey", ["recordDate", "regionName"], { unique: true })
+  @Entity("recordsregion", { schema: "public" })
+  export class Recordsregion {
+    @Column("character varying", {
+      primary: true,
+      name: "region_name",
+      length: 32,
+    })
+    regionName: string;
+  
+    @Column("timestamp without time zone", { primary: true, name: "record_date" })
+    recordDate: Date;
+  
+    @Column("integer", { name: "confirmed_cases", nullable: true })
+    confirmedCases: number | null;
+  
+    @Column("integer", { name: "recovered", nullable: true })
+    recovered: number | null;
+  
+    @Column("integer", { name: "deaths", nullable: true })
+    deaths: number | null;
+  
+    @ManyToOne(() => Region, (region) => region.recordsregions)
+    @JoinColumn([{ name: "region_name", referencedColumnName: "regionName" }])
+    regionName2: Region;
+  
+    @OneToOne(() => Regioncases, (regioncases) => regioncases.recordsregion)
+    regioncases: Regioncases;
+  }
+  

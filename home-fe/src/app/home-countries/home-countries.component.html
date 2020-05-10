@@ -6,9 +6,9 @@
     
   </div>
   <div class="col s4" *ngFor="let country of $countries | async">
-    <div class="card" (click)="navigate_details(country.country_code)">
+    <div class="card" (click)="navigate_details(country.countryCode)">
       <div class="card-content">
-        <span class="card-title truncate">{{country.country_name}}</span>
+        <span class="card-title truncate">{{country.countryName}}</span>
         <div class="chip red accent-3 white-text">
           Deaths: {{country.deaths}}
         </div>

@@ -1,38 +1,50 @@
-import { Entity, Column, PrimaryColumn, ManyToMany, ManyToOne } from 'typeorm';
-import { Notifications } from '../notifications/notifications.entity';
-import { Region } from '../region/region.entity';
-import { Country } from '../country/country.entity';
+import { Column, Entity, Index, ManyToMany } from "typeorm";
+import { Country } from "../country/country.entity";
+import { Region } from "../region/region.entity";
+import { Notifications } from "../notifications/notifications.entity";
 
-@Entity('dbuser')
+@Index("dbuser_email_key", ["email"], { unique: true })
+@Index("dbuser_pkey", ["username"], { unique: true })
+@Entity("dbuser", { schema: "public" })
 export class DBUser {
+  @Column("character varying", {
+    name: "first_name",
+    nullable: true,
+    length: 32,
+  })
+  firstName: string | null;
 
-    @Column('varchar')
-    first_name: string;
+  @Column("character varying", {
+    name: "last_name",
+    nullable: true,
+    length: 32,
+  })
+  lastName: string | null;
 
-    @Column('varchar')
-    last_name: string;
+  @Column("character varying", { primary: true, name: "username", length: 32 })
+  username: string;
 
-    @PrimaryColumn('varchar')
-    username: string;
+  @Column("text", { name: "email", nullable: true })
+  email: string | null;
 
-    @Column('varchar')
-    password: string;
+  @Column("numeric", { name: "long", nullable: true })
+  long: number | null;
 
-    @Column('varchar')
-    email: string;
+  @Column("numeric", { name: "lat", nullable: true })
+  lat: number | null;
 
-    @Column('decimal')
-    long: number;
+  @Column("character", { name: "password", nullable: true, length: 60 })
+  password: string | null;
 
-    @Column('decimal')
-    lat: number;
+  @ManyToMany(() => Country, (country) => country.dbusers)
+  countries: Country[];
 
-    /* @ManyToMany(type => Notifications, notifications => notifications.users)
-    notifications: Notifications[];
+  @ManyToMany(() => Region, (region) => region.dbusers)
+  regions: Region[];
 
-    @ManyToOne(type => Region, region => region.users)
-    region: Region;
+  @ManyToMany(() => Notifications, (notifications) => notifications.dbusers)
+  notifications: Notifications[];
 
-    @ManyToOne(type => Country, country => country.users)
-    country: Country; */
+  @ManyToMany(() => Region, (region) => region.dbusers2)
+  regions2: Region[];
 }

@@ -1,30 +1,61 @@
-import { Entity, Column, PrimaryColumn, OneToMany, ManyToOne } from 'typeorm';
-import { DBUser } from '../dbuser/dbuser.entity';
-import { HealthProfessional } from '../healthprofessional/healthprofessional.entity';
-import { RecordsRegion } from '../recordsregion/recordsregion.entity';
-import { Country } from '../country/country.entity';
-
-@Entity()
-export class Region {
-
-    @PrimaryColumn('varchar')
-    region_name: string;
-
-    @Column('decimal')
-    long: number;
-
-    @Column('decimal')
-    lat: number;
-
-    /* @OneToMany(type => DBUser, dbuser => dbuser.region)
-    users: DBUser[]; */
-
-    @OneToMany(type => HealthProfessional, healthprofessional => healthprofessional.region)
-    health_professionals: HealthProfessional[];
-
-    @OneToMany(type => RecordsRegion, records_region => records_region.region)
-    records: RecordsRegion[];
-/* 
-    @ManyToOne(type => Country, country => country.regions)
-    country: Country; */
-}
+import {
+    Column,
+    Entity,
+    Index,
+    JoinTable,
+    ManyToMany,
+    OneToMany,
+  } from "typeorm";
+  import { Country } from "../country/country.entity";
+  import { DBUser } from "../dbuser/dbuser.entity";
+  import { Recordsregion } from "../recordsregion/recordsregion.entity";
+  import { Regioncases } from "../regioncases/regioncases.entity";
+  
+  @Index("region_pkey", ["regionName"], { unique: true })
+  @Entity("region", { schema: "public" })
+  export class Region {
+    @Column("character varying", {
+      primary: true,
+      name: "region_name",
+      length: 32,
+    })
+    regionName: string;
+  
+    @Column("numeric", { name: "long", nullable: true })
+    long: string | null;
+  
+    @Column("numeric", { name: "lat", nullable: true })
+    lat: string | null;
+  
+    @ManyToMany(() => Country, (country) => country.regions)
+    countries: Country[];
+  
+    @ManyToMany(() => DBUser, (dbuser) => dbuser.regions)
+    @JoinTable({
+      name: "livesin",
+      joinColumns: [{ name: "region_name", referencedColumnName: "regionName" }],
+      inverseJoinColumns: [
+        { name: "username", referencedColumnName: "username" },
+      ],
+      schema: "public",
+    })
+    dbusers: DBUser[];
+  
+    @OneToMany(() => Recordsregion, (recordsregion) => recordsregion.regionName2)
+    recordsregions: Recordsregion[];
+  
+    @OneToMany(() => Regioncases, (regioncases) => regioncases.regionName2)
+    regioncases: Regioncases[];
+  
+    @ManyToMany(() => DBUser, (dbuser) => dbuser.regions2)
+    @JoinTable({
+      name: "worksin",
+      joinColumns: [{ name: "region_name", referencedColumnName: "regionName" }],
+      inverseJoinColumns: [
+        { name: "username", referencedColumnName: "username" },
+      ],
+      schema: "public",
+    })
+    dbusers2: DBUser[];
+  }
+  

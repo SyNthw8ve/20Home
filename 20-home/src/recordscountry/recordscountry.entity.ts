@@ -1,27 +1,40 @@
-import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
-import { Country } from '../country/country.entity';
-
-@Entity('recordscountry')
-export class RecordsCountry {
-
-    @PrimaryColumn('char')
-    country_code: string;
-
-    @PrimaryColumn('timestamp without time zone')
-    record_date: Date;
-    
-    @Column('integer')
-    recovered: number;
-
-    @Column('integer')
-    active: number;
-
-    @Column('integer')
-    deaths: number;
-
-    @Column('integer')
-    cases: number;
-
-   /*  @ManyToOne(type => Country, country => country.records)
-    country: Country; */
-}
+import {
+    Column,
+    Entity,
+    Index,
+    JoinColumn,
+    ManyToOne,
+    OneToOne,
+  } from "typeorm";
+  import { Countrycases } from "../countrycases/countrycases.entity";
+  import { Country } from "../country/country.entity";
+  
+  @Index("recordscountry_pkey", ["countryCode", "recordDate"], { unique: true })
+  @Entity("recordscountry", { schema: "public" })
+  export class Recordscountry {
+    @Column("character", { primary: true, name: "country_code", length: 2 })
+    countryCode: string;
+  
+    @Column("timestamp without time zone", { primary: true, name: "record_date" })
+    recordDate: Date;
+  
+    @Column("integer", { name: "recovered", nullable: true })
+    recovered: number | null;
+  
+    @Column("integer", { name: "deaths", nullable: true })
+    deaths: number | null;
+  
+    @Column("integer", { name: "cases", nullable: true })
+    cases: number | null;
+  
+    @Column("integer", { name: "active", nullable: true })
+    active: number | null;
+  
+    @OneToOne(() => Countrycases, (countrycases) => countrycases.recordscountry)
+    countrycases: Countrycases;
+  
+    @ManyToOne(() => Country, (country) => country.recordscountries)
+    @JoinColumn([{ name: "country_code", referencedColumnName: "countryCode" }])
+    countryCode2: Country;
+  }
+  

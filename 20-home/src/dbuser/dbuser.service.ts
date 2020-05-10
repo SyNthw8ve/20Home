@@ -26,8 +26,8 @@ export class DBUserService {
 
     return this.user_repository.save({
 
-       first_name: new_user.first_name,
-       last_name: new_user.last_name,
+       firstName: new_user.first_name,
+       lastName: new_user.last_name,
        username: new_user.username,
        password: hash,
        email: new_user.email,

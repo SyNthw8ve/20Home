@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Post, Body } from '@nestjs/common';
-import { PointCases } from './pointcases.entity';
+import { Pointcases } from './pointcases.entity';
 import { PointcasesService } from './pointcases.service';
 import { NewCaseDto } from './pointcases.dto';
 
@@ -9,19 +9,19 @@ export class PointcasesController {
     constructor(private cases_service: PointcasesService) {}
 
     @Get('')
-    find_all() : Promise<PointCases[]> {
+    find_all() : Promise<Pointcases[]> {
 
         return this.cases_service.find_all();
     }
 
     @Get(':region_name')
-    find_regions(@Param() params): Promise<PointCases[]> {
+    find_regions(@Param() params): Promise<Pointcases[]> {
 
         return this.cases_service.find_region(params.region_name);
     }
 
     @Get(':date')
-    find_date(@Param() params): Promise<PointCases[]> {
+    find_date(@Param() params): Promise<Pointcases[]> {
 
         return this.cases_service.find_date(params.date);
     }

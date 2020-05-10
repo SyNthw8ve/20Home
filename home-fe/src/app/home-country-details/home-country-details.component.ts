@@ -24,7 +24,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
       this.country_records = this.to_format(data.country_records);
       this.country_details = data.country;
-      this.nav_position.push(data.country.country_name);
+      this.nav_position.push(data.country.countryName);
       this.view = {lat: data.country.lat, long: data.country.long};
     })
   }
@@ -45,7 +45,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
     country_records.forEach((record) => {
 
-      const date = new Date(record.record_date).toLocaleString()
+      const date = new Date(record.recordDate).toLocaleString()
 
       data[0].series.push({name: date, value: record.active})
       data[1].series.push({name: date, value: record.cases})

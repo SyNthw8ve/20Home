@@ -3,7 +3,7 @@
         <ul class="sidenav sidenav-fixed">
             <li>
                 <div class="user-view" *ngIf="($user | async) as result">
-                    <a><span class="name">{{result.user.first_name}} {{result.user.last_name}}</span></a>
+                    <a><span class="name">{{result.user.firstName}} {{result.user.lastName}}</span></a>
                     <a><span class="email">{{result.user.email}}</span></a>
                 </div>
             </li>
