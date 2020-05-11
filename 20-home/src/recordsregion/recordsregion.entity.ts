@@ -22,8 +22,8 @@ import {
     @Column("timestamp without time zone", { primary: true, name: "record_date" })
     recordDate: Date;
   
-    @Column("integer", { name: "confirmed_cases", nullable: true })
-    confirmedCases: number | null;
+    @Column("integer", { name: "confirmed", nullable: true })
+    confirmed: number | null;
   
     @Column("integer", { name: "recovered", nullable: true })
     recovered: number | null;

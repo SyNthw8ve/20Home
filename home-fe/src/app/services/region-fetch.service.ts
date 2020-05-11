@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RegionRecordsFetchService implements Resolve<any>{
+export class RegionFetchService {
 
   constructor(private covid_service: CovidService) { }
 
@@ -14,6 +14,6 @@ export class RegionRecordsFetchService implements Resolve<any>{
 
     const region_name = route.params.region;
 
-    return this.covid_service.get_region_records(region_name);
+    return this.covid_service.get_region(region_name);
   }
 }

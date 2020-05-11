@@ -29,9 +29,6 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
       this.view = { lat: data.country.lat, long: data.country.long };
 
       this.country_regions = data.country_regions.length > 0 ? data.country_regions : null;
-
-      console.log(this.country_regions);
-      console.log(this.country_records);
     })
   }
 

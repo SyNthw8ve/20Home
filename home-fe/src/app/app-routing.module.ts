@@ -17,6 +17,7 @@ import { CountryRecordsService } from './services/country-records-fetch.service'
 import { CountryFetchService } from './services/country-fetch.service';
 import { CountryRegionsFetchService } from './services/country-regions-fetch.service';
 import { RegionRecordsFetchService } from './services/region-records-fetch.service';
+import { RegionFetchService } from './services/region-fetch.service';
 
 const routes: Routes =
   [
@@ -45,7 +46,8 @@ const routes: Routes =
           path: 'region/:region',
           component: HomeRegionDetailsComponent,
           resolve: {
-            region_details: RegionRecordsFetchService
+            region_details: RegionRecordsFetchService,
+            region: RegionFetchService
           }
         }
       ]

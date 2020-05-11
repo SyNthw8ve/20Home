@@ -18,6 +18,11 @@ export class CovidService {
     return this.http.get('/api/country');
   }
 
+  get_region(region_name: string) {
+
+    return this.http.get(`/api/region/${region_name}`);
+  }
+
   get_country(country_code: string) {
 
     return this.http.get(`/api/country/${country_code}`);
