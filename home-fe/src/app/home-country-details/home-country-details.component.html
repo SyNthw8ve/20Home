@@ -26,8 +26,8 @@
 <p *ngIf="!country_regions">This country has no registered regions</p>
 
 <div class="row">
-    <div class="col s4" *ngFor="let region of country_regions">
-        <div class="card-panel white region-card">
+    <div class="col s4" *ngFor="let region of country_regions" (click)="navigate_to(region.regionName)">
+        <div class="card-panel region-card">
             <span class="black-text region-name">{{region.regionName}}
             </span>
         </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import * as M from 'materialize-css/dist/js/materialize.js';
 
@@ -17,7 +17,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
   view;
   zoom = 6;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -26,7 +26,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
       this.country_records = data.country_records.length > 0 ? this.to_format(data.country_records) : null;
       this.country_details = data.country;
       this.nav_position.push(data.country.countryName);
-      this.view = {lat: data.country.lat, long: data.country.long};
+      this.view = { lat: data.country.lat, long: data.country.long };
 
       this.country_regions = data.country_regions.length > 0 ? data.country_regions : null;
 
@@ -53,12 +53,17 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
       const date = new Date(record.recordDate).toLocaleString()
 
-      data[0].series.push({name: date, value: record.active})
-      data[1].series.push({name: date, value: record.cases})
-      data[2].series.push({name: date, value: record.deaths})
+      data[0].series.push({ name: date, value: record.active })
+      data[1].series.push({ name: date, value: record.cases })
+      data[2].series.push({ name: date, value: record.deaths })
     })
 
     return data;
+  }
+
+  navigate_to(region_name: string) {
+
+    this.router.navigate([`region/${region_name}`], {relativeTo: this.route.parent});
   }
 
 }

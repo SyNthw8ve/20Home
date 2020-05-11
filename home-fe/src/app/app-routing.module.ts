@@ -8,6 +8,7 @@ import { HomeWorldComponent } from './home-world/home-world.component';
 import { HomeCountriesComponent } from './home-countries/home-countries.component';
 import { HomeCountryDetailsComponent } from './home-country-details/home-country-details.component';
 import { HomeRegionsComponent } from './home-regions/home-regions.component';
+import { HomeRegionDetailsComponent } from './home-region-details/home-region-details.component';
 
 import { NavigateGuard } from './guards/navigate.guard';
 import { SessionGuard } from './guards/session.guard';
@@ -15,6 +16,7 @@ import { SessionGuard } from './guards/session.guard';
 import { CountryRecordsService } from './services/country-records-fetch.service';
 import { CountryFetchService } from './services/country-fetch.service';
 import { CountryRegionsFetchService } from './services/country-regions-fetch.service';
+import { RegionRecordsFetchService } from './services/region-records-fetch.service';
 
 const routes: Routes =
   [
@@ -25,7 +27,7 @@ const routes: Routes =
 
         { path: '', redirectTo: 'all', pathMatch: 'full' },
         { path: 'all', component: HomeWorldComponent },
-        { path: 'country', component: HomeCountriesComponent },
+        { path: 'countries', component: HomeCountriesComponent },
         {
           path: 'country/:country',
           component: HomeCountryDetailsComponent,
@@ -35,7 +37,17 @@ const routes: Routes =
             country_regions: CountryRegionsFetchService
           }
         },
-        { path: 'region', component: HomeRegionsComponent },
+        {
+          path: 'regions',
+          component: HomeRegionsComponent,
+        },
+        {
+          path: 'region/:region',
+          component: HomeRegionDetailsComponent,
+          resolve: {
+            region_details: RegionRecordsFetchService
+          }
+        }
       ]
     }
   ];

@@ -22,7 +22,7 @@ export class CountryController {
     return this.country_service.find_one(params.country_code);
   }
 
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get('regions/:country_code')
   find_regions(@Param() params) : Promise<Region[]> {
     

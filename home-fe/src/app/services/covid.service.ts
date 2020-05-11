@@ -8,6 +8,11 @@ export class CovidService {
 
   constructor(private http: HttpClient) { }
 
+  get_region_data() {
+
+    return this.http.get('/api/region');
+  }
+
   get_country_data() {
 
     return this.http.get('/api/country');
@@ -28,9 +33,9 @@ export class CovidService {
     return this.http.get(`/api/records_country/${country_code}`);
   }
 
-  get_region_data() {
+  get_region_records(region_name: string) {
 
-    return this.http.get('/api/region', {});
+    return this.http.get(`/api/records_region/${region_name}`);
   }
 
   create_user(user) {

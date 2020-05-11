@@ -20,6 +20,7 @@ import { HomeRegionsComponent } from './home-regions/home-regions.component';
 import { HomeCountryDetailsComponent } from './home-country-details/home-country-details.component';
 import { SearchComponent } from './search/search.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { HomeRegionDetailsComponent } from './home-region-details/home-region-details.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     HomeRegionsComponent,
     HomeCountryDetailsComponent,
     SearchComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    HomeRegionDetailsComponent
   ],
   imports: [
     BrowserModule,

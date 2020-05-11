@@ -28,6 +28,6 @@ export class HomeCountriesComponent implements OnInit, AfterViewInit {
 
   navigate_details(code: string) {
 
-      this.router.navigate(['country', {country: code}], { relativeTo: this.route })
+      this.router.navigate([`country/${code}`], { relativeTo: this.route.parent })
   }
 }
