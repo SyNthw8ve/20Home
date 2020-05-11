@@ -1,43 +1,13 @@
-import { Column, Entity, Index } from "typeorm";
+import { Column, Entity, Index, OneToOne } from "typeorm";
+import { DBUser } from '../dbuser/dbuser.entity';
 
-@Index("healthprofissional_email_key", ["email"], { unique: true })
-@Index("healthprofissional_health_code_key", ["healthCode"], { unique: true })
-@Index("healthprofissional_pkey", ["username"], { unique: true })
 @Entity("healthprofissional", { schema: "public" })
 export class Healthprofissional {
-    @Column("character varying", {
-        name: "first_name",
-        nullable: true,
-        length: 32,
-    })
-    firstName: string | null;
-
-    @Column("character varying", {
-        name: "last_name",
-        nullable: true,
-        length: 32,
-    })
-    lastName: string | null;
-
-    @Column("character varying", { primary: true, name: "username", length: 32 })
-    username: string;
-
-    @Column("text", { name: "email", nullable: true })
-    email: string | null;
-
-    @Column("character", { name: "password", nullable: true, length: 60 })
-    password: string | null;
-
-    @Column("numeric", { name: "long", nullable: true })
-    long: string | null;
-
-    @Column("numeric", { name: "lat", nullable: true })
-    lat: string | null;
-
-    @Column("character", { name: "health_code", nullable: true, length: 9 })
+    
+    @Column("character", { name: "health_code", length: 9, primary: true })
     healthCode: string | null;
 
-    @Column("text", { name: "institution", nullable: true })
+    @Column("text", { name: "institution", nullable: false })
     institution: string | null;
 
     @Column("enum", {
@@ -45,5 +15,8 @@ export class Healthprofissional {
         nullable: true,
         enum: ["doctor", "nurse", "other"],
     })
-    position: "doctor" | "nurse" | "other" | null;
+    position: "doctor" | "nurse" | "other";
+
+    /* @OneToOne(type => DBUser, user => user.healthprofessional)
+    user: DBUser; */
 }

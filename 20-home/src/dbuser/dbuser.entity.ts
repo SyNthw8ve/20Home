@@ -1,7 +1,8 @@
-import { Column, Entity, Index, ManyToMany } from "typeorm";
+import { Column, Entity, Index, ManyToMany, OneToOne, JoinColumn } from "typeorm";
 import { Country } from "../country/country.entity";
 import { Region } from "../region/region.entity";
 import { Notifications } from "../notifications/notifications.entity";
+import { Healthprofissional } from '../healthprofessional/healthprofessional.entity';
 
 @Index("dbuser_email_key", ["email"], { unique: true })
 @Index("dbuser_pkey", ["username"], { unique: true })
@@ -35,6 +36,13 @@ export class DBUser {
 
   @Column("character", { name: "password", nullable: true, length: 60 })
   password: string | null;
+
+  @Column("character", { name: "role", length: 1 })
+  role: string;
+
+  /* @OneToOne(type => Healthprofissional, healthprofessional => healthprofessional.user)
+  @JoinColumn()
+  healthprofessional: Healthprofissional; */
 
   @ManyToMany(() => Country, (country) => country.dbusers)
   countries: Country[];

@@ -1,3 +1,10 @@
+export enum Position {
+
+    DOCTOR='doctor',
+    NURSE='nurse',
+    OTHER='other'
+}
+
 export class User {
 
     username: string;
@@ -9,4 +16,9 @@ export class User {
     lat: number;
     country_code: string;
     region_name: string;
+    role: string;
+    health_professional: boolean;
+    institution: string;
+    health_code: string;
+    position: Position
 }

@@ -3,7 +3,6 @@ import { DBUserService } from '../dbuser/dbuser.service';
 import { JwtService } from '@nestjs/jwt';
 import { DBUser } from '../dbuser/dbuser.entity';
 import * as bcrypt from 'bcrypt';
-import * as passport from 'passport';
 
 @Injectable()
 export class AuthService {

@@ -78,24 +78,18 @@ CREATE TABLE DBUser (
     long decimal,
     lat decimal,
     password char(60),
+    role char(1)
 
     PRIMARY KEY (username)
 );
 
 CREATE TABLE HealthProfissional (
 
-    first_name varchar(32),
-    last_name varchar(32),
-    username varchar(32),
-    email text unique,
-    password varchar(32),
-    long decimal,
-    lat decimal,
-    health_code char(9) unique,
+    health_code char(9),
     institution text,
     position medical_role,
 
-    PRIMARY KEY (username)
+    PRIMARY KEY (health_code)
 );
 
 CREATE TABLE Symptom (
@@ -247,4 +241,15 @@ CREATE TABLE InRegion (
     FOREIGN KEY (region_name) REFERENCES Region(region_name),
 
     PRIMARY KEY (ID, region_name)
+);
+
+CREATE TABLE IsHealthProfessional (
+
+    username varchar(32),
+    health_code char(9),
+
+    FOREIGN KEY (username) REFERENCES DBUser(username),
+    FOREIGN KEY (health_code) REFERENCES HealthProfissional(health_code),
+
+    PRIMARY KEY (username, health_code)
 );

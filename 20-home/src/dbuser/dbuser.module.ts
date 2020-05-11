@@ -4,8 +4,10 @@ import { DBUserService } from './dbuser.service';
 import { DBUser } from './dbuser.entity';
 import { DBUserController } from './dbuser.controller';
 
+import { HealthProfissionalModule } from '../healthprofessional/healthprofessional.module';
+
 @Module({
-    imports: [TypeOrmModule.forFeature([DBUser])],
+    imports: [TypeOrmModule.forFeature([DBUser]), HealthProfissionalModule],
     providers: [DBUserService],
     exports: [DBUserService],
     controllers: [DBUserController]

@@ -11,6 +11,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { PointcasesModule } from './pointcases/pointcases.module';
 import { DBUserModule } from './dbuser/dbuser.module';
 import { AuthModule } from './auth/auth.module';
+import { HealthProfissionalModule } from './healthprofessional/healthprofessional.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { AuthModule } from './auth/auth.module';
             NotificationsModule,
             PointcasesModule,
             DBUserModule,
-            AuthModule
+            AuthModule,
+            HealthProfissionalModule
           ],
   controllers: [AppController],
   providers: [AppService],

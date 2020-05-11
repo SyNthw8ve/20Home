@@ -18,10 +18,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   regions;
   register: FormGroup;
 
-  
-  /* 
-  
-  health_professional = new FormControl(false); */
 
   constructor(private store: StoreService, private form_builder: FormBuilder, private covid_service: CovidService) { 
 
@@ -48,6 +44,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       lat: [null, Validators.required],
       country:  ['', Validators.required],
       region:  [''],
+      role: ['', Validators.required],
+      health_code: ['', Validators.required],
+      institution: ['', Validators.required],
       health_professional: false,
     })
 
@@ -63,6 +62,10 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
   on_submit() {
     
+    let user = this.register.value;
+    
+    this.register.get('health_professional').value ? user['role'] = 'h' : user['role'] = 'u';
+
     this.covid_service.create_user(this.register.value).subscribe(res => {
 
       console.log(res)

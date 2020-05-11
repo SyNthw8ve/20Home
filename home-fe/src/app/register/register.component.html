@@ -80,13 +80,40 @@
                     </div>
                 </div>
             </div>
+            <div  [hidden]="!register.value.health_professional">
+                <div class="row form-elem">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">local_hospital</i>
+                        <input id="institution" type="text" class="validate" formControlName="institution" required>
+                        <label for="institution">Institution</label>
+                    </div>
+                </div>
+                <div class="row form-elem">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">perm_identity</i>
+                        <input id="health_code" type="text" class="validate" formControlName="health_code" required>
+                        <label for="health_code">Health Code</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <select formControlName="role">
+                            <option value="" disabled selected>Choose your role</option>
+                            <option value="doctor">Doctor</option>
+                            <option value="nurse">Nurse</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <label>Role</label>
+                    </div>
+                </div>
+            </div>
             <div class="row form-elem">
                 <div class="col s12 center-align">
-                    <button routerLinkActive="router-link-active"  class="btn btn-large waves-effect waves-light" type="submit" name="action">SigIn
+                    <button routerLinkActive="router-link-active" class="btn btn-large waves-effect waves-light"
+                        type="submit" name="action">SigIn
 
                     </button>
                 </div>
             </div>
+
         </form>
     </div>
 </div>
