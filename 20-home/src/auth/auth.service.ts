@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DBUserService } from '../dbuser/dbuser.service';
+import { HealthProfessionalService } from '../healthprofessional/healthprofessional.service';
 import { JwtService } from '@nestjs/jwt';
 import { DBUser } from '../dbuser/dbuser.entity';
 import * as bcrypt from 'bcrypt';
@@ -9,6 +10,7 @@ export class AuthService {
     
     constructor(
         private user_service: DBUserService,
+        private health_service: HealthProfessionalService,
         private jwt_service: JwtService
         ) {}
 
@@ -18,7 +20,11 @@ export class AuthService {
        
        if (user && await this.validate_password(user.password, password)) {
 
+            const health_info = await this.health_service.find_one(username);
+
             const {password, ...result } = user;
+
+            result['healthInfo'] = health_info;
 
             return result;
        }

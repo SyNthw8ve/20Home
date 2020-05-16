@@ -17,14 +17,15 @@ export class HealthProfessionalService {
     return this.health_repository.find();
   }
 
-  find_one(health_code: string): Promise<Healthprofissional> {
+  find_one(username: string): Promise<Healthprofissional> {
 
-    return this.health_repository.findOne(health_code);
+    return this.health_repository.findOne(username);
   }
 
-  create_one(health_code: string, institution: string, position: Position): Promise<Healthprofissional> {
+  create_one(username: string, health_code: string, institution: string, position: Position): Promise<Healthprofissional> {
 
     return this.health_repository.save({
+        username: username,
         healthCode: health_code,
         institution: institution,
         position: position

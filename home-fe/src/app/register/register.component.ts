@@ -5,6 +5,7 @@ import { StoreService } from '../services/store.service';
 import { CovidService } from '../services/covid.service';
 
 import * as M from 'materialize-css/dist/js/materialize.js';
+import { Position } from '../dto/position.dto';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -44,7 +45,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       lat: [null, Validators.required],
       country:  ['', Validators.required],
       region:  [''],
-      role: ['', Validators.required],
+      position: [Position.OTHER, Validators.required],
       health_code: ['', Validators.required],
       institution: ['', Validators.required],
       health_professional: false,
@@ -64,11 +65,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     
     let user = this.register.value;
     
-    this.register.get('health_professional').value ? user['role'] = 'h' : user['role'] = 'u';
-
     this.covid_service.create_user(this.register.value).subscribe(res => {
 
-      console.log(res)
+      
     });
   }
 }

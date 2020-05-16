@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     this.$user = this.user_service.get_user_data();
-
   }
 
   logout() {

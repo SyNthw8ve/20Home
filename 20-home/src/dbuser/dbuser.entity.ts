@@ -38,11 +38,7 @@ export class DBUser {
   password: string | null;
 
   @Column("character", { name: "role", length: 1 })
-  role: string;
-
-  /* @OneToOne(type => Healthprofissional, healthprofessional => healthprofessional.user)
-  @JoinColumn()
-  healthprofessional: Healthprofissional; */
+  role: string; 
 
   @ManyToMany(() => Country, (country) => country.dbusers)
   countries: Country[];

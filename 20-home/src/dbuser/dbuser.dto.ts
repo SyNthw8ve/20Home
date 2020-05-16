@@ -16,7 +16,6 @@ export class User {
     lat: number;
     country_code: string;
     region_name: string;
-    role: string;
     health_professional: boolean;
     institution: string;
     health_code: string;

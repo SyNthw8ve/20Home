@@ -1,10 +1,14 @@
 import { Column, Entity, Index, OneToOne } from "typeorm";
 import { DBUser } from '../dbuser/dbuser.entity';
+import { Position } from '../dbuser/dbuser.dto';
 
 @Entity("healthprofissional", { schema: "public" })
 export class Healthprofissional {
     
-    @Column("character", { name: "health_code", length: 9, primary: true })
+    @Column("character varying", {name: 'username', primary: true})
+    username: string;
+
+    @Column("character", { name: "health_code", length: 9, unique: true })
     healthCode: string | null;
 
     @Column("text", { name: "institution", nullable: false })
@@ -15,8 +19,5 @@ export class Healthprofissional {
         nullable: true,
         enum: ["doctor", "nurse", "other"],
     })
-    position: "doctor" | "nurse" | "other";
-
-    /* @OneToOne(type => DBUser, user => user.healthprofessional)
-    user: DBUser; */
+    position: Position;
 }
