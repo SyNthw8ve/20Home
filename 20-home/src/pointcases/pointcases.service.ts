@@ -17,11 +17,6 @@ export class PointcasesService {
     return this.cases_repository.find();
   }
 
-  /* find_region(region_name: string): Promise<Pointcases[]> {
-
-    return this.cases_repository.find({where: {region_name: region_name}});
-  } */
-
   find_date(date: Date): Promise<Pointcases[]> {
 
     let date_val = new Date(date).toLocaleString().split(" ")[0]
