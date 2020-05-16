@@ -40,7 +40,9 @@ export class PointCaseComponent implements OnInit, AfterViewInit {
 
     this.covid_service.add_new_case(this.new_case.value).subscribe( (res: any) => {
 
-      
+      if (res.success) M.toast({html: 'Add Case'})
+
+      else M.toast({html: 'There is something wrong'})
     })
   }
 
