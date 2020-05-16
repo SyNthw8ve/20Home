@@ -24,10 +24,11 @@
             <li class="sidenav-item" [routerLink]="['regions']" [routerLinkActive]="['active']"><a><i
                         class="material-icons">landscape</i>Regions</a>
             </li>
-            <!-- <li class="sidenav-item"><a class="waves-effect"><i class="material-icons">add_location</i>Add Point
-                    Case</a>
-            </li> -->
             <li><a class="subheader">Action</a></li>
+            <li [routerLink]="['add_case']" [routerLinkActive]="['active']" *ngIf="($user | async)?.user.role == 'h'"
+                class="sidenav-item"><a class="waves-effect"><i class="material-icons">add_location</i>Add Point
+                    Case</a>
+            </li>
             <li class="sidenav-item"><a class="waves-effect" (click)="logout()"><i
                         class="material-icons">power_settings_new</i>Logout</a>
             </li>

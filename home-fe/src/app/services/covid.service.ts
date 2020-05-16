@@ -47,4 +47,9 @@ export class CovidService {
 
     return this.http.post('/api/user/new', user, {});
   }
+
+  add_new_case(new_case) {
+
+    return this.http.post('/api/pointcases/new', new_case, {});
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 
 import * as L from 'leaflet';
 import { leaflet_token } from '../../../config.json';
@@ -13,6 +13,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   @Input() points: any[];
   @Input() view: any;
   @Input() zoom: number;
+  @Output() new_click = new EventEmitter<any>();
   private map;
 
   constructor() { }
@@ -49,6 +50,10 @@ export class MapComponent implements OnInit, AfterViewInit {
       }).addTo(this.map);
     });
     
+    this.map.on('click', (e) => {
+
+      this.new_click.emit(e.latlng);
+    })
   }
 
 }
