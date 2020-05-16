@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ScheduleModule } from '@nestjs/schedule';
+import { HttpModule } from '@nestjs/common';
 
 import { CountryModule } from './country/country.module';
 import { RegionModule } from './region/region.module';
@@ -12,10 +14,13 @@ import { PointcasesModule } from './pointcases/pointcases.module';
 import { DBUserModule } from './dbuser/dbuser.module';
 import { AuthModule } from './auth/auth.module';
 import { HealthProfissionalModule } from './healthprofessional/healthprofessional.module';
+import { UpdateService } from './update/update.service';
 
 @Module({
   imports: [
             TypeOrmModule.forRoot(), 
+            ScheduleModule.forRoot(),
+            HttpModule,
             CountryModule,
             RegionModule,
             RecordsCountryModule,
@@ -27,6 +32,6 @@ import { HealthProfissionalModule } from './healthprofessional/healthprofessiona
             HealthProfissionalModule
           ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UpdateService],
 })
 export class AppModule {}
