@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScheduleModule } from '@nestjs/schedule';
 import { HttpModule } from '@nestjs/common';
+import { BullModule } from '@nestjs/bull';
 
 import { CountryModule } from './country/country.module';
 import { RegionModule } from './region/region.module';
@@ -14,24 +15,25 @@ import { PointcasesModule } from './pointcases/pointcases.module';
 import { DBUserModule } from './dbuser/dbuser.module';
 import { AuthModule } from './auth/auth.module';
 import { HealthProfissionalModule } from './healthprofessional/healthprofessional.module';
-import { UpdateService } from './update/update.service';
+import { UpdateModule } from './update/update.module';
 
 @Module({
   imports: [
-            TypeOrmModule.forRoot(), 
-            ScheduleModule.forRoot(),
-            HttpModule,
-            CountryModule,
-            RegionModule,
-            RecordsCountryModule,
-            RecordsRegionModule,
-            NotificationsModule,
-            PointcasesModule,
-            DBUserModule,
-            AuthModule,
-            HealthProfissionalModule
-          ],
+    TypeOrmModule.forRoot(),
+    ScheduleModule.forRoot(),
+    HttpModule,
+    CountryModule,
+    RegionModule,
+    RecordsCountryModule,
+    RecordsRegionModule,
+    NotificationsModule,
+    PointcasesModule,
+    DBUserModule,
+    AuthModule,
+    UpdateModule,
+    HealthProfissionalModule
+  ],
   controllers: [AppController],
-  providers: [AppService, UpdateService],
+  providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
