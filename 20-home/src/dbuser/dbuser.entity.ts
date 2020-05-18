@@ -40,10 +40,10 @@ export class DBUser {
   @Column("character", { name: "role", length: 1 })
   role: string; 
 
-  @ManyToMany(() => Country, (country) => country.dbusers)
+  @ManyToMany(() => Country, (country) => country.dbusers, {cascade: ['insert']})
   countries: Country[];
 
-  @ManyToMany(() => Region, (region) => region.dbusers)
+  @ManyToMany(() => Region, (region) => region.dbusers, {cascade: ['insert']})
   regions: Region[];
 
   @ManyToMany(() => Notifications, (notifications) => notifications.dbusers)

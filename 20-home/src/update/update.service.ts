@@ -11,7 +11,7 @@ export class UpdateService {
     constructor(@InjectQueue('update_records') private update_queue: Queue,
         private http: HttpService) { }
 
-    @Cron('*/30 * * * * *')
+    @Cron('0 */2 * * * *')
     update_records() {
 
         this.http.get('https://api.covid19api.com/countries', {}).subscribe((res: any) => {

@@ -26,7 +26,7 @@ export class UpdateProcessor {
 
         const url: string = `https://api.covid19api.com/live/country/${country.Slug}/status/confirmed/date/${date_string}`;
 
-        this.logger.log(`Updating ${country.Country}`)
+        this.logger.log(`Checking for updates of country ${country.Country}`)
 
         this.http.get(url, {}).subscribe((res: any) => {
 
@@ -36,17 +36,36 @@ export class UpdateProcessor {
 
             else {
 
+                this.logger.log(`Found ${logs.length} new entries for country ${country.Country}. Updating...`)
+
                 const records = this.filter_countries(logs);
 
                 const records_country = records.countries;
                 const records_region = records.regions;
 
-                this.records_country_service.insert_new_record(records_country);
-                this.records_region_service.insert_new_records(records_region);
+                try { 
+
+                    this.records_country_service.insert_new_record(records_country);
+
+                } catch (err) {
+
+                    this.logger.error(err);
+                }
+
+                try { 
+
+                    this.records_region_service.insert_new_records(records_region);
+
+                } catch (err) {
+
+                    this.logger.error(err);
+                }
+
+
+                this.logger.log(`Updated entries for country ${country.Country}`);
             }
 
-        }).unsubscribe();
-
+        });
 
     }
 
