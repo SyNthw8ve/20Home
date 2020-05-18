@@ -1,7 +1,7 @@
 export class RecordCountry {
 
-    country_code: string;
-    record_date: Date;
+    countryCode: string;
+    recordDate: Date;
     recovered: number;
     deaths: number;
     active: number;

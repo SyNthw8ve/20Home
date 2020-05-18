@@ -42,8 +42,9 @@ export class UpdateProcessor {
                 const records_region = records.regions;
 
                 this.records_country_service.insert_new_record(records_country);
+                this.records_region_service.insert_new_records(records_region);
             }
-            
+
         }).unsubscribe();
 
 
@@ -58,8 +59,8 @@ export class UpdateProcessor {
 
             const record =
             {
-                country_code: country['CountryCode'],
-                record_date: country['Date'],
+                countryCode: country['CountryCode'],
+                recordDate: country['Date'],
                 cases: country['Confirmed'],
                 deaths: country['Deaths'],
                 active: country['Active'],
@@ -73,11 +74,10 @@ export class UpdateProcessor {
 
             const record =
             {
-                country_code: region['CountryCode'],
-                record_date: region['Date'],
-                cases: region['Confirmed'],
+                regionName: region['Province'],
+                recordDate: region['Date'],
+                confirmed: region['Confirmed'],
                 deaths: region['Deaths'],
-                active: region['Active'],
                 recovered: region['Recovered']
             }
 
