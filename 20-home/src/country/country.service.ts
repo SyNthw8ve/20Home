@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Country } from './country.entity';
 import { Region } from '../region/region.entity';
+import { Country as CountryDTO } from './country.dto';
 
 @Injectable()
 export class CountryService {
@@ -34,5 +35,12 @@ export class CountryService {
 
   async remove(country_code: string): Promise<void> {
     await this.country_repository.delete(country_code);
+  }
+
+  async update_country(country_data: CountryDTO): Promise<void> {
+
+    const { countryCode, ...update_object } = country_data;
+
+    await this.country_repository.update(countryCode, update_object);
   }
 }

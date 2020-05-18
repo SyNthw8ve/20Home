@@ -43,7 +43,8 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
     let data = [
       { name: "Active", series: [] },
       { name: "Cases", series: [] },
-      { name: "Deaths", series: [] }
+      { name: "Deaths", series: [] },
+      { name: "Recovered", series: [] },
     ];
 
     country_records.forEach((record) => {
@@ -53,6 +54,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
       data[0].series.push({ name: date, value: record.active })
       data[1].series.push({ name: date, value: record.cases })
       data[2].series.push({ name: date, value: record.deaths })
+      data[3].series.push({ name: date, value: record.recovered})
     })
 
     return data;

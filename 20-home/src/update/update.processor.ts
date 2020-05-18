@@ -3,6 +3,7 @@ import { Processor, Process, OnQueueActive } from '@nestjs/bull';
 import { Job } from 'bull';
 import { RecordsCountryService } from '../recordscountry/recordscountry.service';
 import { RecordsRegionService } from '../recordsregion/recordsregion.service';
+import { CountryService } from '../country/country.service';
 import { HttpService } from '@nestjs/common';
 
 @Processor('update_records')
@@ -10,12 +11,13 @@ export class UpdateProcessor {
 
     constructor(private records_country_service: RecordsCountryService,
         private records_region_service: RecordsRegionService,
+        private country_service: CountryService,
         private http: HttpService) { }
 
     private readonly logger = new Logger(UpdateProcessor.name);
 
-    @Process('country')
-    async update(job: Job<unknown>) {
+    @Process('records')
+    async update_records(job: Job<unknown>) {
 
         const data: any = job.data;
         const country = data.country;
@@ -26,13 +28,13 @@ export class UpdateProcessor {
 
         const url: string = `https://api.covid19api.com/live/country/${country.Slug}/status/confirmed/date/${date_string}`;
 
-        this.logger.log(`Checking for updates of country ${country.Country}`)
+        this.logger.log(`Checking for record updates of country ${country.Country}`)
 
         this.http.get(url, {}).subscribe((res: any) => {
 
             const logs = res.data;
 
-            if (logs.length == 0) this.logger.log(`Country ${country.Country} is up to date`);
+            if (logs.length == 0) this.logger.log(`Records of ${country.Country} is up to date`);
 
             else {
 
@@ -43,16 +45,16 @@ export class UpdateProcessor {
                 const records_country = records.countries;
                 const records_region = records.regions;
 
-                try { 
+                try {
 
-                    this.records_country_service.insert_new_record(records_country);
+                    this.records_country_service.insert_new_records(records_country);
 
                 } catch (err) {
 
                     this.logger.error(err);
                 }
 
-                try { 
+                try {
 
                     this.records_region_service.insert_new_records(records_region);
 
@@ -67,6 +69,30 @@ export class UpdateProcessor {
 
         });
 
+    }
+
+    @Process('country')
+    async update_country(job: Job<unknown>) {
+
+        const data: any = job.data;
+        const country_data = data.country;
+
+        const update_data = {
+            countryCode: country_data.CountryCode, confirmed: country_data.TotalConfirmed,
+            deaths: country_data.TotalDeaths, recovered: country_data.TotalRecovered
+        }
+
+        try {
+
+            this.logger.log(`Updating country ${country_data.Country} values...`);
+
+            await this.country_service.update_country(update_data);
+
+            this.logger.log(`Updated country ${country_data.Country}`);
+
+        } catch (error) {
+
+        }
     }
 
     private filter_countries(countries) {
@@ -117,5 +143,10 @@ export class UpdateProcessor {
         date_string = `${date_string}T${date_time}Z`;
 
         return date_string;
+    }
+
+    private update_country_data(country_code: string): void {
+
+
     }
 }

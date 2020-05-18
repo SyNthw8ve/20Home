@@ -11,18 +11,40 @@ export class UpdateService {
     constructor(@InjectQueue('update_records') private update_queue: Queue,
         private http: HttpService) { }
 
-    @Cron('0 0 */12 * * *')
-    update_records() {
+    @Cron('0 0 */1 * * *')
+    async update_records() {
 
         this.http.get('https://api.covid19api.com/countries', {}).subscribe((res: any) => {
 
-            res.data.forEach(item => {
+            res.data.forEach(async item => {
 
-                this.update_queue.add('country', { country: item }).then(() => {
+                try {
+                    
+                    await this.update_queue.add('records', { country: item })
 
-
-                }).catch((err) => this.logger.error(err))
+                } catch (error) {
+                    
+                }
             }) 
+        })
+    }
+
+    @Cron('0 0 */12 * * *')
+    async update_country() {
+
+        this.http.get('https://api.covid19api.com/summary', {}).subscribe((res: any) => {
+
+            res.data.Countries.forEach(async item => {
+
+                try {
+                    
+                    await this.update_queue.add('country', {country: item})
+
+                } catch (error) {
+
+                    
+                }
+            })
         })
     }
 }

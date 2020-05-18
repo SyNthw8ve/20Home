@@ -4,6 +4,7 @@ import { UpdateProcessor } from './update.processor';
 import { BullModule } from '@nestjs/bull';
 import { RecordsCountryModule } from '../recordscountry/recordscountry.module';
 import { RecordsRegionModule } from '../recordsregion/recordsregion.module';
+import { CountryModule } from '../country/country.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { RecordsRegionModule } from '../recordsregion/recordsregion.module';
     }),
     HttpModule,
     RecordsCountryModule,
-    RecordsRegionModule
+    RecordsRegionModule,
+    CountryModule
   ],
   providers: [UpdateService, UpdateProcessor],
   exports: [UpdateService],
