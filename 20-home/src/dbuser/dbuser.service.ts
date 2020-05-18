@@ -34,7 +34,7 @@ export class DBUserService {
       email: new_user.email,
       long: new_user.long,
       lat: new_user.lat,
-      role: 'u',
+      role: 'u'
     }
 
     if (new_user.health_professional) {
@@ -44,7 +44,20 @@ export class DBUserService {
 
       user.role = 'h';
     }
+    
+    const n_user = await this.user_repository.save(user);
 
-    return this.user_repository.save(user);
+    await this.user_repository.createQueryBuilder()
+        .relation(DBUser, "countries")
+        .of(n_user).add({username: new_user.username, countryCode: new_user.country_code});
+
+    if (new_user.region_name != '') {
+
+      await this.user_repository.createQueryBuilder()
+          .relation(DBUser, "regions")
+          .of(n_user).add({username: new_user.username, regionName: new_user.region_name})
+    }
+
+    return n_user;
   }
 }

@@ -42,8 +42,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       password: ['', Validators.required],
       long: [null, Validators.required],
       lat: [null, Validators.required],
-      country: ['', Validators.required],
-      region: [''],
+      country_code: ['', Validators.required],
+      region_name: [''],
       position: [Position.OTHER, Validators.required],
       health_code: ['', Validators.required],
       institution: ['', Validators.required],
@@ -61,6 +61,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   on_submit() {
+
+    console.log(this.register.value);
 
     this.covid_service.create_user(this.register.value).subscribe(res => {
 

@@ -1,4 +1,4 @@
-import { Column, Entity, Index, ManyToMany, OneToOne, JoinColumn } from "typeorm";
+import { Column, Entity, Index, ManyToMany, JoinTable } from "typeorm";
 import { Country } from "../country/country.entity";
 import { Region } from "../region/region.entity";
 import { Notifications } from "../notifications/notifications.entity";
@@ -40,10 +40,10 @@ export class DBUser {
   @Column("character", { name: "role", length: 1 })
   role: string; 
 
-  @ManyToMany(() => Country, (country) => country.dbusers, {cascade: ['insert']})
+  @ManyToMany(() => Country, (country) => country.dbusers, {cascade: true})
   countries: Country[];
 
-  @ManyToMany(() => Region, (region) => region.dbusers, {cascade: ['insert']})
+  @ManyToMany(() => Region, (region) => region.dbusers, {cascade: true})
   regions: Region[];
 
   @ManyToMany(() => Notifications, (notifications) => notifications.dbusers)
