@@ -14,14 +14,7 @@ export class UpdateService {
     @Cron('*/30 * * * * *')
     update_records() {
 
-        this.logger.debug("Test update");
-
         this.http.get('https://api.covid19api.com/countries', {}).subscribe((res: any) => {
-
-            /* res.data.forEach((item) => {
-
-                this.update_queue.add('country', { country: item });
-            }) */
 
             res.data.forEach(item => {
 
@@ -29,7 +22,7 @@ export class UpdateService {
 
 
                 }).catch((err) => this.logger.error(err))
-            })
+            }) 
         })
     }
 }

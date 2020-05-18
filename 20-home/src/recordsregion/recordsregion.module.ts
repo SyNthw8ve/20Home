@@ -8,5 +8,6 @@ import { Recordsregion } from './recordsregion.entity';
   imports: [TypeOrmModule.forFeature([Recordsregion])],
   providers: [RecordsRegionService],
   controllers: [RecordsRegionController],
+  exports: [RecordsRegionService],
 })
 export class RecordsRegionModule {}

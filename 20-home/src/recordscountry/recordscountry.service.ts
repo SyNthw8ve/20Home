@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getRepository } from 'typeorm';
 import { Recordscountry } from './recordscountry.entity';
+import { RecordCountry } from './recordscountry.dto';
 
 @Injectable()
 export class RecordsCountryService {
@@ -23,5 +24,22 @@ export class RecordsCountryService {
         let date_local = (date_val.split("/").reverse().join("-") + " 00:00:00").replace(',', '');
 
         return this.records_country_repository.findOne({countryCode: country_code, recordDate: date_local});
+    }
+
+    async get_last_date(country_code: string): Promise<Date> {
+
+        const result = await this.records_country_repository.createQueryBuilder('records')
+                .where('records.country_code = :code', {code: country_code})
+                .orderBy('records.record_date', 'DESC')
+                .getOne()
+
+        return result.recordDate;
+    }
+
+    async insert_new_record(records: RecordCountry[]): Promise<any> {
+
+        const result = await this.records_country_repository.save(records)
+
+        return result;
     }
 }

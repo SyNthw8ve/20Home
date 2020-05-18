@@ -7,6 +7,7 @@ import { Recordscountry } from './recordscountry.entity';
 @Module({
     imports: [TypeOrmModule.forFeature([Recordscountry])],
     providers: [RecordsCountryService],
-    controllers: [RecordsCountryController]
+    controllers: [RecordsCountryController],
+    exports: [RecordsCountryService]
 })
 export class RecordsCountryModule {}
