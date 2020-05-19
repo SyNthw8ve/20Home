@@ -28,18 +28,33 @@ export class PointcasesService {
   async insert_new_case(new_case: NewCaseDto): Promise<any> {
 
     try {
-      
-      await this.cases_repository.insert({
+
+      let n_case = await this.cases_repository.save({
         long: new_case.long,
         lat: new_case.lat,
         caseTime: new Date().toISOString()
-      });
-  
-      return {success: true}
+      })
+
+      await this.cases_repository.createQueryBuilder()
+        .relation(Pointcases, "country")
+        .of(n_case)
+        .add({ countryCode: new_case.countryCode, id: n_case.id })
+
+      if (new_case.regionName) {
+
+        await this.cases_repository.createQueryBuilder()
+          .relation(Pointcases, "region")
+          .of(n_case)
+          .add({ regionName: new_case.regionName, id: n_case.id })
+      }
+
+      return { success: true }
 
     } catch (error) {
-      
-      return {success: false};
+
+      console.log(error)
+
+      return { success: false };
     }
   }
 }

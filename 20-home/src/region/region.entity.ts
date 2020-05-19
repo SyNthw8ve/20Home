@@ -10,6 +10,7 @@ import {
   import { DBUser } from "../dbuser/dbuser.entity";
   import { Recordsregion } from "../recordsregion/recordsregion.entity";
   import { Regioncases } from "../regioncases/regioncases.entity";
+  import { Pointcases } from "../pointcases/pointcases.entity";
   
   @Index("region_pkey", ["regionName"], { unique: true })
   @Entity("region", { schema: "public" })
@@ -57,5 +58,8 @@ import {
       schema: "public",
     })
     dbusers2: DBUser[];
+
+    @ManyToMany(() => Pointcases, (pointcases) => pointcases.region)
+    cases: Pointcases[];
   }
   

@@ -14,4 +14,9 @@ export class NotificationsService {
   findAll(): Promise<Notifications[]> {
     return this.notifications_repository.find();
   }
+
+  async create() {
+
+    
+  }
 }

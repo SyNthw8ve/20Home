@@ -10,6 +10,7 @@ import { Countrycases } from "../countrycases/countrycases.entity";
 import { DBUser } from "../dbuser/dbuser.entity";
 import { Region } from "../region/region.entity";
 import { Recordscountry } from "../recordscountry/recordscountry.entity";
+import { Pointcases } from '../pointcases/pointcases.entity';
 
 @Index("country_pkey", ["countryCode"], { unique: true })
 @Entity("country", { schema: "public" })
@@ -73,4 +74,7 @@ export class Country {
     (recordscountry) => recordscountry.countryCode2
   )
   recordscountries: Recordscountry[];
+
+  @ManyToMany(() => Pointcases, (pointcases) => pointcases.country)
+  cases: Pointcases[];
 }

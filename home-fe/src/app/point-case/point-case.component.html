@@ -29,6 +29,26 @@
             </div>
         </div>
         <div class="row form-elem">
+            <div class="input-field col s11 offset-s1">
+                <select id="country_select" formControlName="countryCode" class="browser-default" required>
+                    <option value="" disabled selected>Country Case</option>
+                    <option [ngValue]="country.countryCode" *ngFor="let country of countries | async">
+                        {{ country.countryName }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row form-elem">
+            <div class="input-field col s11 offset-s1">
+                <select formControlName="regionName" class="browser-default">
+                    <option value="" disabled selected>Region Case</option>
+                    <option [ngValue]="region.regionName" *ngFor="let region of regions | async">
+                        {{ region.regionName }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row form-elem">
             <div class="col s12 center-align">
                 <button class="btn btn-large waves-effect waves-light" type="submit" name="action">Add Case
                 </button>

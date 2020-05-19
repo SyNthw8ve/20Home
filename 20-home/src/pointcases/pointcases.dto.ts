@@ -2,5 +2,7 @@ export class NewCaseDto {
 
     long: number;
     lat: number;
-    symptoms: Array<any>;
+    countryCode: string;
+    regionName: string;
+    symptoms: Array<string>;
 }

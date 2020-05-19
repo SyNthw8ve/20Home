@@ -23,7 +23,7 @@ export class NotifyGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     this.users.set(username, data);
 
-    this.logger.log(`User ${username} registered`);
+    this.logger.warn(`User ${username} registered`);
   }
 
   @SubscribeMessage('remove_user')
@@ -40,10 +40,15 @@ export class NotifyGateway implements OnGatewayConnection, OnGatewayDisconnect {
     
     this.logger.log("User connected");
   }
-  
+
   handleDisconnect(client: any) {
     
     this.logger.log("User disconnected");
+  }
+
+  hasUser(username: string) : boolean {
+
+    return this.users.has(username);
   }
 
 }

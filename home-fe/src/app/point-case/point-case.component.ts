@@ -1,7 +1,8 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { CovidService } from '../services/covid.service';
+import { StoreService } from '../services/store.service';
 
 import * as M from 'materialize-css/dist/js/materialize.js';
 
@@ -10,13 +11,23 @@ import * as M from 'materialize-css/dist/js/materialize.js';
   templateUrl: './point-case.component.html',
   styleUrls: ['./point-case.component.sass']
 })
-export class PointCaseComponent implements OnInit, AfterViewInit {
+export class PointCaseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   new_case;
   $user;
+  countries;
+  regions;
 
   constructor(private form_builder: FormBuilder, private user_service: UserService,
-    private covid_service: CovidService) { }
+    private covid_service: CovidService, private store_service: StoreService) { }
+
+
+  ngOnDestroy(): void {
+   
+    //this.$user.unsubscribe();
+    //this.countries.unsubscribe();
+    //this.regions.unsubscribe();
+  }
 
   ngAfterViewInit(): void {
 
@@ -30,10 +41,14 @@ export class PointCaseComponent implements OnInit, AfterViewInit {
 
       long: [null, Validators.required],
       lat: [null, Validators.required],
-      symptoms: [[], Validators.required]
+      symptoms: [[], Validators.required],
+      countryCode: ['', Validators.required],
+      regionName: ['']
     })
 
     this.$user = this.user_service.get_user_data();
+    this.countries = this.store_service.get_countries();
+    this.regions = this.store_service.get_regions();
   }
 
   on_submit() {

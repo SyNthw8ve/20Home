@@ -4,10 +4,13 @@ import {
     Index,
     JoinTable,
     ManyToMany,
+    ManyToOne,
     PrimaryGeneratedColumn,
   } from "typeorm";
   import { Symptom } from "../symptom/symptom.entity";
   import { Notifications } from "../notifications/notifications.entity";
+  import { Country } from '../country/country.entity';
+  import { Region } from '../region/region.entity';
   
   @Index("pointcases_pkey", ["id"], { unique: true })
   @Entity("pointcases", { schema: "public" })
@@ -43,5 +46,21 @@ import {
       schema: "public",
     })
     notifications: Notifications[];
+
+    @ManyToMany(() => Country, (country) => country.cases)
+    @JoinTable({
+      name: "incountry",
+      joinColumns: [{name: "id", referencedColumnName: "id"}],
+      inverseJoinColumns: [{ name: "country_code", referencedColumnName: "countryCode"}]
+    })
+    country: Country;
+
+    @ManyToMany(() => Region, (region) => region.cases)
+    @JoinTable({
+      name: "inregion",
+      joinColumns: [{name: "id", referencedColumnName: "id"}],
+      inverseJoinColumns: [{ name: "region_name", referencedColumnName: "regionName"}]
+    })
+    region: Region;
   }
   
