@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { SocketIoModule } from 'ngx-socket-io';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,8 @@ import { SearchComponent } from './search/search.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { HomeRegionDetailsComponent } from './home-region-details/home-region-details.component';
 import { PointCaseComponent } from './point-case/point-case.component';
+
+import { NotifyService } from './services/notify.service';
 
 @NgModule({
   declarations: [
@@ -46,9 +49,10 @@ import { PointCaseComponent } from './point-case/point-case.component';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    NgxChartsModule
+    NgxChartsModule,
+    SocketIoModule
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders, NotifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
