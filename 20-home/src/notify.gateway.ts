@@ -1,24 +1,49 @@
 import { SubscribeMessage, WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
-import { Server } from 'socket.io'
+import { Server } from 'socket.io';
+import { Logger } from '@nestjs/common';
 
 @WebSocketGateway()
 export class NotifyGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
+  users: Map<string, Object>
+  private logger = new Logger();
+
+  constructor() {
+
+    this.users = new Map<string, Object>();
+  }
+
   @WebSocketServer()
   server: Server;
 
-  @SubscribeMessage('message')
-  handleMessage(client: any, payload: any): string {
-    return 'Hello world!';
+  @SubscribeMessage('register')
+  handleMessage(client: any, payload: any) {
+    
+    const {username, ...data} = payload;
+
+    this.users.set(username, data);
+
+    this.logger.log(`User ${username} registered`);
+  }
+
+  @SubscribeMessage('remove_user')
+  handleEvent(client: any, payload: any) {
+
+    const username = payload;
+
+    this.users.delete(username);
+
+    this.logger.warn(`User ${username} unregistered`);
   }
 
   handleConnection(client: any, ...args: any[]) {
     
-    console.log("User connected");
+    this.logger.log("User connected");
   }
+  
   handleDisconnect(client: any) {
     
-    console.log("User disconnected")
+    this.logger.log("User disconnected");
   }
 
 }

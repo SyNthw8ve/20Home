@@ -11,13 +11,15 @@ export class NotifyService extends Socket {
     super({url: 'http://localhost:3000', options: {}})
   }
 
-  connect_t() {
+  register(user_data) {
 
     this.connect();
+    this.emit('register', user_data)
   }
 
-  disconnect_t() {
-
+  remove(username) {
+    
+    this.emit('remove_user', username);
     this.disconnect();
   }
 }

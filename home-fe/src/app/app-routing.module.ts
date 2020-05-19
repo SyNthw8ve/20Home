@@ -19,13 +19,18 @@ import { CountryFetchService } from './services/country-fetch.service';
 import { CountryRegionsFetchService } from './services/country-regions-fetch.service';
 import { RegionRecordsFetchService } from './services/region-records-fetch.service';
 import { RegionFetchService } from './services/region-fetch.service';
+import { UserFetchService } from './services/user-fetch.service';
 
 const routes: Routes =
   [
     { path: '', component: LandingComponent, canActivate: [SessionGuard] },
     { path: 'register', component: RegisterComponent, canActivate: [SessionGuard] },
     {
-      path: 'home', component: HomeComponent, canActivate: [NavigateGuard], children: [
+      path: 'home', component: HomeComponent, canActivate: [NavigateGuard],
+      
+      resolve: {
+        user: UserFetchService
+      }, children: [
 
         { path: '', redirectTo: 'all', pathMatch: 'full' },
         { path: 'all', component: HomeWorldComponent },

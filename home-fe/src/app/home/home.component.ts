@@ -1,5 +1,5 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { NotifyService } from '../services/notify.service';
@@ -13,15 +13,21 @@ import * as M from 'materialize-css/dist/js/materialize.js';
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  $user;
-  $countries;
+  user;
 
   constructor(private user_service: UserService, private auth_service: AuthService,
-    private router: Router, private notify_service: NotifyService) { }
+    private router: Router, private notify_service: NotifyService,
+    private route: ActivatedRoute) { }
 
   ngOnDestroy(): void {
     
-    this.notify_service.disconnect_t();
+    this.notify_service.remove(this.user.username);
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHandler(event): void {
+
+    this.notify_service.remove(this.user.username);
   }
 
   ngAfterViewInit(): void {
@@ -32,9 +38,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.notify_service.connect_t();
-
-    this.$user = this.user_service.get_user_data();
+    this.route.data.subscribe( (data: any) => {
+      
+      this.user = data.user.user;
+      this.notify_service.register(this.user); 
+    })
   }
 
   logout() {

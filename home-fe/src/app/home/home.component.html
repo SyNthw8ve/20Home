@@ -2,9 +2,9 @@
     <div class="col s3">
         <ul class="sidenav sidenav-fixed">
             <li>
-                <div class="user-view" *ngIf="($user | async) as result">
-                    <a><span class="name">{{result.user.firstName}} {{result.user.lastName}}</span></a>
-                    <a><span class="email">{{result.user.email}}</span></a>
+                <div class="user-view" *ngIf="user">
+                    <a><span class="name">{{user.firstName}} {{user.lastName}}</span></a>
+                    <a><span class="email">{{user.email}}</span></a>
                 </div>
             </li>
             <li class="sidenav-item"><a class="waves-effect"><i class="material-icons">person</i>Profile</a>
@@ -25,7 +25,7 @@
                         class="material-icons">landscape</i>Regions</a>
             </li>
             <li><a class="subheader">Action</a></li>
-            <li [routerLink]="['add_case']" [routerLinkActive]="['active']" *ngIf="($user | async)?.user.role == 'h'"
+            <li [routerLink]="['add_case']" [routerLinkActive]="['active']" *ngIf="user.role == 'h'"
                 class="sidenav-item"><a class="waves-effect"><i class="material-icons">add_location</i>Add Point
                     Case</a>
             </li>
