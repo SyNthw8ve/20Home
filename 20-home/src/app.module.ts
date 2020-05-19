@@ -16,6 +16,9 @@ import { DBUserModule } from './dbuser/dbuser.module';
 import { AuthModule } from './auth/auth.module';
 import { HealthProfissionalModule } from './healthprofessional/healthprofessional.module';
 import { UpdateModule } from './update/update.module';
+import { NotifyService } from './notify/notify.service';
+import { NotifyModule } from './notify/notify.module';
+import { NotifyGateway } from './notify.gateway';
 
 @Module({
   imports: [
@@ -31,9 +34,10 @@ import { UpdateModule } from './update/update.module';
     DBUserModule,
     AuthModule,
     UpdateModule,
-    HealthProfissionalModule
+    HealthProfissionalModule,
+    NotifyModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, NotifyService, NotifyGateway],
 })
 export class AppModule { }

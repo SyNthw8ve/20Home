@@ -29,7 +29,7 @@ export class UpdateService {
         })
     }
 
-    @Cron('0 0 */12 * * *')
+    @Cron('0 0 */1 * * *')
     async update_country() {
 
         this.http.get('https://api.covid19api.com/summary', {}).subscribe((res: any) => {
