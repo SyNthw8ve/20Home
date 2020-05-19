@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { Processor, Process, OnQueueActive } from '@nestjs/bull';
+import { Processor, Process } from '@nestjs/bull';
 import { Job } from 'bull';
 import { RecordsCountryService } from '../recordscountry/recordscountry.service';
 import { RecordsRegionService } from '../recordsregion/recordsregion.service';
@@ -95,6 +95,36 @@ export class UpdateProcessor {
         }
     }
 
+    @Process('portugal')
+    async update_portugal(job: Job<unknown>) {
+
+        const data: any = job.data;
+        const region_data = data.regions;
+
+        const date = this.format_date(region_data.date);
+    
+        this.logger.log('Updating Portugal region data...')
+
+        const records = region_data.records.map(record => { 
+            
+            record.recordDate = date;
+
+            return record;
+        })
+
+        try {
+            
+            await this.records_region_service.insert_new_records(records);
+
+            this.logger.log('Finished updating Portugal region data')
+
+        } catch (error) {
+            
+            this.logger.error(error);
+        }
+
+    }
+
     private filter_countries(countries) {
 
         let records_country = countries.filter(country => country['Province'] == '');
@@ -138,15 +168,10 @@ export class UpdateProcessor {
 
         let date_string = date_parts[0];
         let date_time = date_parts[1];
-        date_string = date_string.split("/").reverse().join("-");
+        date_string = date_string.split(/\/|\-/).reverse().join("-");
 
         date_string = `${date_string}T${date_time}Z`;
 
         return date_string;
-    }
-
-    private update_country_data(country_code: string): void {
-
-
     }
 }
