@@ -8,4 +8,16 @@ export class NotifyProcessor {
     constructor() {}
 
     private readonly logger = new Logger();
+
+    @Process('notify')
+    notify_users(job: Job<unknown>) {
+
+        console.log(job.data);
+    }
+
+    @Process('link')
+    link_notifications(job: Job<unknown>) {
+
+
+    }
 }

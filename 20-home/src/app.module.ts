@@ -22,7 +22,9 @@ import { NotifyGateway } from './notify.gateway';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({
+    
+    }),
     ScheduleModule.forRoot(),
     HttpModule,
     CountryModule,

@@ -17,6 +17,6 @@ export class NotificationsService {
 
   async create() {
 
-    
+    console.log("called")
   }
 }

@@ -8,6 +8,6 @@ import { NotifyProcessor } from './notify.processor';
         name: 'notifications'
       }),],
     providers: [NotifyService, NotifyProcessor],
-    exports: [NotifyService]
+    exports: [NotifyService, NotifyProcessor]
 })
 export class NotifyModule {}
