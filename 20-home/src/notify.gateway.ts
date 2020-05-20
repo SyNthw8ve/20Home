@@ -20,8 +20,8 @@ export class NotifyGateway implements OnGatewayConnection, OnGatewayDisconnect {
   handleMessage(client: any, payload: any) {
     
     const {username, ...data} = payload;
-
-    this.users.set(username, data);
+    
+    this.users.set(username, client);
 
     this.logger.warn(`User ${username} registered`);
   }

@@ -8,6 +8,7 @@ import * as bcrypt from 'bcrypt';
 
 const salt_rounds: number = 10;
 
+
 @Injectable()
 export class DBUserService {
 
