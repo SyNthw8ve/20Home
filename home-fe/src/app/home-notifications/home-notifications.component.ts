@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StoreService } from '../services/store.service';
 import { UserService } from '../services/user.service';
 
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home-notifications',
@@ -11,18 +11,18 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class HomeNotificationsComponent implements OnInit, OnDestroy {
 
-  $notifications : BehaviorSubject<any>;
+  $notifications : Observable<any>;
 
   constructor(private store_service: StoreService, private user_service: UserService) { }
 
   ngOnDestroy(): void {
     
-    this.$notifications.unsubscribe();
+    //this.$notifications.unsubscribe();
   }
 
   ngOnInit(): void {
 
-    let username =  this.store_service.get_user().username;
+    let username = this.store_service.get_user().username;
 
     this.user_service.get_user_notification(username).subscribe( (data: any) => {
 

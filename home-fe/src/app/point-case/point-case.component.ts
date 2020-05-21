@@ -46,7 +46,7 @@ export class PointCaseComponent implements OnInit, AfterViewInit, OnDestroy {
       regionName: ['']
     })
 
-    this.$user = this.user_service.get_user_data();
+    this.$user = this.store_service.get_user();
     this.countries = this.store_service.get_countries();
     this.regions = this.store_service.get_regions();
   }

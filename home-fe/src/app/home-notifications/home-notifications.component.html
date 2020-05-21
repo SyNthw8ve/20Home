@@ -3,10 +3,29 @@
         <h1 id="title">Notifications</h1>
     </div>
     <div class="row">
-        <ul class="collection col s11" *ngIf="$notifications | async as notifications">
-            <li class="collection-item" *ngFor="let notification of notifications">
-                {{notification.notificationTime}}
-            </li>
-          </ul>
+        <div class="col s11">
+            <table class="highlight centered" *ngIf="$notifications | async as notifications">
+                <thead>
+                    <tr>
+                        <th>Notification Date</th>
+                        <th>Type</th>
+                        <th>Mark as Read</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let notification of notifications">
+                        <td>{{notification.notificationTime}}</td>
+                        <td *ngIf="notification.notificationType == 'proximity'">Near you</td>
+                        <td *ngIf="notification.notificationType != 'proximity'">In your Region</td>
+                        <td>
+                            <label>
+                                <input type="checkbox" />
+                                <span></span>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-<div>
+    <div>

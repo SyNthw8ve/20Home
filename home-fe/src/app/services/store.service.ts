@@ -33,9 +33,16 @@ export class StoreService {
     this.$notifications = new BehaviorSubject<any>(notifications);
   }
 
-  get_notifications() : BehaviorSubject<any> {
+  get_notifications() : Observable<any> {
 
-    return this.$notifications;
+    return this.$notifications.asObservable().pipe(tap((items: any) => {
+
+      items.map((item: any) => {
+
+        item.notificationTime = new Date(item.notificationTime).toLocaleString();
+        return item;
+      })
+    }));
   }
 
   add_notification(notification) { 
