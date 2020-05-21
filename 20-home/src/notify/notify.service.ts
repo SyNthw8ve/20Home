@@ -10,9 +10,9 @@ export class NotifyService {
 
     constructor(@InjectQueue('notifications') private notify_queue: Queue) {}
 
-    async dispatch_notifications(users: DBUser[]) {
-
-        this.notify_queue.add('notify', {users: users});
+    async dispatch_notifications(users: DBUser[], pointcase) {
+        
+        this.notify_queue.add('notify', {users: users, new_case: pointcase});
 
         //this.notify_queue.add('link', {users: users});
     }

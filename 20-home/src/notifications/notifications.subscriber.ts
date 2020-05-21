@@ -31,6 +31,6 @@ export class NotificationsSubscriber implements EntitySubscriberInterface<Pointc
             .where("acos(:a*sin(dbuser.lat) + :b*cos(dbuser.lat)*cos(abs(:c - dbuser.long)))*:r <= :d", { a: a, b: b, r: R, d: d, c: c })
             .getMany();
 
-        this.notify_service.dispatch_notifications(users);
+        this.notify_service.dispatch_notifications(users, event.entity);
     }
 }

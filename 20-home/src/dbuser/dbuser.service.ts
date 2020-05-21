@@ -5,6 +5,7 @@ import { DBUser } from './dbuser.entity';
 import { User, Position } from './dbuser.dto';
 import { HealthProfessionalService } from '../healthprofessional/healthprofessional.service';
 import * as bcrypt from 'bcrypt';
+import { Notifications } from '../notifications/notifications.entity';
 
 const salt_rounds: number = 10;
 
@@ -60,5 +61,12 @@ export class DBUserService {
     }
 
     return n_user;
+  }
+
+  async get_notifications_from_user(username: string) : Promise<Notifications[]> {
+
+    const user = await this.user_repository.findOne({relations: ['notifications'], where: {username: username}});
+
+    return user.notifications;
   }
 }

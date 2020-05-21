@@ -39,12 +39,6 @@ import {
     symptoms: Symptom[];
   
     @ManyToMany(() => Notifications, (notifications) => notifications.pointcases)
-    @JoinTable({
-      name: "newcase",
-      joinColumns: [{ name: "case_id", referencedColumnName: "id" }],
-      inverseJoinColumns: [{ name: "not_id", referencedColumnName: "id" }],
-      schema: "public",
-    })
     notifications: Notifications[];
 
     @ManyToMany(() => Country, (country) => country.cases)

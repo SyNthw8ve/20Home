@@ -32,6 +32,12 @@ import {
     isRead: boolean | null;
   
     @ManyToMany(() => Pointcases, (pointcases) => pointcases.notifications)
+    @JoinTable({
+      name: "newcase",
+      joinColumns: [{ name: "not_id", referencedColumnName: "id" }],
+      inverseJoinColumns: [{ name: "case_id", referencedColumnName: "id" }],
+      schema: "public",
+    })
     pointcases: Pointcases[];
   
     @ManyToMany(() => DBUser, (dbuser) => dbuser.notifications)

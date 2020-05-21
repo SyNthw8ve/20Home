@@ -1,7 +1,8 @@
-import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, UseGuards } from '@nestjs/common';
 import { DBUserService } from './dbuser.service';
 import { DBUser } from './dbuser.entity';
 import { User} from './dbuser.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('user')
 export class DBUserController {
@@ -12,5 +13,12 @@ export class DBUserController {
   insert_new_user(@Body() n_user: User) {
 
     return this.user_service.create_one(n_user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':username')
+  get_from_user(@Param() params) {
+
+      return this.user_service.get_notifications_from_user(params.username);
   }
 }

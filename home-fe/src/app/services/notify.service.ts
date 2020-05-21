@@ -7,8 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class NotifyService extends Socket {
 
-  $notifications = new Observable();
-
   constructor() { 
 
     super({url: 'http://localhost:3000', options: {}})

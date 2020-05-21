@@ -18,6 +18,7 @@ export class NotifyProcessor {
 
         const job_data: any = job.data;
         const users = job_data.users;
+        const point = job_data.new_case;
 
         users.forEach(async (user) => {
 
@@ -26,7 +27,7 @@ export class NotifyProcessor {
                 notification_type: NotificationType.PROX, is_read: false
             }
 
-            const new_not = await this.notifications_service.insert_notification(notification);
+            await this.notifications_service.insert_notification(notification, user.username, point);
             
             if (this.gateway.hasUser(user.username)) {
 
