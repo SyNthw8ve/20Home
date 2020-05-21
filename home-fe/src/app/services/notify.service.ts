@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotifyService extends Socket {
+
+  $notifications = new Observable();
 
   constructor() { 
 
@@ -21,5 +24,10 @@ export class NotifyService extends Socket {
     
     this.emit('remove_user', username);
     this.disconnect();
+  }
+
+  get_notifications() {
+
+    return this.fromEvent('notification');
   }
 }

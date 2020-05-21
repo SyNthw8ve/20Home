@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Notifications } from './notifications.entity';
+import { DBUser } from '../dbuser/dbuser.entity';
+import { Notification, NotificationType } from './notification.dto';
 
 @Injectable()
 export class NotificationsService {
@@ -15,8 +17,13 @@ export class NotificationsService {
     return this.notifications_repository.find();
   }
 
-  async create() {
+  async insert_notification(notification: Notification): Promise<Notifications> {
 
-    console.log("called")
+    return await this.notifications_repository.save({
+
+      notificationTime: notification.notification_time,
+      notificationType: notification.notification_type,
+      isRead: notification.is_read
+    })
   }
 }

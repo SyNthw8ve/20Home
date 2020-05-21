@@ -14,6 +14,7 @@ import * as M from 'materialize-css/dist/js/materialize.js';
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   user;
+  $notifications;
 
   constructor(private user_service: UserService, private auth_service: AuthService,
     private router: Router, private notify_service: NotifyService,
@@ -42,6 +43,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       
       this.user = data.user.user;
       this.notify_service.register(this.user); 
+    })
+
+    this.notify_service.get_notifications().subscribe( (data: any) => {
+
+       if (data.type == 'proximity') {
+
+        M.toast({html: 'New case detected near you!'})
+       }
     })
   }
 

@@ -1,13 +1,15 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { BullModule } from '@nestjs/bull';
 import { NotifyService } from './notify.service';
 import { NotifyProcessor } from './notify.processor';
+import { NotificationsModule } from '../notifications/notifications.module'
+import { NotifyGateway } from './notify.gateway';
 
 @Module({
     imports: [BullModule.registerQueue({
         name: 'notifications'
-      }),],
-    providers: [NotifyService, NotifyProcessor],
-    exports: [NotifyService, NotifyProcessor]
+      }), forwardRef(() => NotificationsModule)],
+    providers: [NotifyService, NotifyProcessor, NotifyGateway],
+    exports: [NotifyService, NotifyProcessor, NotifyGateway]
 })
 export class NotifyModule {}
