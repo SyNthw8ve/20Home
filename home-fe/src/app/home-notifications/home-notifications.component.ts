@@ -21,7 +21,7 @@ export class HomeNotificationsComponent implements OnInit, OnDestroy {
     //this.$notifications.unsubscribe();
     this.store_service.update_notifications().subscribe( (res) => {
 
-      
+
     });
   }
 

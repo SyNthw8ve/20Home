@@ -14,7 +14,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let notification of notifications">
+                        <tr *ngFor="let notification of notifications" [hidden]="notification.isRead">
                             <td>{{notification.notificationTime}}</td>
                             <td *ngIf="notification.notificationType == 'proximity'">Near you</td>
                             <td *ngIf="notification.notificationType != 'proximity'">In your Region</td>
@@ -28,8 +28,9 @@
                     </tbody>
                 </table>
                 <ng-template #nonotifications>
-
-                    You don't have any notifications.
+                    <div id="nonot" class="container valign-wrapper center-align">
+                        <p>You don't have any notifications.</p>
+                    </div>
                 </ng-template>
 
             </div>
