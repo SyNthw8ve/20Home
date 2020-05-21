@@ -51,11 +51,11 @@ export class NotifyGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return this.users.has(username);
   }
 
-  emitNotification(username: string) {
+  emitNotification(username: string, notification) {
 
     const client: any = this.users.get(username);
 
-    client.emit('notification', {type: 'proximity'});
+    client.emit('notification', notification);
   }
 
 }

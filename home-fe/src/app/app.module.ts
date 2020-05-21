@@ -25,6 +25,7 @@ import { HomeRegionDetailsComponent } from './home-region-details/home-region-de
 import { PointCaseComponent } from './point-case/point-case.component';
 
 import { NotifyService } from './services/notify.service';
+import { HomeNotificationsComponent } from './home-notifications/home-notifications.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { NotifyService } from './services/notify.service';
     SearchComponent,
     BreadcrumbComponent,
     HomeRegionDetailsComponent,
-    PointCaseComponent
+    PointCaseComponent,
+    HomeNotificationsComponent
   ],
   imports: [
     BrowserModule,

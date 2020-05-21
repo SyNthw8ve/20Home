@@ -9,6 +9,7 @@ import { HomeCountriesComponent } from './home-countries/home-countries.componen
 import { HomeCountryDetailsComponent } from './home-country-details/home-country-details.component';
 import { HomeRegionsComponent } from './home-regions/home-regions.component';
 import { HomeRegionDetailsComponent } from './home-region-details/home-region-details.component';
+import { HomeNotificationsComponent } from './home-notifications/home-notifications.component';
 import { PointCaseComponent } from './point-case/point-case.component';
 
 import { NavigateGuard } from './guards/navigate.guard';
@@ -34,6 +35,7 @@ const routes: Routes =
 
         { path: '', redirectTo: 'all', pathMatch: 'full' },
         { path: 'all', component: HomeWorldComponent },
+        { path: 'notifications', component: HomeNotificationsComponent},
         { path: 'countries', component: HomeCountriesComponent },
         {
           path: 'country/:country',

@@ -21,10 +21,12 @@ export class AuthService {
        if (user && await this.validate_password(user.password, password)) {
 
             const health_info = await this.health_service.find_one(username);
+            const notifications = await this.user_service.get_notifications_from_user(username);
 
             const {password, ...result } = user;
 
             result['healthInfo'] = health_info;
+            result['notifications'] = notifications;
 
             return result;
        }

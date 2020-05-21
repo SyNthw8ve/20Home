@@ -27,11 +27,11 @@ export class NotifyProcessor {
                 notification_type: NotificationType.PROX, is_read: false
             }
 
-            await this.notifications_service.insert_notification(notification, user.username, point);
+            const n_notification = await this.notifications_service.insert_notification(notification, user.username, point);
             
             if (this.gateway.hasUser(user.username)) {
 
-                this.gateway.emitNotification(user.username);
+                this.gateway.emitNotification(user.username, n_notification);
             }
         })
     }

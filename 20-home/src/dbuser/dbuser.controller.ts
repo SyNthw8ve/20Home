@@ -16,9 +16,9 @@ export class DBUserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':username')
-  get_from_user(@Param() params) {
+  @Get('notification/:username')
+  get_user_notification(@Param() params) {
 
-      return this.user_service.get_notifications_from_user(params.username);
+    return this.user_service.get_notifications_from_user(params.username);
   }
 }

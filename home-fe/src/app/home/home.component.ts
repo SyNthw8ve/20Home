@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { NotifyService } from '../services/notify.service';
+import { StoreService } from '../services/store.service';
 
 import * as M from 'materialize-css/dist/js/materialize.js';
 
@@ -18,10 +19,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private user_service: UserService, private auth_service: AuthService,
     private router: Router, private notify_service: NotifyService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private store_service: StoreService) { }
 
   ngOnDestroy(): void {
-    
+
     this.notify_service.remove(this.user.username);
   }
 
@@ -32,25 +33,29 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    
+
     var elems = document.querySelectorAll('.sidenav');
-    var instances = M.Sidenav.init(elems, {preventScrolling: true});
+    var instances = M.Sidenav.init(elems, { preventScrolling: true });
   }
 
   ngOnInit(): void {
 
-    this.route.data.subscribe( (data: any) => {
-      
+    this.route.data.subscribe((data: any) => {
+
       this.user = data.user.user;
-      this.notify_service.register(this.user); 
+
+      this.store_service.set_user(this.user);
+      this.notify_service.register(this.user);
     })
 
-    this.notify_service.get_notifications().subscribe( (data: any) => {
+    this.notify_service.get_notifications().subscribe((data: any) => {
 
-       if (data.type == 'proximity') {
+      if (data.notificationType == 'proximity') {
 
-        M.toast({html: 'New case detected near you!'})
-       }
+        M.toast({ html: 'New case detected near you!' })
+      }
+
+      this.store_service.add_notification(data);
     })
   }
 

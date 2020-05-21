@@ -12,4 +12,9 @@ export class UserService {
 
     return this.http.get('/api/profile');
   }
+
+  get_user_notification(username) {
+
+    return this.http.get(`/api/user/notification/${username}`, {});
+  }
 }
