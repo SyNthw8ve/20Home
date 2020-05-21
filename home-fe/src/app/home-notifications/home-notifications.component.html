@@ -4,28 +4,35 @@
     </div>
     <div class="row">
         <div class="col s11">
-            <table class="highlight centered" *ngIf="$notifications | async as notifications">
-                <thead>
-                    <tr>
-                        <th>Notification Date</th>
-                        <th>Type</th>
-                        <th>Mark as Read</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let notification of notifications">
-                        <td>{{notification.notificationTime}}</td>
-                        <td *ngIf="notification.notificationType == 'proximity'">Near you</td>
-                        <td *ngIf="notification.notificationType != 'proximity'">In your Region</td>
-                        <td>
-                            <label>
-                                <input type="checkbox" />
-                                <span></span>
-                            </label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div *ngIf="$notifications | async as notifications">
+                <table class="highlight centered" *ngIf="notifications.length > 0; else nonotifications">
+                    <thead>
+                        <tr>
+                            <th>Notification Date</th>
+                            <th>Type</th>
+                            <th>Mark as Read</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let notification of notifications">
+                            <td>{{notification.notificationTime}}</td>
+                            <td *ngIf="notification.notificationType == 'proximity'">Near you</td>
+                            <td *ngIf="notification.notificationType != 'proximity'">In your Region</td>
+                            <td>
+                                <label>
+                                    <input [(ngModel)]="notification.isRead" type="checkbox" />
+                                    <span></span>
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ng-template #nonotifications>
+
+                    You don't have any notifications.
+                </ng-template>
+
+            </div>
         </div>
     </div>
     <div>

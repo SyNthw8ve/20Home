@@ -36,4 +36,9 @@ export class NotificationsService {
     return new_not;
   }
 
+  async update_notification(notifications) {
+
+    return await this.notifications_repository.save(notifications);
+  }
+
 }

@@ -52,4 +52,9 @@ export class CovidService {
 
     return this.http.post('/api/pointcases/new', new_case, {});
   }
+
+  update_notifications(notifications) {
+    
+    return this.http.put('/api/notification/update', notifications, {});
+  }
 }

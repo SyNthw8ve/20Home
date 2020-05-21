@@ -3,6 +3,7 @@ import { StoreService } from '../services/store.service';
 import { UserService } from '../services/user.service';
 
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home-notifications',
@@ -18,6 +19,10 @@ export class HomeNotificationsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     
     //this.$notifications.unsubscribe();
+    this.store_service.update_notifications().subscribe( (res) => {
+
+      
+    });
   }
 
   ngOnInit(): void {

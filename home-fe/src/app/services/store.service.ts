@@ -60,6 +60,11 @@ export class StoreService {
     return this.user;
   }
 
+  update_notifications() {
+
+    return this.covid_service.update_notifications(this.$notifications.value);
+  }
+
   private compare(a, b, property) {
 
     if (a[property] > b[property]) return 1;

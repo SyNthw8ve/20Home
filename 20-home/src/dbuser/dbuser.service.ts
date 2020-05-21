@@ -67,6 +67,6 @@ export class DBUserService {
 
     const user = await this.user_repository.findOne({relations: ['notifications'], where: {username: username}});
 
-    return user.notifications;
+    return user.notifications.filter(notification => !notification.isRead);
   }
 }
