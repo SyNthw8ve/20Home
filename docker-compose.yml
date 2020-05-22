@@ -1,0 +1,64 @@
+version: '3.7'
+
+services: 
+
+  main:
+    build:
+      context: ./20-home
+    command: npm run start:dev
+    restart: always
+    volumes: 
+      - ./20-home:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3000:3000
+    env_file: 
+      - .env
+    networks:
+      - webnet
+    depends_on:
+      - redis
+      - postgres
+
+  nginx:
+    build: 
+      context: ./home-fe
+    ports:
+      - 8080:80
+    networks:
+      - webnet
+    depends_on:
+      - main
+
+  redis:
+    container_name: redis
+    image: redis:5
+    restart: always
+    networks:
+      - webnet
+    ports:
+      - 6379:6379
+
+  postgres:
+    container_name: postgres
+    image: postgres:11
+    restart: always
+    env_file: 
+      - .env
+    networks:
+      - webnet
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE_NAME}
+      PG_DATA: /var/lib/postgresql/data
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+networks:
+  webnet:
+    
+volumes:
+  pgdata:

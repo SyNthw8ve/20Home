@@ -78,18 +78,20 @@ CREATE TABLE DBUser (
     long decimal,
     lat decimal,
     password char(60),
-    role char(1)
+    role char(1),
 
     PRIMARY KEY (username)
 );
 
 CREATE TABLE HealthProfissional (
 
-    health_code char(9),
+    health_code char(9) unique,
     institution text,
     position medical_role,
+    username varchar(32),
 
-    PRIMARY KEY (health_code)
+    PRIMARY KEY (health_code),
+    FOREIGN KEY (username) REFERENCES DBUser(username)
 );
 
 CREATE TABLE Symptom (

@@ -10,11 +10,11 @@ export class UserService {
 
   get_user_data() {
 
-    return this.http.get('/api/profile');
+    return this.http.get('/profile');
   }
 
   get_user_notification(username) {
 
-    return this.http.get(`/api/user/notification/${username}`, {});
+    return this.http.get(`/user/notification/${username}`, {});
   }
 }

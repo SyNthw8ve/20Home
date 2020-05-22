@@ -2,3 +2,4 @@
 
 db/*
 !db/bd.sql
+.env

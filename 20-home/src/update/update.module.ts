@@ -9,7 +9,11 @@ import { CountryModule } from '../country/country.module';
 @Module({
   imports: [
     BullModule.registerQueue({
-      name: 'update_records'
+      name: 'update_records',
+      redis: {
+        host: 'redis',
+        port: 6379,
+      }
     }),
     HttpModule,
     RecordsCountryModule,
