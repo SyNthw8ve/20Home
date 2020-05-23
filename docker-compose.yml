@@ -2,7 +2,7 @@ version: '3.7'
 
 services: 
 
-  main:
+  nest:
     build:
       context: ./20-home
     command: npm run start:dev
@@ -28,7 +28,9 @@ services:
     networks:
       - webnet
     depends_on:
-      - main
+      - nest
+    links: 
+      - nest
 
   redis:
     container_name: redis

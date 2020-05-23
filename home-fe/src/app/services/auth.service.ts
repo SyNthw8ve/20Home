@@ -15,7 +15,7 @@ export class AuthService {
 
   login(user) {
 
-    return this.http.post('/auth/login', user, {}).pipe(tap( res => this.set_session(res) ))
+    return this.http.post('/api/auth/login', user, {}).pipe(tap( res => this.set_session(res) ))
   }
 
   private set_session(auth_result) {
