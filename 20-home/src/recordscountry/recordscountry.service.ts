@@ -17,6 +17,14 @@ export class RecordsCountryService {
         return this.records_country_repository.find({ countryCode: country_code });
     }
 
+    async find_all_train(country_code: string) : Promise<any> {
+
+        const records = await this.records_country_repository.
+            find({ where: {countryCode: country_code}, select: ["recordDate", "active"] });
+
+        return records;
+    }
+
     find_one(country_code: string, date: Date): Promise<Recordscountry> {
 
         //REVIEW:

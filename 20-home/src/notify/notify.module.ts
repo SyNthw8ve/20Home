@@ -9,7 +9,7 @@ import { NotifyGateway } from './notify.gateway';
     imports: [BullModule.registerQueue({
         name: 'notifications',
         redis: {
-          host: 'redis',
+          host: 'localhost', //NOTE: Change for production
           port: 6379,
         }
       }), forwardRef(() => NotificationsModule)],

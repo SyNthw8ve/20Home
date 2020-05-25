@@ -11,11 +11,12 @@ export class StoreService {
 
   private $countries = this.covid_service.get_country_data();
   private $regions = this.covid_service.get_region_data();
-  private $notifications : BehaviorSubject<any>;
+  private $notifications: BehaviorSubject<any>;
   private user;
 
-  constructor(private covid_service: CovidService) { 
+  constructor(private covid_service: CovidService) {
 
+    this.$notifications = new BehaviorSubject<any>([]);
   }
 
   get_countries() {
@@ -33,7 +34,7 @@ export class StoreService {
     this.$notifications = new BehaviorSubject<any>(notifications);
   }
 
-  get_notifications() : Observable<any> {
+  get_notifications(): Observable<any> {
 
     return this.$notifications.asObservable().pipe(tap((items: any) => {
 
@@ -45,7 +46,7 @@ export class StoreService {
     }));
   }
 
-  add_notification(notification) { 
+  add_notification(notification) {
 
     this.$notifications.next([...this.$notifications.value, notification]);
   }

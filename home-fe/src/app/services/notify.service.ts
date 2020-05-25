@@ -9,7 +9,7 @@ export class NotifyService extends Socket {
 
   constructor() { 
 
-    super({url: '', options: {}})
+    super({url: 'http://localhost:3000', options: {}})
   }
 
   register(user_data) {

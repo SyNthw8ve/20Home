@@ -20,17 +20,17 @@ services:
       - redis
       - postgres
 
-  nginx:
-    build: 
-      context: ./home-fe
-    ports:
-      - 8080:80
-    networks:
-      - webnet
-    depends_on:
-      - nest
-    links: 
-      - nest
+#  nginx:
+#    build: 
+#      context: ./home-fe
+#    ports:
+#      - 8080:80
+#    networks:
+#      - webnet
+#    depends_on:
+#      - nest
+#    links: 
+#      - nest
 
   redis:
     container_name: redis

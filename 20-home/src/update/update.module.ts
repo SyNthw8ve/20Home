@@ -11,7 +11,7 @@ import { CountryModule } from '../country/country.module';
     BullModule.registerQueue({
       name: 'update_records',
       redis: {
-        host: 'redis',
+        host: 'localhost',
         port: 6379,
       }
     }),

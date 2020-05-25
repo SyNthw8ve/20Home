@@ -18,7 +18,6 @@ export class HomeNotificationsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     
-    //this.$notifications.unsubscribe();
     this.store_service.update_notifications().subscribe( (res) => {
 
 

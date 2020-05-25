@@ -8,6 +8,7 @@ import {
   } from "typeorm";
   import { Pointcases } from "../pointcases/pointcases.entity";
   import { DBUser } from "../dbuser/dbuser.entity";
+  import { NotificationType } from './notification.dto';
   
   @Index("notifications_pkey", ["id"], { unique: true })
   @Entity("notifications", { schema: "public" })
@@ -24,9 +25,9 @@ import {
     @Column("enum", {
       name: "notification_type",
       nullable: true,
-      enum: ["region", "proximity"],
+      enum: NotificationType,
     })
-    notificationType: "region" | "proximity" | null;
+    notificationType: NotificationType;
   
     @Column("boolean", { name: "is_read", nullable: true })
     isRead: boolean | null;
