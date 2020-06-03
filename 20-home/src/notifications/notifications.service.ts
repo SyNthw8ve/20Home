@@ -18,7 +18,7 @@ export class NotificationsService {
 
   async insert_notification(notification: Notification, username: string, point: any): Promise<Notifications> {
 
-    const new_not = await this.notifications_repository.save({
+    const new_not : Notifications = await this.notifications_repository.save({
 
       notificationTime: notification.notification_time,
       notificationType: notification.notification_type,

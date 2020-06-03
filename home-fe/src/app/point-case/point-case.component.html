@@ -55,8 +55,8 @@
             </div>
         </div>
     </form>
-    <div class="col s6 map">
-        <app-map *ngIf="$user as data" [points]="[]" [view]="{long: data.long, lat: data.lat}"
+    <div class="col s6 map-view">
+        <app-map *ngIf="$user" [points]="[]" [view]="{long: $user.long, lat: $user.lat}"
             [zoom]="12" (new_click)="update_coords($event)"></app-map>
     </div>
 </div>

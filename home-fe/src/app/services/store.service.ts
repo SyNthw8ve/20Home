@@ -11,7 +11,7 @@ export class StoreService {
 
   private $countries = this.covid_service.get_country_data();
   private $regions = this.covid_service.get_region_data();
-  private $notifications : BehaviorSubject<any>;
+  private $notifications : BehaviorSubject<any> = new BehaviorSubject<any>([]);
   private user;
 
   constructor(private covid_service: CovidService) { 

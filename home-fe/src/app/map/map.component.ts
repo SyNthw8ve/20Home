@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 import * as L from 'leaflet';
 import { leaflet_token } from '../../../config.json';
@@ -10,25 +10,35 @@ import { leaflet_token } from '../../../config.json';
 })
 export class MapComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('map') mapContainer;
+
   @Input() points: any[];
   @Input() view: any;
   @Input() zoom: number;
   @Output() new_click = new EventEmitter<any>();
+
   private map;
 
   constructor() { }
 
+  ngOnDestroy(): void {
+
+    console.log("Destroy");
+  }
+
   ngOnInit(): void {
+
+
   }
 
   ngAfterViewInit(): void {
+
+    this.map = L.map(this.mapContainer.nativeElement).setView([this.view.lat, this.view.long], this.zoom);
 
     this.initMap();
   }
   
   private initMap(): void {
-
-    this.map = L.map('map').setView([this.view.lat, this.view.long], this.zoom);
 
     L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${leaflet_token}`, {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class NotifyService extends Socket {
 
   constructor() { 
 
-    super({url: '', options: {}})
+    super({url: 'http://localhost:3000', options: {}})
   }
 
   register(user_data) {
@@ -22,10 +22,5 @@ export class NotifyService extends Socket {
     
     this.emit('remove_user', username);
     this.disconnect();
-  }
-
-  get_notifications() {
-
-    return this.fromEvent('notification');
   }
 }

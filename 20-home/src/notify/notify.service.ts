@@ -13,7 +13,5 @@ export class NotifyService {
     async dispatch_notifications(users: DBUser[], pointcase) {
         
         this.notify_queue.add('notify', {users: users, new_case: pointcase});
-
-        //this.notify_queue.add('link', {users: users});
     }
 }

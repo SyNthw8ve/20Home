@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
 
     this.notify_service.remove(this.user.username);
+    this.notify_service.removeAllListeners();
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -48,7 +49,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.notify_service.register(this.user);
     })
 
-    this.notify_service.get_notifications().subscribe((data: any) => {
+    this.notify_service.on('notification', (data) => {
 
       if (data.notificationType == 'proximity') {
 
@@ -61,6 +62,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   logout() {
 
+    this.notify_service.remove(this.user.username);
     this.router.navigate(['/']);
     this.auth_service.logout();
   }

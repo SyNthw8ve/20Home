@@ -24,7 +24,6 @@ export class PointCaseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
    
-    //this.$user.unsubscribe();
     //this.countries.unsubscribe();
     //this.regions.unsubscribe();
   }
