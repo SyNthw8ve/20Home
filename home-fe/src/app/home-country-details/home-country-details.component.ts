@@ -11,11 +11,18 @@ import * as M from 'materialize-css/dist/js/materialize.js';
 export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
   country_records;
+  country_data;
   country_details;
   country_regions;
   nav_position = ['Countries'];
+  colorScheme = {
+    domain: ['#d1c4e9', '#b39ddb', '#9575cd']
+  };
+  colorSchemeLine = {
+    domain: ['#d1c4e9', '#b39ddb', '#9575cd', '#7e57c2']
+  };
   view;
-  zoom = 6;
+  zoom = 2;
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
@@ -24,6 +31,21 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
     this.route.data.subscribe((data) => {
 
       this.country_records = data.country_records.length > 0 ? this.to_format(data.country_records) : null;
+      this.country_data = [
+        {
+
+          "name": "Confirmed",
+          "value": data.country['confirmed']
+        },
+        {
+          "name": "Recovered",
+          "value": data.country['recovered']
+        },
+        { 
+          "name": "Deaths",
+          "value": data.country['deaths']
+        }
+      ]
       this.country_details = data.country;
       this.nav_position.push(data.country.countryName);
       this.view = { lat: data.country.lat, long: data.country.long };
@@ -54,7 +76,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
       data[0].series.push({ name: date, value: record.active })
       data[1].series.push({ name: date, value: record.cases })
       data[2].series.push({ name: date, value: record.deaths })
-      data[3].series.push({ name: date, value: record.recovered})
+      data[3].series.push({ name: date, value: record.recovered })
     })
 
     return data;
@@ -62,7 +84,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
   navigate_to(region_name: string) {
 
-    this.router.navigate([`region/${region_name}`], {relativeTo: this.route.parent});
+    this.router.navigate([`region/${region_name}`], { relativeTo: this.route.parent });
   }
 
 }

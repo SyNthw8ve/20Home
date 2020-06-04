@@ -1,9 +1,8 @@
 @import "../../styles"
 
 .row
-    width: 100%
+    width: 90%
     height: 100%
-    margin: 0px
 
 .col
     height: 100%
@@ -12,11 +11,17 @@
 .material-icons
     color: $non-active-color !important
     
-.sidenav-item
-    cursor: pointer
 
 .active
     background-color: $active-color !important
 
     a, .material-icons
         color: #fff !important
+
+#nav-trigger
+    position: fixed
+    top: 20px
+    left: 20px
+
+    i
+        color: white !important

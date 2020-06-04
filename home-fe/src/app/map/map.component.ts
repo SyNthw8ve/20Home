@@ -37,29 +37,25 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     this.initMap();
   }
-  
+
   private initMap(): void {
 
-    L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${leaflet_token}`, {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 18,
-      minZoom: 1.5,
-      id: 'mapbox/streets-v11',
-      tileSize: 512,
-      zoomOffset: -1,
-      accessToken: leaflet_token
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+      maxZoom: 20,
+      attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+      access_token: leaflet_token
     }).addTo(this.map);
-    
+
     this.points.forEach(item => {
 
       L.circle([item.lat, item.long], {
         color: 'none',
-        fillColor: '#f03',
-        fillOpacity: 0.8,
+        fillColor: '#9575cd',
+        fillOpacity: 0.75,
         radius: item.confirmed * 1.5
       }).addTo(this.map);
     });
-    
+
     this.map.on('click', (e) => {
 
       this.new_click.emit(e.latlng);
