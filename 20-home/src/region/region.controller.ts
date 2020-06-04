@@ -14,8 +14,10 @@ export class RegionController {
   }
 
   @Get(':region_name')
-  find_region(@Param() params): Promise<Region> {
+  async find_region(@Param() params): Promise<Region> {
 
-    return this.region_service.find_one(params.region_name);
+    const region = await this.region_service.find_one(params.region_name);
+
+    return region
   }
 }

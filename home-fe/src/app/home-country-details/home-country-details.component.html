@@ -1,5 +1,9 @@
 <app-breadcrumb [navs]="nav_position"></app-breadcrumb>
 <h1 id="title">{{country_details.countryName}}</h1>
+<div id="num-row" class="row">
+    <ngx-charts-number-card [results]="country_card_data" [cardColor]="cardColor" [scheme]="colorSchemeNum">
+    </ngx-charts-number-card>
+</div>
 <div class="row full-height">
     <div class="col s7">
         <div class="card-panel">
@@ -8,14 +12,17 @@
     </div>
     <div class="col s5">
         <div class="card-panel valign-wrapper">
-            <ngx-charts-pie-chart [results]="country_data" [legend]="true" [labels]="true" [scheme]="colorScheme">
+
+            <ngx-charts-pie-chart [results]="country_data" [legend]="false" [labels]="true" [scheme]="colorScheme">
             </ngx-charts-pie-chart>
+
         </div>
     </div>
     <div class="col col-height s12">
         <div class="card-panel valign-wrapper">
             <div id="line-chart">
-                <ngx-charts-line-chart [scheme]="colorSchemeLine" [yAxis]="true" [xAxis]="true" [legend]="true" [results]="country_records">
+                <ngx-charts-line-chart [scheme]="colorSchemeLine" [yAxis]="true" [xAxis]="true" [legend]="true"
+                    [results]="country_records" [showGridLines]="false">
                 </ngx-charts-line-chart>
             </div>
         </div>
