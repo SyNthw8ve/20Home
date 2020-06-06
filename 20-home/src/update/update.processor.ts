@@ -5,6 +5,7 @@ import { RecordsCountryService } from '../recordscountry/recordscountry.service'
 import { RecordsRegionService } from '../recordsregion/recordsregion.service';
 import { CountryService } from '../country/country.service';
 import { HttpService } from '@nestjs/common';
+import * as tf from '@tensorflow/tfjs-node';
 
 @Processor('update_records')
 export class UpdateProcessor {
@@ -102,26 +103,88 @@ export class UpdateProcessor {
         const region_data = data.regions;
 
         const date = this.format_date(region_data.date);
-    
+
         this.logger.log('Updating Portugal region data...')
 
-        const records = region_data.records.map(record => { 
-            
+        const records = region_data.records.map(record => {
+
             record.recordDate = date;
 
             return record;
         })
 
         try {
-            
+
             await this.records_region_service.insert_new_records(records);
 
             this.logger.log('Finished updating Portugal region data')
 
         } catch (error) {
-            
+
             this.logger.error(error);
         }
+
+    }
+
+    @Process('model')
+    async update_models(job: Job<unknown>) {
+
+        /* const data: any = job.data;
+        const country = 'PT' //data.country_code;
+
+        let records_country = await this.records_country_service.find_all_train(country);
+
+        let X_train = tf.tensor1d(records_country.map(record => {
+
+            return new Date(record.recordDate).getTime();
+        }))
+
+        console.log(X_train)
+
+        let Y_train = tf.tensor1d(records_country.map(record => {
+
+            return record.active;
+        }))
+
+        const last_value = new Date(records_country.pop().recordDate).getTime();
+
+        let model = tf.sequential();
+
+        model.add(tf.layers.lstm({ units: 20, returnSequences: true, inputShape: [null, 1] }));
+        model.add(tf.layers.lstm({ units: 20, returnSequences: true }));
+        model.add(tf.layers.timeDistributed({ layer: tf.layers.dense({ units: 10 }) }));
+
+        model.compile({
+            optimizer: 'adam',
+            loss: 'meanSquaredError',
+            metrics: ['meanSquaredError']
+        });
+
+        this.logger.log(model.summary());
+
+        function onBatchEnd(batch, logs) {
+
+            this.logger.log(`Model erro: ${logs.acc}`);
+        }
+
+        model.fit(X_train, Y_train, {
+
+            epochs: 5,
+            batchSize: 32,
+            callbacks: { onBatchEnd },
+            validationSplit: 0.2
+
+        }).then(info => {
+            console.log('Final accuracy', info.history.acc);
+        });
+
+        for(let i = 1; i <= 10; i++) {
+
+            let next_pred = tf.tensor1d([last_value + 86400000*i]);
+
+            let prediction = model.predict(next_pred);
+            console.log(prediction);
+        } */
 
     }
 
@@ -174,4 +237,6 @@ export class UpdateProcessor {
 
         return date_string;
     }
+
+
 }
