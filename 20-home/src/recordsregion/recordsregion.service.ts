@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { Recordsregion } from './recordsregion.entity';
 import { RecordRegion } from './recordsregion.dto';
 
@@ -24,6 +24,13 @@ export class RecordsRegionService {
 
     return this.records_region_repository.findOne({regionName: region_name, recordDate: date_local});
   }
+
+  /* find_multiple(region_names: string[]): Promise<Recordsregion[]> {
+
+    return this.records_region_repository.find({
+      where: {regionName: In(region_names)}
+    })
+  } */
 
   async insert_new_records(records: RecordRegion[]): Promise<any> {
 

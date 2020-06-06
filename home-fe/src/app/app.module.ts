@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ChartsModule } from 'ng2-charts';
 import { SocketIoModule } from 'ngx-socket-io';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -52,6 +53,7 @@ import { HomeNotificationsComponent } from './home-notifications/home-notificati
     FormsModule,
     BrowserAnimationsModule,
     NgxChartsModule,
+    ChartsModule,
     SocketIoModule
   ],
   providers: [httpInterceptorProviders, NotifyService],

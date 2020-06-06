@@ -42,7 +42,7 @@ import {
     })
     dbusers: DBUser[];
   
-    @OneToMany(() => Recordsregion, (recordsregion) => recordsregion.regionName2)
+    @ManyToMany(() => Recordsregion, (recordsregion) => recordsregion.regionName2)
     recordsregions: Recordsregion[];
   
     @OneToMany(() => Regioncases, (regioncases) => regioncases.regionName2)

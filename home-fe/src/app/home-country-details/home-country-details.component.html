@@ -1,28 +1,35 @@
 <app-breadcrumb [navs]="nav_position"></app-breadcrumb>
 <h1 id="title">{{country_details.countryName}}</h1>
-<div class="row row-tabs">
-    <div class="col s3 offset-s9">
-        <ul class="tabs">
-            <li class="tab col s4" *ngIf="country_records"><a class="active" href="#line-chart"><i
-                        class="material-icons">show_chart</i></a>
-            </li>
-            <li class="tab col s4"><a href="#map-view"><i class="material-icons">map</i></a></li>
-        </ul>
-    </div>
+<div id="num-row" class="row">
+    <ngx-charts-number-card [results]="country_card_data" [cardColor]="cardColor" [scheme]="colorSchemeNum">
+    </ngx-charts-number-card>
 </div>
-<div class="row full-height" id="line-chart" *ngIf="country_records">
-    <div class="col s12">
-        <ngx-charts-line-chart [yAxis]="true" [xAxis]="true" [legend]="true" [results]="country_records">
-        </ngx-charts-line-chart>
+<div class="row full-height">
+    <div class="col s7">
+        <div class="card-panel">
+            <app-map [points]="[country_details]" [view]="view" [zoom]="zoom"></app-map>
+        </div>
     </div>
-</div>
-<div class="row full-height" id="map-view">
-    <div class="col s12">
-        <app-map [points]="[country_details]" [view]="view" [zoom]="zoom"></app-map>
+    <div class="col s5">
+        <div class="card-panel valign-wrapper">
+
+            <ngx-charts-pie-chart [results]="country_data" [legend]="false" [labels]="true" [scheme]="colorScheme">
+            </ngx-charts-pie-chart>
+
+        </div>
+    </div>
+    <div class="col col-height s12">
+        <div class="card-panel valign-wrapper">
+            <div id="line-chart">
+                <ngx-charts-line-chart [scheme]="colorSchemeLine" [yAxis]="true" [xAxis]="true" [legend]="true"
+                    [results]="country_records" [showGridLines]="false">
+                </ngx-charts-line-chart>
+            </div>
+        </div>
     </div>
 </div>
 
-<h1 id="title">Regions</h1>
+<!-- <h1 id="title">Regions</h1>
 <p *ngIf="!country_regions">This country has no registered regions</p>
 
 <div class="row">
@@ -32,4 +39,4 @@
             </span>
         </div>
     </div>
-</div>
+</div> -->

@@ -14,7 +14,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let notification of notifications" [hidden]="notification.isRead">
+                        <tr *ngFor="let notification of notifications">
                             <td>{{notification.notificationTime}}</td>
                             <td *ngIf="notification.notificationType == 'proximity'">Near you</td>
                             <td *ngIf="notification.notificationType != 'proximity'">In your Region</td>

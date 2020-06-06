@@ -5,13 +5,16 @@ import { Country } from './country.entity';
 import { Region } from '../region/region.entity';
 import { Country as CountryDTO } from './country.dto';
 
+import { RegionService } from '../region/region.service';
+
 @Injectable()
 export class CountryService {
 
   constructor(
     @InjectRepository(Country)
     private country_repository: Repository<Country>,
-  ) {}
+    private region_service: RegionService
+  ) { }
 
   find_all(): Promise<Country[]> {
 
@@ -19,7 +22,7 @@ export class CountryService {
   }
 
   find_one(country_code: string): Promise<Country> {
-    
+
     return this.country_repository.findOne(country_code);
   }
 
@@ -27,9 +30,18 @@ export class CountryService {
 
     const countries = await this.country_repository.findOne({
       relations: ['regions'],
-      where: {countryCode: country_code}
+      where: { countryCode: country_code }
     });
-  
+
+    /* let regions = [];
+
+    regions = countries.regions.map((region) => {return { 
+      name: region.regionName, 
+      lat: region.lat, long: region.long,
+      cases: region.recordsregions }})
+
+    console.log(regions); */
+
     return countries.regions;
   }
 
