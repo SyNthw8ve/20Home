@@ -4,4 +4,6 @@ db/*
 !db/bd.sql
 .env
 
-falsk/server.pyc
+flask/server.pyc
+flask/database.ini
+flask/__pycache__

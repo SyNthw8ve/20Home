@@ -5,7 +5,6 @@ import { RecordsCountryService } from '../recordscountry/recordscountry.service'
 import { RecordsRegionService } from '../recordsregion/recordsregion.service';
 import { CountryService } from '../country/country.service';
 import { HttpService } from '@nestjs/common';
-import * as tf from '@tensorflow/tfjs-node';
 
 @Processor('update_records')
 export class UpdateProcessor {
@@ -128,6 +127,11 @@ export class UpdateProcessor {
 
     @Process('model')
     async update_models(job: Job<unknown>) {
+
+        this.http.post('http://localhost:5000/model', {country_code: 'PT'}).subscribe( () => {
+
+
+        });
 
         /* const data: any = job.data;
         const country = 'PT' //data.country_code;

@@ -1,5 +1,6 @@
 /*SECTION: Tables*/
 
+DROP TABLE IF EXISTS Predictions;
 DROP TABLE IF EXISTS WorksIn;
 DROP TABLE IF EXISTS LivesIn;
 DROP TABLE IF EXISTS FromCountry;
@@ -18,6 +19,7 @@ DROP TABLE IF EXISTS RecordsRegion;
 DROP TABLE IF EXISTS Region;
 DROP TABLE IF EXISTS RecordsCountry;
 DROP TABLE IF EXISTS Country;
+
 
 CREATE TYPE medical_role AS ENUM ('doctor', 'nurse', 'other');
 CREATE TYPE not_type AS ENUM ('region', 'proximity');
@@ -120,6 +122,16 @@ CREATE TABLE Notifications (
     is_read boolean,
 
     PRIMARY KEY (id)
+);
+
+CREATE TABLE Predictions (
+
+    prediction_date timestamp,
+    prediction_value integer,
+    country_code char(2),
+
+    PRIMARY KEY (country_code, prediction_date),
+    FOREIGN KEY (country_code) REFERENCES Country(country_code)
 );
 
 /*SECTION: Relations*/
