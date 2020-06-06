@@ -3,3 +3,5 @@
 db/*
 !db/bd.sql
 .env
+
+falsk/server.pyc
