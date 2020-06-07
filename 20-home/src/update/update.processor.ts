@@ -134,7 +134,7 @@ export class UpdateProcessor {
 
         this.logger.log(`Updating model for country ${country_code}`);
 
-        this.http.post('http://localhost:5000/model', {country_code: country_code}).subscribe( (data) => {
+        this.http.post('localhost:5000/model', {country_code: country_code}).subscribe( (data) => {
 
             this.logger.log(`Updated model for country ${country_code}`);
         });

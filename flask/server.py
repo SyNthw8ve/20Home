@@ -15,7 +15,7 @@ from process import predict
 
 MODELS_FOLDER = './models/'
 
-redis_conn = Redis()
+redis_conn = Redis(host='localhost', port=6379)
 
 app = Flask(__name__)
 

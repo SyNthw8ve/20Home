@@ -1,5 +1,4 @@
 #!/bin/bash
-
 DB_CONTAINER=postgres
 DB_NAME=home20
 DB_USER=home20sys

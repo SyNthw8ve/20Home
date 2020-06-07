@@ -21,7 +21,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
     domain: ['#d1c4e9', '#b39ddb', '#9575cd']
   };
   colorSchemeLine = {
-    domain: ['#d1c4e9', '#b39ddb', '#9575cd', '#7e57c2']
+    domain: ['#d1c4e9', '#b39ddb', '#9575cd', '#7e57c2', '#7986cb']
   };
   colorSchemeNum = {
     domain: ['#d1c4e9', '#b39ddb', '#9575cd', '#7e57c2']
@@ -35,9 +35,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
     this.route.data.subscribe((data) => {
 
-      console.log(data.predictions);
-
-      this.country_records = data.country_records.length > 0 ? this.to_format(data.country_records) : null;
+      this.country_records = data.country_records.length > 0 ? this.to_format(data.country_records, data.predictions) : null;
 
       const last = data.country_records.length - 1;
 
@@ -90,13 +88,14 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
     var instances = M.Tabs.init(elems, {});
   }
 
-  private to_format(country_records) {
+  private to_format(country_records, predictions) {
 
     let data = [
       { name: "Active", series: [] },
       { name: "Cases", series: [] },
       { name: "Deaths", series: [] },
       { name: "Recovered", series: [] },
+      { name: "Active Prediction", series: []}
     ];
 
     country_records.forEach((record) => {
@@ -107,6 +106,13 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
       data[1].series.push({ name: date, value: record.cases })
       data[2].series.push({ name: date, value: record.deaths })
       data[3].series.push({ name: date, value: record.recovered })
+    })
+
+    predictions.forEach((prediction) => {
+
+      const date = new Date(prediction.predictionDate).toLocaleString();
+
+      data[4].series.push({ name: date, value: prediction.predictionValue})
     })
 
     return data;
