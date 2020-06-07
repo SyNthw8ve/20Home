@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Recordscountry } from './recordscountry.entity';
 import { RecordCountry } from './recordscountry.dto';
 
@@ -15,14 +15,6 @@ export class RecordsCountryService {
     find_all(country_code: string): Promise<Recordscountry[]> {
 
         return this.records_country_repository.find({ countryCode: country_code });
-    }
-
-    async find_all_train(country_code: string) : Promise<any> {
-
-        const records = await this.records_country_repository.
-            find({ where: {countryCode: country_code}, select: ["recordDate", "active"] });
-
-        return records;
     }
 
     find_one(country_code: string, date: Date): Promise<Recordscountry> {

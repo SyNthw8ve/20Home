@@ -35,6 +35,8 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
     this.route.data.subscribe((data) => {
 
+      console.log(data.predictions);
+
       this.country_records = data.country_records.length > 0 ? this.to_format(data.country_records) : null;
 
       const last = data.country_records.length - 1;

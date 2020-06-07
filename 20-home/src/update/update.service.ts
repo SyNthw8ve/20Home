@@ -108,9 +108,8 @@ export class UpdateService {
         })
     }
 
-    //@Cron('*/30 * * * * *')
-    async update_models() {
+    async update_models(country_code: string) {
 
-        this.update_queue.add('model', {country_code: 'PT'})
+        this.update_queue.add('model', {country_code: country_code})
     }
 }

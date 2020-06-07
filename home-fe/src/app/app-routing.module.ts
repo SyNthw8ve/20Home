@@ -21,6 +21,7 @@ import { CountryRegionsFetchService } from './services/country-regions-fetch.ser
 import { RegionRecordsFetchService } from './services/region-records-fetch.service';
 import { RegionFetchService } from './services/region-fetch.service';
 import { UserFetchService } from './services/user-fetch.service';
+import { PredictionsFetchService } from './services/predictions-fetch.service';
 
 const routes: Routes =
   [
@@ -43,7 +44,8 @@ const routes: Routes =
           resolve: {
             country_records: CountryRecordsService,
             country: CountryFetchService,
-            country_regions: CountryRegionsFetchService
+            country_regions: CountryRegionsFetchService,
+            predictions: PredictionsFetchService
           }
         },
         {

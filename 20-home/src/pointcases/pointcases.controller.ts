@@ -16,18 +16,6 @@ export class PointcasesController {
         return this.cases_service.find_all();
     }
 
-    /* @Get(':region_name')
-    find_regions(@Param() params): Promise<Pointcases[]> {
-
-        return this.cases_service.find_region(params.region_name);
-    } */
-
-   /*  @Get(':date')
-    find_date(@Param() params): Promise<Pointcases[]> {
-
-        return this.cases_service.find_date(params.date);
-    } */
-
     @UseGuards(JwtAuthGuard)
     @Post('new')
     insert_new_case(@Body() new_case: NewCaseDto): Object {

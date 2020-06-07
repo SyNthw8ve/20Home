@@ -45,6 +45,11 @@ export class CovidService {
     return this.http.get(`/api/records_region/${region_name}`);
   }
 
+  get_predictions(country_code: string) {
+
+    return this.http.get(`/api/predictions/${country_code}`);
+  }
+
   create_user(user) {
 
     return this.http.post('/api/user/new', user, {});

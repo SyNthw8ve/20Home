@@ -7,3 +7,4 @@ db/*
 flask/server.pyc
 flask/database.ini
 flask/__pycache__
+flask/models/*

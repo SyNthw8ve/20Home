@@ -5,6 +5,7 @@ import { RecordsCountryService } from '../recordscountry/recordscountry.service'
 import { RecordsRegionService } from '../recordsregion/recordsregion.service';
 import { CountryService } from '../country/country.service';
 import { HttpService } from '@nestjs/common';
+import { UpdateService } from './update.service';
 
 @Processor('update_records')
 export class UpdateProcessor {
@@ -12,6 +13,7 @@ export class UpdateProcessor {
     constructor(private records_country_service: RecordsCountryService,
         private records_region_service: RecordsRegionService,
         private country_service: CountryService,
+        private update_service: UpdateService,
         private http: HttpService) { }
 
     private readonly logger = new Logger(UpdateProcessor.name);
@@ -30,7 +32,7 @@ export class UpdateProcessor {
 
         this.logger.log(`Checking for record updates of country ${country.Country}`)
 
-        this.http.get(url, {}).subscribe((res: any) => {
+        this.http.get(url, {}).subscribe(async (res: any) => {
 
             const logs = res.data;
 
@@ -47,7 +49,7 @@ export class UpdateProcessor {
 
                 try {
 
-                    this.records_country_service.insert_new_records(records_country);
+                    await this.records_country_service.insert_new_records(records_country);
 
                 } catch (err) {
 
@@ -56,13 +58,12 @@ export class UpdateProcessor {
 
                 try {
 
-                    this.records_region_service.insert_new_records(records_region);
+                    await this.records_region_service.insert_new_records(records_region);
 
                 } catch (err) {
 
                     this.logger.error(err);
                 }
-
 
                 this.logger.log(`Updated entries for country ${country.Country}`);
             }
@@ -128,68 +129,15 @@ export class UpdateProcessor {
     @Process('model')
     async update_models(job: Job<unknown>) {
 
-        this.http.post('http://localhost:5000/model', {country_code: 'PT'}).subscribe( () => {
+        const data: any = job.data;
+        const country_code = data.country_code;
 
+        this.logger.log(`Updating model for country ${country_code}`);
 
+        this.http.post('http://localhost:5000/model', {country_code: country_code}).subscribe( (data) => {
+
+            this.logger.log(`Updated model for country ${country_code}`);
         });
-
-        /* const data: any = job.data;
-        const country = 'PT' //data.country_code;
-
-        let records_country = await this.records_country_service.find_all_train(country);
-
-        let X_train = tf.tensor1d(records_country.map(record => {
-
-            return new Date(record.recordDate).getTime();
-        }))
-
-        console.log(X_train)
-
-        let Y_train = tf.tensor1d(records_country.map(record => {
-
-            return record.active;
-        }))
-
-        const last_value = new Date(records_country.pop().recordDate).getTime();
-
-        let model = tf.sequential();
-
-        model.add(tf.layers.lstm({ units: 20, returnSequences: true, inputShape: [null, 1] }));
-        model.add(tf.layers.lstm({ units: 20, returnSequences: true }));
-        model.add(tf.layers.timeDistributed({ layer: tf.layers.dense({ units: 10 }) }));
-
-        model.compile({
-            optimizer: 'adam',
-            loss: 'meanSquaredError',
-            metrics: ['meanSquaredError']
-        });
-
-        this.logger.log(model.summary());
-
-        function onBatchEnd(batch, logs) {
-
-            this.logger.log(`Model erro: ${logs.acc}`);
-        }
-
-        model.fit(X_train, Y_train, {
-
-            epochs: 5,
-            batchSize: 32,
-            callbacks: { onBatchEnd },
-            validationSplit: 0.2
-
-        }).then(info => {
-            console.log('Final accuracy', info.history.acc);
-        });
-
-        for(let i = 1; i <= 10; i++) {
-
-            let next_pred = tf.tensor1d([last_value + 86400000*i]);
-
-            let prediction = model.predict(next_pred);
-            console.log(prediction);
-        } */
-
     }
 
     private filter_countries(countries) {

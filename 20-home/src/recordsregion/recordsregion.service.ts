@@ -25,13 +25,6 @@ export class RecordsRegionService {
     return this.records_region_repository.findOne({regionName: region_name, recordDate: date_local});
   }
 
-  /* find_multiple(region_names: string[]): Promise<Recordsregion[]> {
-
-    return this.records_region_repository.find({
-      where: {regionName: In(region_names)}
-    })
-  } */
-
   async insert_new_records(records: RecordRegion[]): Promise<any> {
 
     const result = await this.records_region_repository.save(records);

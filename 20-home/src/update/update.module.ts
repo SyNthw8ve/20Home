@@ -1,4 +1,4 @@
-import { Module, HttpModule } from '@nestjs/common';
+import { Module, HttpModule, forwardRef } from '@nestjs/common';
 import { UpdateService } from './update.service';
 import { UpdateProcessor } from './update.processor';
 import { BullModule } from '@nestjs/bull';
@@ -16,7 +16,7 @@ import { CountryModule } from '../country/country.module';
       }
     }),
     HttpModule,
-    RecordsCountryModule,
+    forwardRef(() => RecordsCountryModule),
     RecordsRegionModule,
     CountryModule
   ],

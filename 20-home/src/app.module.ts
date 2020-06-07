@@ -17,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
 import { HealthProfissionalModule } from './healthprofessional/healthprofessional.module';
 import { UpdateModule } from './update/update.module';
 import { NotifyModule } from './notify/notify.module';
+import { PredictionsModule } from './predictions/predictions.module';
 
 @Module({
   imports: [
@@ -35,7 +36,8 @@ import { NotifyModule } from './notify/notify.module';
     AuthModule,
     UpdateModule,
     HealthProfissionalModule,
-    NotifyModule
+    NotifyModule,
+    PredictionsModule
   ],
   controllers: [AppController],
   providers: [AppService],
