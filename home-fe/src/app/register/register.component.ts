@@ -1,6 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
+import { EmailValidator } from '../directives/email.directive';
+import { HealthCodeValidator } from '../directives/healthcode.directive';
+import { UsernameValidator } from '../directives/username.directive';
+
 import { StoreService } from '../services/store.service';
 import { CovidService } from '../services/covid.service';
 
@@ -35,17 +39,17 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     this.register = this.form_builder.group({
 
-      username: ['', Validators.required],
-      first_name: ['', Validators.required],
+      username: ['', [Validators.required], [new UsernameValidator(this.covid_service)]],
+      first_name: ['', Validators.required,],
       last_name: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required], [new EmailValidator(this.covid_service)]],
       password: ['', Validators.required],
       long: [null, Validators.required],
       lat: [null, Validators.required],
       country_code: ['', Validators.required],
       region_name: [''],
       position: [Position.OTHER, Validators.required],
-      health_code: ['', Validators.required],
+      health_code: ['',[Validators.required], [new HealthCodeValidator(this.covid_service)]],
       institution: ['', Validators.required],
       health_professional: false,
     })

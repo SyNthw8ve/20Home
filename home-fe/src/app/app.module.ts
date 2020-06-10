@@ -28,6 +28,10 @@ import { PointCaseComponent } from './point-case/point-case.component';
 import { NotifyService } from './services/notify.service';
 import { HomeNotificationsComponent } from './home-notifications/home-notifications.component';
 
+import { EmailValidator } from './directives/email.directive';
+import { HealthCodeValidator } from './directives/healthcode.directive';
+import { UsernameValidator } from './directives/username.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +47,10 @@ import { HomeNotificationsComponent } from './home-notifications/home-notificati
     BreadcrumbComponent,
     HomeRegionDetailsComponent,
     PointCaseComponent,
-    HomeNotificationsComponent
+    HomeNotificationsComponent,
+    EmailValidator,
+    HealthCodeValidator,
+    UsernameValidator
   ],
   imports: [
     BrowserModule,

@@ -64,4 +64,25 @@ export class CovidService {
     
     return this.http.put('/api/notification/update', notifications, {});
   }
+
+  check_email_available(email: string) {
+
+    const params: HttpParams = new HttpParams().set('email', email);
+
+    return this.http.get('/api/user/check_email', {params: params});
+  }
+
+  check_username_available(username: string) {
+
+    const params: HttpParams = new HttpParams().set('username', username);
+
+    return this.http.get('/api/user/check_username', {params: params});
+  }
+
+  check_health_code(health_code: string) {
+
+    const params: HttpParams = new HttpParams().set('health_code', health_code);
+
+    return this.http.get('/api/user/check_health_code', {params: params});
+  }
 }

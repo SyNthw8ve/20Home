@@ -7,6 +7,10 @@
                     <i class="material-icons prefix">person</i>
                     <input id="username" type="text" class="validate" formControlName="username" required>
                     <label for="username">Username</label>
+                    <span *ngIf="register.get('username').hasError('usernameValidator')" class="helper-text red-text left-align"
+                        data-error="Username already in use">Username already in use</span>
+                    <span *ngIf="register.get('username').hasError('required')" class="helper-text"
+                        data-error="Username is required"></span>
                 </div>
             </div>
             <div class="row form-elem">
@@ -26,6 +30,10 @@
                     <i class="material-icons prefix">mail</i>
                     <input id="email" type="email" class="validate" formControlName="email" required>
                     <label for="email">Email</label>
+                    <span *ngIf="register.get('email').hasError('emailValidator')" class="helper-text red-text left-align"
+                        data-error="Email already in use">Email already in use</span>
+                    <span *ngIf="register.get('email').hasError('required')" class="helper-text"
+                        data-error="Email is required"></span>
                 </div>
             </div>
             <div class="row form-elem">
@@ -80,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            <div  [hidden]="!register.value.health_professional">
+            <div [hidden]="!register.value.health_professional">
                 <div class="row form-elem">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">local_hospital</i>
@@ -93,6 +101,8 @@
                         <i class="material-icons prefix">perm_identity</i>
                         <input id="health_code" type="text" class="validate" formControlName="health_code" required>
                         <label for="health_code">Health Code</label>
+                        <span *ngIf="register.get('health_code').hasError('healthCodeValidator')" class="helper-text red-text left-align"
+                        data-error="Health code already in use">Health code already in use</span>
                     </div>
                     <div class="input-field col s6">
                         <select formControlName="position">

@@ -22,11 +22,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
-  ngOnDestroy(): void {
-
-    console.log("Destroy");
-  }
-
   ngOnInit(): void {
 
 

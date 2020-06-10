@@ -46,27 +46,48 @@ export class DBUserService {
 
       user.role = 'h';
     }
-    
+
     const n_user = await this.user_repository.save(user);
 
     await this.user_repository.createQueryBuilder()
-        .relation(DBUser, "countries")
-        .of(n_user).add({username: new_user.username, countryCode: new_user.country_code});
+      .relation(DBUser, "countries")
+      .of(n_user).add({ username: new_user.username, countryCode: new_user.country_code });
 
     if (new_user.region_name != '') {
 
       await this.user_repository.createQueryBuilder()
-          .relation(DBUser, "regions")
-          .of(n_user).add({username: new_user.username, regionName: new_user.region_name})
+        .relation(DBUser, "regions")
+        .of(n_user).add({ username: new_user.username, regionName: new_user.region_name })
     }
 
     return n_user;
   }
 
-  async get_notifications_from_user(username: string) : Promise<Notifications[]> {
+  async get_notifications_from_user(username: string): Promise<Notifications[]> {
 
-    const user = await this.user_repository.findOne({relations: ['notifications'], where: {username: username}});
+    const user = await this.user_repository.findOne({ relations: ['notifications'], where: { username: username } });
 
     return user.notifications.filter(notification => !notification.isRead);
+  }
+
+  async check_email(email: string): Promise<boolean> {
+
+    const results = await this.user_repository.createQueryBuilder("user")
+      .where("user.email = :email", { email: email }).select("user.email").getOne();
+
+    return results == undefined;
+  }
+
+  async check_username(username: string): Promise<boolean> {
+
+    const results = await this.user_repository.createQueryBuilder("user")
+      .where("user.username = :username", { username: username }).select("user.username").getOne();
+
+    return results == undefined;
+  }
+
+  async check_health_code(health_code: string) : Promise<boolean> {
+
+    return await this.health_service.check_health_code(health_code);
   }
 }

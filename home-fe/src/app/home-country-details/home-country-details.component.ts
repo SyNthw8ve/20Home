@@ -35,45 +35,49 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
     this.route.data.subscribe((data) => {
 
+      if (data.country_records.length > 0) {
+
+        const last = data.country_records.length - 1;
+
+        this.country_card_data = [
+
+          {
+            name: "Confirmed",
+            value: data.country_records[last].cases
+          },
+          {
+            name: "Deaths",
+            value: data.country_records[last].deaths
+          },
+          {
+            name: "Active",
+            value: data.country_records[last].active
+          },
+          {
+            name: "Recovered",
+            value: data.country_records[last].recovered
+          },
+        ]
+
+        this.country_data = [
+          {
+
+            "name": "Confirmed",
+            "value": data.country['confirmed']
+          },
+          {
+            "name": "Recovered",
+            "value": data.country['recovered']
+          },
+          {
+            "name": "Deaths",
+            "value": data.country['deaths']
+          }
+        ]
+      }
+
       this.country_records = data.country_records.length > 0 ? this.to_format(data.country_records, data.predictions) : null;
 
-      const last = data.country_records.length - 1;
-
-      this.country_card_data = [
-
-        {
-          name: "Confirmed",
-          value: data.country_records[last].cases
-        },
-        {
-          name: "Deaths",
-          value: data.country_records[last].deaths
-        },
-        {
-          name: "Active",
-          value: data.country_records[last].active
-        },
-        {
-          name: "Recovered",
-          value: data.country_records[last].recovered
-        },
-      ]
-
-      this.country_data = [
-        {
-
-          "name": "Confirmed",
-          "value": data.country['confirmed']
-        },
-        {
-          "name": "Recovered",
-          "value": data.country['recovered']
-        },
-        { 
-          "name": "Deaths",
-          "value": data.country['deaths']
-        }
-      ]
       this.country_details = data.country;
       this.nav_position.push(data.country.countryName);
       this.view = { lat: data.country.lat, long: data.country.long };
@@ -95,7 +99,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
       { name: "Cases", series: [] },
       { name: "Deaths", series: [] },
       { name: "Recovered", series: [] },
-      { name: "Active Prediction", series: []}
+      { name: "Active Prediction", series: [] }
     ];
 
     country_records.forEach((record) => {
@@ -112,7 +116,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
       const date = new Date(prediction.predictionDate).toLocaleString();
 
-      data[4].series.push({ name: date, value: prediction.predictionValue})
+      data[4].series.push({ name: date, value: prediction.predictionValue })
     })
 
     return data;
@@ -120,14 +124,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
 
   private to_marker(country_regions) {
 
-    let regions = [];
-
-    country_regions.forEach(region => {
-
-      regions.push({lat: region.lat, long: region.long, title: region.regionName})
-    })
-
-    return regions;
+    return country_regions.map(region => { return { lat: region.lat, long: region.long, title: region.regionName } });
   }
 
   navigate_to(region_name: string) {

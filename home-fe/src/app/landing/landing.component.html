@@ -11,6 +11,8 @@
               <i class="material-icons prefix">person</i>
               <input id="username" type="text" class="validate" formControlName="username" required>
               <label for="username">Username</label>
+              <span *ngIf="login.get('username').hasError('required')" class="helper-text"
+                data-error="Username is required"></span>
             </div>
           </div>
           <div class="row form-elem">
@@ -18,15 +20,18 @@
               <i class="material-icons prefix">lock</i>
               <input id="pass" type="password" class="validate" formControlName="password" required>
               <label for="pass">Password</label>
+              <span *ngIf="login.get('password').hasError('required')" class="helper-text"
+                data-error="Password is required"></span>
             </div>
           </div>
-          <div class="row form-elem">
-              <div class="col s12 center-align">
-                <button class="btn btn-large waves-effect waves-light" type="submit">Login
-                 
-                </button>
-                <p id="register">Not registered yet? <a [routerLink]="['/register']">Do it here</a></p>
-              </div>
+          <div class="row form-elem center-align">
+            <span *ngIf="login_error" class="red-text">Please check your Username and Password</span>
+            <div class="col s12 center-align">
+              <button class="btn btn-large waves-effect waves-light" type="submit">Login
+
+              </button>
+              <p id="register">Not registered yet? <a [routerLink]="['/register']">Do it here</a></p>
+            </div>
           </div>
         </form>
       </div>
@@ -39,6 +44,6 @@
     </div>
   </div>
   <div class="col s8 no-padd" *ngIf="all_data | async as points">
-    <app-map [points]="points" [view]="{lat: 0, long: 0}" [zoom]="zoom"></app-map>
+    <app-map [markers]="[]" [points]="points" [view]="{lat: 0, long: 0}" [zoom]="zoom"></app-map>
   </div>
 </div>
