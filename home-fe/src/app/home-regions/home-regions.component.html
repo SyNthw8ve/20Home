@@ -1,24 +1,11 @@
 <div class="row">
   <div class="row" id="title-row">
     <h1 id="title">Regions</h1>
-
-    <app-search></app-search>
-
   </div>
-  <div class="col s4" *ngFor="let region of $regions | async">
+  <div class="col s3" *ngFor="let region of $regions | async">
     <div class="card" (click)="navigate_to(region.regionName)">
-      <div class="card-content">
-        <span class="card-title truncate">{{region.regionName}}</span>
-        <!-- <div class="chip red accent-3 white-text">
-                    Deaths: {{region.deaths}}
-                  </div>
-                  <div class="chip yellow accent-4 black-text">
-                    Confirmed: {{region.active}}
-                  </div>
-                  <div class="chip teal accent-4 white-text">
-                    Recovered: {{region.recovered}}
-                  </div> -->
+      <div class="card-content container valign-wrapper">
+        <span class="card-title center-align truncate">{{region.regionName}}</span>
       </div>
     </div>
   </div>
-</div>

@@ -10,22 +10,50 @@ import * as M from 'materialize-css/dist/js/materialize.js';
 })
 export class HomeRegionDetailsComponent implements OnInit, AfterViewInit {
 
+  cardColor: string = '#f5f5f5';
+  colorScheme = {
+    domain: ['#d1c4e9', '#b39ddb', '#9575cd']
+  };
+  colorSchemeLine = {
+    domain: ['#d1c4e9', '#b39ddb', '#9575cd', '#7e57c2', '#7986cb']
+  };
+  colorSchemeNum = {
+    domain: ['#d1c4e9', '#b39ddb', '#9575cd', '#7e57c2']
+  };
   region_records;
   region;
+  region_data;
+  region_card_data;
   region_details;
   view;
-  zoom = 6;
+  zoom = 12;
   nav_position = ['Regions'];
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
-    this.route.data.subscribe((data : any) => {
-
+    this.route.data.subscribe((data: any) => {
+      
       this.region_records = data.region_details.length > 0 ? this.to_format(data.region_details) : null;
       this.region = data.region;
-      this.region_details = {lat: this.region.lat, long: this.region.long, confirmed: data.region_details[0].confirmed}
+      const last = data.region_details.length - 1;
+      this.region_data = [
+
+        {
+          name: "Confirmed",
+          value: data.region_details[last].confirmed
+        },
+        {
+          name: "Deaths",
+          value: data.region_details[last].deaths
+        },
+        {
+          name: "Recovered",
+          value: data.region_details[last].recovered
+        },
+      ]
+      this.region_details = { lat: this.region.lat, long: this.region.long, confirmed: data.region_details[0].confirmed }
       this.nav_position.push(data.region.regionName);
       this.view = { lat: data.region.lat, long: data.region.long };
     })

@@ -17,6 +17,11 @@ export class HomeRegionsComponent implements OnInit {
   ngOnInit(): void {
 
     this.$regions = this.store_service.get_regions();
+
+    this.$regions.subscribe((data) => {
+
+      console.log(data);
+    })
   }
 
   
