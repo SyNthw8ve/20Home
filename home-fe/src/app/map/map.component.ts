@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-
+import { Router, ActivatedRoute } from '@angular/router';
 import * as L from 'leaflet';
 import { leaflet_token } from '../../../config.json';
 
@@ -13,13 +13,14 @@ export class MapComponent implements OnInit, AfterViewInit {
   @ViewChild('map') mapContainer;
 
   @Input() points: any[];
+  @Input() markers: any[];
   @Input() view: any;
   @Input() zoom: number;
   @Output() new_click = new EventEmitter<any>();
 
   private map;
 
-  constructor() { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnDestroy(): void {
 
@@ -55,6 +56,20 @@ export class MapComponent implements OnInit, AfterViewInit {
         radius: item.confirmed * 1.5
       }).addTo(this.map);
     });
+
+    this.markers.forEach(marker => {
+
+      let new_marker = L.marker([marker.lat, marker.long], {
+        title: marker.title
+      });
+
+      new_marker.addTo(this.map);
+
+      new_marker.on('click', (e) => {
+
+        this.router.navigate([`region/${marker.title}`], { relativeTo: this.route.parent });
+      })
+    })
 
     this.map.on('click', (e) => {
 

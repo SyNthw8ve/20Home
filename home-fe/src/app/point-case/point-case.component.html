@@ -1,7 +1,14 @@
 <h1 id="title">New Case</h1>
-
+<div class="row">
+    <div class="col s12">
+        <div class="card-panel no-padd map-view">
+            <app-map *ngIf="$user" [points]="[]" [view]="{long: $user.long, lat: $user.lat}" [zoom]="8"
+                (new_click)="update_coords($event)"></app-map>
+        </div>
+    </div>
+</div>
 <div class="row full-height">
-    <form class="col s6 center-align" [formGroup]="new_case" (ngSubmit)="on_submit()">
+    <form class="col s6 center-align offset-s3" [formGroup]="new_case" (ngSubmit)="on_submit()">
         <div class="row form-elem">
             <div class="input-field col s6">
                 <i class="material-icons prefix">place</i>
@@ -55,8 +62,5 @@
             </div>
         </div>
     </form>
-    <div class="col s6 map-view">
-        <app-map *ngIf="$user" [points]="[]" [view]="{long: $user.long, lat: $user.lat}"
-            [zoom]="12" (new_click)="update_coords($event)"></app-map>
-    </div>
+
 </div>

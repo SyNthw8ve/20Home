@@ -26,7 +26,7 @@ export class HomeRegionDetailsComponent implements OnInit, AfterViewInit {
   region_card_data;
   region_details;
   view;
-  zoom = 12;
+  zoom = 8;
   nav_position = ['Regions'];
 
   constructor(private route: ActivatedRoute) { }

@@ -27,7 +27,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
     domain: ['#d1c4e9', '#b39ddb', '#9575cd', '#7e57c2']
   };
   view;
-  zoom = 2;
+  zoom = 5;
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
@@ -78,7 +78,7 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
       this.nav_position.push(data.country.countryName);
       this.view = { lat: data.country.lat, long: data.country.long };
 
-      this.country_regions = data.country_regions.length > 0 ? data.country_regions : null;
+      this.country_regions = data.country_regions.length > 0 ? this.to_marker(data.country_regions) : null;
     })
   }
 
@@ -116,6 +116,18 @@ export class HomeCountryDetailsComponent implements OnInit, AfterViewInit {
     })
 
     return data;
+  }
+
+  private to_marker(country_regions) {
+
+    let regions = [];
+
+    country_regions.forEach(region => {
+
+      regions.push({lat: region.lat, long: region.long, title: region.regionName})
+    })
+
+    return regions;
   }
 
   navigate_to(region_name: string) {
