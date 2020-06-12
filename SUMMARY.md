@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Overview](README.md)
+* [Visão Geral](README.md)
 
 ## Database
 
