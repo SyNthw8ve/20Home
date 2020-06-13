@@ -14,6 +14,8 @@ No login, o utilizador tem de se autenticar perante a aplicação. Desta maneira
 
 ## TypeORM
 
+Para interagir com a base de dados, é utilizado o módulo de typeorm disponibilizado pelo NestJs. Assim é possível criar repositórios que gerem as entidades da base dados e propagam as alterações à base de dados, evitando problemas de sincronia e eliminando possíveis superfícies de ataque. Mais do que isso, qualquer entidade é convertida em objecto sem ser necessário formatar os resultados manualmente.
+
 ## Endpoints
 
 O servidor dispõem um API REST a que o cliente pode efectuar pedidos. Segue a lista de endpoints que a compõem.
