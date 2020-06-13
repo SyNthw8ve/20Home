@@ -1315,7 +1315,64 @@ async update_models(job: Job<unknown>) {
 
 ## Queues
 
+De maneira a não ocupar a thread principal do servidor com tarefas para além do atendimento de pedidos e para não ocupar os recursos com várias tarefas em simultâneo, foram criadas duas queues para se ocuparem desse tipo de tarefas e executarem os trabalhos a elas delegados.
+
+As queues são implementadas com o módulo Bull do NestJs.
+
+### Update Queue
+
+Esta queue é responsável por tratar todas as tarefas relacionadas a updates, concretizando:
+
+* Update dos registos dos países
+* Update dos indicadores dos países
+* Update dos registos das regiões portuguesas
+
+### Notifications Queue
+
+Esta queue é responsável por executar os procedimentos necessários a enviar notificações aos utilizadores, como já discutido junto do trigger de notificações.
+
 ## WebSockets
+
+Como dito anteriormente, para os utilizadores online são enviadas notificações em tempo real. Isto é conseguido através do uso de sockets. Um cliente ao entrar na sua conta emite um evento que permite ao conectá-lo ao servidor para que possa receber as notificações. Quando este sai da sua conta ou fecha a janela da aplicação, está conecção é removida, visto que o utilizador não está online. O servidor mantém todos os cliente online.
+
+Quando uma nova notificação é criada, verifica-se se o utilizador está online e emite-se um evento a que o cliente está subscrito. Este evento contém a nova notificação.
+
+```typescript
+@WebSocketServer()
+server: Server;
+
+@SubscribeMessage('register')
+handleMessage(client: any, payload: any) {
+  
+  const {username, ...data} = payload;
+  
+  this.users.set(username, client);
+
+  this.logger.warn(`User ${username} registered`);
+}
+
+@SubscribeMessage('remove_user')
+handleEvent(client: any, payload: any) {
+
+  const username = payload;
+
+  this.users.delete(username);
+
+  this.logger.warn(`User ${username} unregistered`);
+}
+
+hasUser(username: string) : boolean {
+
+  return this.users.has(username);
+}
+
+emitNotification(username: string, notification) {
+
+  const client: any = this.users.get(username);
+
+  client.emit('notification', notification);
+}
+```
 
 
 
