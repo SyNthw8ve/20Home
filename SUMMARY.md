@@ -1,13 +1,7 @@
 # Table of contents
 
 * [Visão Geral](README.md)
-
-## Database
-
-* [Database Description](database/database-description.md)
-* [ER Diagram](database/untitled.md)
-* [Entities and Relations](database/entities-and-relations.md)
-* [APIs](database/apis.md)
+* [Database](database.md)
 
 ## Back End
 

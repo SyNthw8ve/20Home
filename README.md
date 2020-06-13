@@ -1,3 +1,9 @@
+---
+description: >-
+  Descrição geral da aplicação e respectivas funcionalidades. Breve visão sobre
+  a arquitectura utilizada e tecnologias.
+---
+
 # Visão Geral
 
 ## Descrição
