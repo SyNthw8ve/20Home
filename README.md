@@ -70,7 +70,7 @@ Estas interagem segundo o seguinte diagrama:
 O fornecimento de dados é feito através de pedidos REST às seguintes APIs:
 
 * \*\*\*\*[**COVID-19 REST API Portugal**](https://covid19-api.vost.pt/)\*\*\*\*
-* [COVID19 API](https://covid19api.com/)
+* \*\*\*\*[**COVID19 API**](https://covid19api.com/)\*\*\*\*
 
 
 

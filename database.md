@@ -317,7 +317,7 @@ Serão executados triggers que permitem a cadeia de execução associada às res
 
 O update dos dados é feito periodicamente por um serviço de scheduling do servidor. Fornecendo mais algum detalhe:
 
-* O update do registos dos países é feito de 12 em 12 horas, através de um pedido REST à API [COVID19 API](https://covid19api.com/).
+* O update do registos dos países é feito de 12 em 12 horas, através de um pedido REST à API [**COVID19 API**](https://covid19api.com/).
 * O update dos indicadores dos países é feito de 12 em 12 horas utilizando o mesmo mecanismo REST acima mencionado, com a mesma API.
 * O update das regiões portuguesas é conseguido por um pedido REST à API [**COVID-19 REST API Portugal**](https://covid19-api.vost.pt/) ****e é realizado à 1 da manhã de cada dia.
 
