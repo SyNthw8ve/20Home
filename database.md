@@ -8,6 +8,8 @@ description: >-
 
 ## Diagrama ER
 
+![ER Diagram](.gitbook/assets/er.png)
+
 ## Entidades e Relações
 
 Para satisfazer as necessidades da aplicação e a partir do diagrama ER acima, listem-se agora as entidades e relações e as suas respectivas restrições aos dados.
