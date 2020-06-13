@@ -311,9 +311,7 @@ Para a execução das funcionalidades:
 
 Serão executados triggers que permitem a cadeia de execução associada às respectivas funcionalidades. No entanto, esses triggers são registados pelo servidor, assim serão discutidos nessa secção.
 
-{% page-ref page="back-end/" %}
-
-
+{% page-ref page="back-end/nestjs.md" %}
 
 ## Update dos Dados
 
@@ -325,5 +323,5 @@ O update dos dados é feito periodicamente por um serviço de scheduling do serv
 
 Uma discussão mais detalhada pode ser encontrada em:
 
-{% page-ref page="back-end/" %}
+{% page-ref page="back-end/nestjs.md" %}
 
