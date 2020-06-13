@@ -984,23 +984,29 @@ Ao receber os dados, verifica-se se é necessário um update. Caso não seja, ch
 const data: any = job.data;
 const country = data.country;
 
-const last_update: Date = await this.records_country_service.get_last_date(country['ISO2']);
+const last_update: Date = await this.records_country_service
+    .get_last_date(country['ISO2']);
 
 const date_string = this.format_date(last_update);
 
-const url: string = `https://api.covid19api.com/live/country/${country.Slug}/status/confirmed/date/${date_string}`;
+const url: string = `https://api.covid19api.com/live/country/
+    ${country.Slug}/status/confirmed/date/${date_string}`;
 
-this.logger.log(`Checking for record updates of country ${country.Country}`)
+this.logger.log(`Checking for record updates of country 
+    ${country.Country}`)
 
 this.http.get(url, {}).subscribe(async (res: any) => {
 
     const logs = res.data;
 
-    if (logs.length == 0) this.logger.log(`Records of ${country.Country} is up to date`);
+    if (logs.length == 0) this.logger
+        .log(`Records of ${country.Country} is up to date`);
 
     else {
 
-        this.logger.log(`Found ${logs.length} new entries for country ${country.Country}. Updating...`)
+        this.logger.log(`Found ${logs.length} 
+            new entries for country ${country.Country}. 
+            Updating...`)
 
         const records = this.filter_countries(logs);
 
@@ -1009,7 +1015,8 @@ this.http.get(url, {}).subscribe(async (res: any) => {
 
         try {
 
-            await this.records_country_service.insert_new_records(records_country);
+            await this.records_country_service
+                .insert_new_records(records_country);
 
         } catch (err) {
 
@@ -1018,14 +1025,16 @@ this.http.get(url, {}).subscribe(async (res: any) => {
 
         try {
 
-            await this.records_region_service.insert_new_records(records_region);
+            await this.records_region_service
+                .insert_new_records(records_region);
 
         } catch (err) {
 
             this.logger.error(err);
         }
 
-        this.logger.log(`Updated entries for country ${country.Country}`);
+        this.logger.log(`Updated entries for country 
+            ${country.Country}`);
     }
 
 });
@@ -1042,13 +1051,15 @@ O update dos indicadores do país é feito de 12 em 12 horas.
 Neste caso, antes de adicionar o pedido de processamento à queue, é feito um pedido à API que contém todos os novos indicadores dos países. Assim, como já obtivemos os dados correspondentes, basta actualizar os respectivos países.
 
 ```typescript
-this.http.get('https://api.covid19api.com/summary', {}).subscribe((res: any) => {
+this.http.get('https://api.covid19api.com/summary', {})
+    .subscribe((res: any) => {
 
     res.data.Countries.forEach(async item => {
 
         try {
 
-            await this.update_queue.add('country', { country: item })
+            await this.update_queue
+                .add('country', { country: item })
 
         } catch (error) {
 
@@ -1065,17 +1076,21 @@ const data: any = job.data;
 const country_data = data.country;
 
 const update_data = {
-    countryCode: country_data.CountryCode, confirmed: country_data.TotalConfirmed,
-    deaths: country_data.TotalDeaths, recovered: country_data.TotalRecovered
+    countryCode: country_data.CountryCode, 
+    confirmed: country_data.TotalConfirmed,
+    deaths: country_data.TotalDeaths, 
+    recovered: country_data.TotalRecovered
 }
 
 try {
 
-    this.logger.log(`Updating country ${country_data.Country} values...`);
+    this.logger.log(`Updating country 
+        ${country_data.Country} values...`);
 
     await this.country_service.update_country(update_data);
 
-    this.logger.log(`Updated country ${country_data.Country}`);
+    this.logger.log(`Updated country 
+        ${country_data.Country}`);
 
 } catch (error) {
 
@@ -1094,7 +1109,9 @@ Os dados das regiões de Portugal não estão disponíveis na API principal, tod
 Neste caso, basta efectuar o pedido à API no endpoint correspondente ao último update e processar os dados de maneira a que se adequém à estrutura da base de dados.
 
 ```typescript
-this.http.get('https://covid19-api.vost.pt/Requests/get_last_update', {}).subscribe(async (res: any) => {
+this.http
+.get('https://covid19-api.vost.pt/Requests/get_last_update', 
+    {}).subscribe(async (res: any) => {
 
     const last_update = res.data;
     
@@ -1103,43 +1120,67 @@ this.http.get('https://covid19-api.vost.pt/Requests/get_last_update', {}).subscr
             {
                 regionName: 'Norte',
                 confirmed: last_update.confirmados_arsnorte,
-                recovered: last_update.recuperados_arsnorte == null ? 0 : last_update.recuperados_arsnorte,
+                recovered: last_update.recuperados_arsnorte 
+                    == null ? 
+                        0 : 
+                        last_update.recuperados_arsnorte,
                 deaths: last_update.obitos_arsnorte
             },
             {
                 regionName: 'Centro',
                 confirmed: last_update.confirmados_arscentro,
-                recovered: last_update.recuperados_arscentro == null ? 0 : last_update.recuperados_arscentro,
+                recovered: last_update.recuperados_arscentro 
+                    == null ? 
+                        0 : 
+                        last_update.recuperados_arscentro,
                 deaths: last_update.obitos_arscentro
             },
             {
                 regionName: 'Lisboa e Vale do Tejo',
                 confirmed: last_update.confirmados_arslvt,
-                recovered: last_update.recuperados_arslvt == null ? 0 : last_update.recuperados_arslvt,
+                recovered: last_update.recuperados_arslvt 
+                    == null ? 
+                        0 : 
+                        last_update.recuperados_arslvt,
                 deaths: last_update.obitos_arslvt
             },
             {
                 regionName: 'Alentejo',
-                confirmed: last_update.confirmados_arsalentejo,
-                recovered: last_update.recuperados_arsalentejo == null ? 0 : last_update.recuperados_arsalentejo,
+                confirmed: last_update
+                    .confirmados_arsalentejo,
+                recovered: last_update
+                    .recuperados_arsalentejo 
+                    == null ?
+                         0 : 
+                         last_update.recuperados_arsalentejo,
                 deaths: last_update.obitos_arsalentejo
             },
             {
                 regionName: 'Algarve',
-                confirmed: last_update.confirmados_arsalgarve,
-                recovered: last_update.recuperados_arsalgarve == null ? 0 : last_update.recuperados_arsalgarve,
+                confirmed: last_update
+                    .confirmados_arsalgarve,
+                recovered: last_update.recuperados_arsalgarve 
+                    == null ? 
+                        0 : 
+                        last_update.recuperados_arsalgarve,
                 deaths: last_update.obitos_arsalgarve
             },
             {
                 regionName: 'Açores',
                 confirmed: last_update.confirmados_acores,
-                recovered: last_update.recuperados_acores == null ? 0 : last_update.recuperados_acores,
+                recovered: last_update.recuperados_acores 
+                    == null ?
+                         0 : 
+                         last_update.recuperados_acores,
                 deaths: last_update.obitos_acores
             },
             {
                 regionName: 'Madeira',
                 confirmed: last_update.confirmados_madeira,
-                recovered: last_update.recuperados_madeira == null ? 0 : last_update.recuperados_madeira,
+                recovered: last_update.recuperados_madeira 
+                    == null ?
+                    0 : 
+                    last_update.recuperados_madeira,
                 deaths: last_update.obitos_madeira
             },
         ]
@@ -1165,7 +1206,8 @@ const records = region_data.records.map(record => {
 
 try {
 
-    await this.records_region_service.insert_new_records(records);
+    await this.records_region_service
+        .insert_new_records(records);
 
     this.logger.log('Finished updating Portugal region data')
 
