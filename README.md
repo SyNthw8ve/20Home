@@ -39,5 +39,23 @@ Posto a descrição geral da aplicação, comecemos a detalhar um pouco mais, es
 
 ## Stack de Tecnologias
 
+Para o desenvolvimento da aplicação foram utilizadas as seguintes tecnologias:
+
+* Front End:
+  * [Angular](https://angular.io/)
+  * [Nginx](https://www.nginx.com/)
+* Back End:
+  * [NestJS](https://nestjs.com/)
+  * [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+* Base de Dados/Cache:
+  * [Redis](https://redis.io/)
+  * [PostgreSQL](https://www.postgresql.org/)
+* Deployment/Micro-serviços:
+  * [Docker](https://www.docker.com/)
+* AI:
+  * [Tensorflow](https://www.tensorflow.org/)
+
+
+
 
 
