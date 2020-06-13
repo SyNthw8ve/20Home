@@ -2,6 +2,16 @@
 
 ## Autenticação
 
+A aplicação faz uso de um sistema de login e, como tal, é necessário declarar estratégias de autenticação. Comecemos pelo registo de um novo utilizador. Quando um novo utilizador é adicionado à plataforma, a sua password é encriptada utilizando o package bcrypt.
+
+```javascript
+bcrypt.hash(new_user.password, salt_rounds);
+```
+
+Esta função gera uma hash de 60 caracteres, com 10 rondas de salt. Desta maneira, quando o utilizador é adicionado à base de dados, a sua password está encriptada.
+
+No login, o utilizador tem de se autenticar perante a aplicação. Desta maneira, os dados que inseriu no campo de login são enviados ao servidor. Este utilizará de novo o package bcrypt para gerar uma hash da password enviada e compara-a com a hash que está na base de dados para esse utilizador. No caso se coincidirem, o servidor responde com os dados do utilizador e com um token jwt e o tempo de sessão. O token será utilizado para validar o utilizador em futuros pedidos.
+
 ## TypeORM
 
 ## Endpoints
