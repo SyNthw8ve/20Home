@@ -2,16 +2,7 @@
 
 * [Visão Geral](README.md)
 * [Database](database.md)
-
-## Back End
-
-* [Untitled](back-end/untitled.md)
-
-## Front End
-
-* [Untitled](front-end/untitled.md)
-
-## Deployment
-
-* [Untitled](deployment/untitled.md)
+* [Back End](back-end.md)
+* [Front End](front-end.md)
+* [Deployment](deployment.md)
 

@@ -183,5 +183,145 @@ Esta é também uma entidade fraca, e pelo mesmo argumento fornecido para as res
 
 ### Relações
 
+#### NewCase
 
+Relação que estabelece ligação entre um novo caso individual 
+
+```sql
+CREATE TABLE NewCase (
+
+    not_id integer,
+    case_id integer,
+
+    FOREIGN KEY (not_id) REFERENCES Notifications(ID),
+    FOREIGN KEY (case_id) REFERENCES PointCases(ID),
+
+    PRIMARY KEY (not_id, case_id)
+);
+```
+
+#### Notify
+
+Relação que estabelece ligação entre uma notificação e o utilizador notificado.
+
+```sql
+CREATE TABLE Notify (
+
+    not_id integer,
+    username varchar(32),
+
+    FOREIGN KEY (not_id) REFERENCES Notifications(ID),
+    FOREIGN KEY (username) REFERENCES DBUser(username),
+
+    PRIMARY KEY (not_id, username)
+);
+```
+
+#### HasRegions
+
+Relação que indica quais as regiões de um país.
+
+```sql
+CREATE TABLE HasRegions (
+
+    country_code char(2),
+    region_name varchar(32),
+
+    FOREIGN KEY (country_code) REFERENCES Country(country_code),
+    FOREIGN KEY (region_name) REFERENCES Region(region_name),
+
+    PRIMARY KEY (country_code, region_name)
+);
+```
+
+#### **FromCountry**
+
+Relação que estabelece a ligação entre um utilizador e o seu país de residência.
+
+```sql
+CREATE TABLE FromCountry (
+
+    username varchar(32),
+    country_code char(2),
+
+    FOREIGN KEY (username) REFERENCES DBUser(username),
+    FOREIGN KEY (country_code) REFERENCES Country(country_code),
+
+    PRIMARY KEY (username, country_code)
+);
+```
+
+#### **LivesIn**
+
+Relação que indica qual a região em que o utilizador vive, se a relação existir no sistema. 
+
+```sql
+CREATE TABLE LivesIn (
+
+    username varchar(32),
+    region_name varchar(32),
+
+    FOREIGN KEY (username) REFERENCES DBUser(username),
+    FOREIGN KEY (region_name) REFERENCES Region(region_name),
+
+    PRIMARY KEY (username, region_name)
+);
+```
+
+#### **InCountry**
+
+Relação que indica os casos individuais detectados num país.
+
+```sql
+CREATE TABLE InCountry (
+
+    ID integer,
+    country_code char(2),
+
+    FOREIGN KEY (ID) REFERENCES PointCases(ID),
+    FOREIGN KEY (country_code) REFERENCES Country(country_code),
+
+    PRIMARY KEY (ID, country_code)
+);
+```
+
+#### **InRegion**
+
+Relação que indica os casos individuais detectados numa região.
+
+```sql
+CREATE TABLE InRegion (
+
+    ID integer,
+    region_name varchar(32),
+
+    FOREIGN KEY (ID) REFERENCES PointCases(ID),
+    FOREIGN KEY (region_name) REFERENCES Region(region_name),
+
+    PRIMARY KEY (ID, region_name)
+);
+```
+
+## Triggers
+
+Para a execução das funcionalidades:
+
+* Actualizar as previsões aquando da inserção de novos dados.
+* Notificar utilizadores sobre novos casos perto de si.
+
+Serão executados triggers que permitem a cadeia de execução associada às respectivas funcionalidades. No entanto, esses triggers são registados pelo servidor, assim serão discutidos nessa secção.
+
+{% page-ref page="back-end.md" %}
+
+## Update dos Dados
+
+O update dos dados é feito periodicamente por um serviço de scheduling do servidor. Fornecendo mais algum detalhe:
+
+* O update do registos dos países é feito de 12 em 12 horas, através de um pedido REST à API [COVID19 API](https://covid19api.com/).
+* O update dos indicadores dos países é feito de 12 em 12 horas utilizando o mesmo mecanismo REST acima mencionado, com a mesma API.
+* O update das regiões portuguesas é conseguido por um pedido REST à API [**COVID-19 REST API Portugal**](https://covid19-api.vost.pt/) ****e é realizado à 1 da manhã de cada dia.
+
+Uma discussão mais detalhada pode ser encontrada em:
+
+{% page-ref page="back-end.md" %}
 
