@@ -10,3 +10,9 @@ Ao premir um dos países somos levados a uma página que nos permite visualizar 
 
 ![Country Details Middle](../../.gitbook/assets/homedet2.png)
 
+Para aceder às regiões a partir da página do país, basta premir um dos marcadores do mapa.
+
+![Country Details Bottom](../../.gitbook/assets/homedet3.png)
+
+A curva de previsões é a curva a azul mais à direita no gráfico.
+
