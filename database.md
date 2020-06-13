@@ -181,3 +181,7 @@ CREATE TABLE Predictions (
 
 Esta é também uma entidade fraca, e pelo mesmo argumento fornecido para as restantes entidades fracas, não é necessário manter uma relação entre **Country** e **Predictions**.
 
+### Relações
+
+
+
