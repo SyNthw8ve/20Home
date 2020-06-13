@@ -755,6 +755,213 @@ true
 {% endapi-method-spec %}
 {% endapi-method %}
 
+### Notifications
+
+{% api-method method="put" host="/api/notification" path="/update" %}
+{% api-method-summary %}
+Update Notifications
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Actualiza o estado de uma notificação.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-body-parameters %}
+{% api-method-parameter name="notifications" type="object" required=true %}
+Notificações a actualizar.
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+### Point Cases
+
+{% api-method method="get" host="/api/pointcases" path="/" %}
+{% api-method-summary %}
+All Point Cases
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Devolve todos os casos individuais registados.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+[
+    {
+        "id": 8,
+        "long": "-9.13560928232255",
+        "lat": "38.72762263347028",
+        "caseTime": "2020-05-16T19:48:27.289Z"
+    },
+    {
+        "id": 9,
+        "long": "-9.14309234255547",
+        "lat": "38.71257201354583",
+        "caseTime": "2020-05-16T20:37:11.461Z"
+    },
+    ...
+]
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=401 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+{
+    "statusCode": 401,
+    "message": "Unauthorized"
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="post" host="/api/pointcases" path="/new" %}
+{% api-method-summary %}
+New Point Case
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Adiciona um novo caso individual.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-body-parameters %}
+{% api-method-parameter name="new\_case" type="object" required=true %}
+Objecto que representa o novo caso a adicionar.
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=401 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+{
+    "statusCode": 401,
+    "message": "Unauthorized"
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+### Predictions
+
+{% api-method method="get" host="/api/predictions" path="/:country\_code" %}
+{% api-method-summary %}
+Predictions From Country
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Devolve as previsões para um país.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="country\_code" type="string" required=true %}
+Código do país a obter as previsões.
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+[
+    {
+        "countryCode": "PT",
+        "predictionValue": 11474,
+        "predictionDate": "2020-06-05T23:00:00.000Z"
+    },
+    {
+        "countryCode": "PT",
+        "predictionValue": 11174,
+        "predictionDate": "2020-06-06T23:00:00.000Z"
+    },
+    {
+        "countryCode": "PT",
+        "predictionValue": 10794,
+        "predictionDate": "2020-06-07T23:00:00.000Z"
+    },
+    {
+        "countryCode": "PT",
+        "predictionValue": 10368,
+        "predictionDate": "2020-06-08T23:00:00.000Z"
+    },
+    {
+        "countryCode": "PT",
+        "predictionValue": 9786,
+        "predictionDate": "2020-06-09T23:00:00.000Z"
+    },
+    {
+        "countryCode": "PT",
+        "predictionValue": 9087,
+        "predictionDate": "2020-06-10T23:00:00.000Z"
+    },
+    {
+        "countryCode": "PT",
+        "predictionValue": 8269,
+        "predictionDate": "2020-06-11T23:00:00.000Z"
+    }
+]
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=401 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+{
+    "statusCode": 401,
+    "message": "Unauthorized"
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
 ## Updates de Dados
 
 ## Subscribers
