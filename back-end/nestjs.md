@@ -2,6 +2,8 @@
 
 ## Autenticação
 
+## TypeORM
+
 ## Endpoints
 
 O servidor dispõem um API REST a que o cliente pode efectuar pedidos. Segue a lista de endpoints que a compõem.
@@ -964,9 +966,216 @@ Código do país a obter as previsões.
 
 ## Updates de Dados
 
-## Subscribers
+Como dito na secção de Database, os dados são actualizados por rotinas de servidor agendadas. Este agendamento é conseguido através do uso de um scheduler providenciado pelo NestJs, o Cron.
 
-## TypeORM
+### Update dos Registos dos Países
+
+O update dos registos dos países é feito de 12 em 12 horas.
+
+```typescript
+@Cron('0 0 */12 * * *')
+```
+
+Por cada país é adicionado a uma queue de processamento um pedido de actualização dos registos desse país, por forma a não bloquear a thread principal com esta tarefa. Quando o pedido de cada país é processado, é feito um pedido à API que devolve os registos de um país entre duas datas: a de começo e a de fim. Desta maneira, mesmo que exista um problema no servidor e este não possa executar o procedimento, ao utilizar a data do último registo do país e a data actual, é possível restabelecer os dados.
+
+Ao receber os dados, verifica-se se é necessário um update. Caso não seja, chegamos ao fim do processamento do país. Caso existam novos dados, estes são separados em dados correspondentes ao país e às regiões. Após este tratamento, são actualizadas as tabelas correspondentes.
+
+```typescript
+const data: any = job.data;
+const country = data.country;
+
+const last_update: Date = await this.records_country_service.get_last_date(country['ISO2']);
+
+const date_string = this.format_date(last_update);
+
+const url: string = `https://api.covid19api.com/live/country/${country.Slug}/status/confirmed/date/${date_string}`;
+
+this.logger.log(`Checking for record updates of country ${country.Country}`)
+
+this.http.get(url, {}).subscribe(async (res: any) => {
+
+    const logs = res.data;
+
+    if (logs.length == 0) this.logger.log(`Records of ${country.Country} is up to date`);
+
+    else {
+
+        this.logger.log(`Found ${logs.length} new entries for country ${country.Country}. Updating...`)
+
+        const records = this.filter_countries(logs);
+
+        const records_country = records.countries;
+        const records_region = records.regions;
+
+        try {
+
+            await this.records_country_service.insert_new_records(records_country);
+
+        } catch (err) {
+
+            this.logger.error(err);
+        }
+
+        try {
+
+            await this.records_region_service.insert_new_records(records_region);
+
+        } catch (err) {
+
+            this.logger.error(err);
+        }
+
+        this.logger.log(`Updated entries for country ${country.Country}`);
+    }
+
+});
+```
+
+### Update dos Indicadores do País
+
+O update dos indicadores do país é feito de 12 em 12 horas.
+
+```typescript
+@Cron('0 0 */12 * * *')
+```
+
+Neste caso, antes de adicionar o pedido de processamento à queue, é feito um pedido à API que contém todos os novos indicadores dos países. Assim, como já obtivemos os dados correspondentes, basta actualizar os respectivos países.
+
+```typescript
+this.http.get('https://api.covid19api.com/summary', {}).subscribe((res: any) => {
+
+    res.data.Countries.forEach(async item => {
+
+        try {
+
+            await this.update_queue.add('country', { country: item })
+
+        } catch (error) {
+
+
+        }
+    })
+})
+```
+
+Desta maneira, um job na queue só precisa de actualizar as respectivas tabelas.
+
+```typescript
+const data: any = job.data;
+const country_data = data.country;
+
+const update_data = {
+    countryCode: country_data.CountryCode, confirmed: country_data.TotalConfirmed,
+    deaths: country_data.TotalDeaths, recovered: country_data.TotalRecovered
+}
+
+try {
+
+    this.logger.log(`Updating country ${country_data.Country} values...`);
+
+    await this.country_service.update_country(update_data);
+
+    this.logger.log(`Updated country ${country_data.Country}`);
+
+} catch (error) {
+
+    this.logger.error(error);
+}
+```
+
+### Update das Regiões de Portugal
+
+Os dados das regiões de Portugal não estão disponíveis na API principal, todavia, podemos utilizar a API da DGS que disponibiliza dos dados para as regiões portuguesas. Este update é feito à 1 da manhã todos os dias.
+
+```typescript
+@Cron('0 0 1 * * *')
+```
+
+Neste caso, basta efectuar o pedido à API no endpoint correspondente ao último update e processar os dados de maneira a que se adequém à estrutura da base de dados.
+
+```typescript
+this.http.get('https://covid19-api.vost.pt/Requests/get_last_update', {}).subscribe(async (res: any) => {
+
+    const last_update = res.data;
+    
+    const data = {
+        date: last_update.data_dados + ':00', records: [
+            {
+                regionName: 'Norte',
+                confirmed: last_update.confirmados_arsnorte,
+                recovered: last_update.recuperados_arsnorte == null ? 0 : last_update.recuperados_arsnorte,
+                deaths: last_update.obitos_arsnorte
+            },
+            {
+                regionName: 'Centro',
+                confirmed: last_update.confirmados_arscentro,
+                recovered: last_update.recuperados_arscentro == null ? 0 : last_update.recuperados_arscentro,
+                deaths: last_update.obitos_arscentro
+            },
+            {
+                regionName: 'Lisboa e Vale do Tejo',
+                confirmed: last_update.confirmados_arslvt,
+                recovered: last_update.recuperados_arslvt == null ? 0 : last_update.recuperados_arslvt,
+                deaths: last_update.obitos_arslvt
+            },
+            {
+                regionName: 'Alentejo',
+                confirmed: last_update.confirmados_arsalentejo,
+                recovered: last_update.recuperados_arsalentejo == null ? 0 : last_update.recuperados_arsalentejo,
+                deaths: last_update.obitos_arsalentejo
+            },
+            {
+                regionName: 'Algarve',
+                confirmed: last_update.confirmados_arsalgarve,
+                recovered: last_update.recuperados_arsalgarve == null ? 0 : last_update.recuperados_arsalgarve,
+                deaths: last_update.obitos_arsalgarve
+            },
+            {
+                regionName: 'Açores',
+                confirmed: last_update.confirmados_acores,
+                recovered: last_update.recuperados_acores == null ? 0 : last_update.recuperados_acores,
+                deaths: last_update.obitos_acores
+            },
+            {
+                regionName: 'Madeira',
+                confirmed: last_update.confirmados_madeira,
+                recovered: last_update.recuperados_madeira == null ? 0 : last_update.recuperados_madeira,
+                deaths: last_update.obitos_madeira
+            },
+        ]
+    }
+```
+
+Com isto, o job adicionado à queue vai apenas actualizar as respectivas tabelas, tal como no update dos países.
+
+```typescript
+const data: any = job.data;
+const region_data = data.regions;
+
+const date = this.format_date(region_data.date);
+
+this.logger.log('Updating Portugal region data...')
+
+const records = region_data.records.map(record => {
+
+    record.recordDate = date;
+
+    return record;
+})
+
+try {
+
+    await this.records_region_service.insert_new_records(records);
+
+    this.logger.log('Finished updating Portugal region data')
+
+} catch (error) {
+
+    this.logger.error(error);
+}
+```
+
+## Subscribers
 
 ## Queues
 
