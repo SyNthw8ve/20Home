@@ -42,9 +42,13 @@ Código do país a treinar o modelo.
 
 Também o servidor Flask dispões de duas queues. Uma queue responsável pelo treino dos modelos e outra responsável pela previsão e actualização das previsões da base de dados.
 
+## Treino e Previsão
 
+Para treinar os modelos, recorreu-se ao TensorFlow.  Em primeiro lugar, extraem-se os dados relativos ao país da base de dados. O acesso à base de dados é feito através do package psycopg2. Os dados recolhidos são encaminhados para a queue de treino, que irá treinar o modelo correspondente. A discussão do modelo por ser encontrada aqui:
 
-## Treino
+{% page-ref page="../tensorflow-model.md" %}
 
+O módulo de queues utilizado permite estabelecer relações de dependência entre tarefas. Esta funcionalidade é utilizada para estabelecer uma dependência entre o tarefa de treino e a tarefa de previsão. A tarefa de previsão só é executada quando o treino do modelo estiver treinado. O treino termina quando 
 
+Após o treino, a tarefa de previsão carrega o modelo 
 
