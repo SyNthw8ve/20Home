@@ -1217,7 +1217,101 @@ try {
 }
 ```
 
-## Subscribers
+## Triggers
+
+Para desencadear algumas das funcionalidades da aplicação, recorre-se a triggers.
+
+### Notificações
+
+Aquando da inserção de um novo caso individual, um trigger é accionado, despoletando a sequência de acções necessárias para notificar os utilizadores.
+
+```typescript
+async afterInsert(event: InsertEvent<Pointcases>) {
+
+    const a = Math.sin(event.entity.lat);
+    const b = Math.cos(event.entity.lat);
+    const c = event.entity.long;
+
+    const users: DBUser[] = await event.manager
+        .createQueryBuilder()
+            .select("dbuser")
+            .from(DBUser, "dbuser")
+            .where(`acos(:a*sin(dbuser.lat) + 
+                :b*cos(dbuser.lat)
+                *cos(abs(:c - dbuser.long)))*:r 
+                <= :d`, { a: a, b: b, r: R, d: d, c: c })
+            .getMany();
+
+    this.notify_service.
+        dispatch_notifications(users, event.entity);
+}
+```
+
+Em primeiro lugar, o trigger, após a inserção de um novo caso, começa por filtrar os utilizadores que estão a 1 km do caso individual. Estes utilizadores serão processados numa queue.
+
+Cada utilizador no raio de 1 km será notificado, mas antes é necessário actualizar as tabelas. Por fim, aos utilizadores online será emitido um evento com a nova notificação. 
+
+```typescript
+const job_data: any = job.data;
+const users = job_data.users;
+const point = job_data.new_case;
+
+users.forEach(async (user) => {
+
+    const notification: Notification = {
+        notification_time: new Date().toISOString(),
+        notification_type: NotificationType.PROX, 
+        is_read: false
+    }
+
+    const n_notification = await this.notifications_service
+        .insert_notification(notification, 
+                            user.username, point);
+    
+    if (this.gateway.hasUser(user.username)) {
+
+        this.gateway.emitNotification(user.username, 
+            n_notification);
+    }
+})
+```
+
+### Registos
+
+Quando é inserido um novo registo num país, as previsões precisam de ser actualizadas e os modelos re-treinados com os novos dados. O treino será discutido aqui:
+
+{% page-ref page="flask.md" %}
+
+Por forma a executar os procedimentos necessários, utiliza-se um trigger que dispara quando um novo registo é inserido.
+
+```typescript
+afterInsert(event: InsertEvent<Recordscountry>) {
+
+    const country_code: string = event.entity.countryCode;
+
+    this.update_service.update_models(country_code);
+}
+```
+
+Os países cujos modelos e previsões serão actualizados, são encaminhados para uma queue que reencaminhará o pedido de processamento para um servidor Flask.
+
+```typescript
+async update_models(job: Job<unknown>) {
+
+    const data: any = job.data;
+    const country_code = data.country_code;
+
+    this.logger.log(`Updating model for country 
+        ${country_code}`);
+
+    this.http.post('localhost:5000/model', 
+        {country_code: country_code}).subscribe( (data) => {
+
+        this.logger.log(`Updated model for country 
+            ${country_code}`);
+    });
+}
+```
 
 ## Queues
 
