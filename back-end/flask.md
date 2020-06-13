@@ -48,7 +48,9 @@ Para treinar os modelos, recorreu-se ao TensorFlow.  Em primeiro lugar, extraem-
 
 {% page-ref page="../tensorflow-model.md" %}
 
-O módulo de queues utilizado permite estabelecer relações de dependência entre tarefas. Esta funcionalidade é utilizada para estabelecer uma dependência entre o tarefa de treino e a tarefa de previsão. A tarefa de previsão só é executada quando o treino do modelo estiver treinado. O treino termina quando 
+O módulo de queues utilizado permite estabelecer relações de dependência entre tarefas. Esta funcionalidade é utilizada para estabelecer uma dependência entre o tarefa de treino e a tarefa de previsão. A tarefa de previsão só é executada quando o treino do modelo estiver treinado. O treino termina quando o modelo é carregado para disco. 
 
-Após o treino, a tarefa de previsão carrega o modelo 
+Após o treino, a tarefa de previsão carrega o modelo e calcula as previsões para os sete dias seguintes. A previsão é calculada da seguinte forma: primeiro utilizam-se os últimos sete valores disponíveis para obter a primeira previsão. Esta primeira previsão vai ser agora usada em conjunto com os outros seis valores para obter a segunda previsão. Este processo repete-se até obter os sete novos valores.
+
+Quando obtidos os novos valores, são apagados os valores antigos da base de dados e inseridos estes novos valores.
 
