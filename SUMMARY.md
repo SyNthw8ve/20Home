@@ -15,4 +15,5 @@
     * [New Case](front-end/home/new-case.md)
     * [Notifications](front-end/home/notifications.md)
 * [Deployment](deployment.md)
+* [Reflexões](reflexoes.md)
 
