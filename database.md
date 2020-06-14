@@ -23,14 +23,14 @@ A entidade utilizador DBUser que, como o nome indica, representará o utilizador
 ```sql
 CREATE TABLE DBUser (
 
-    first_name varchar(32) not null,
-    last_name varchar(32) not null,
-    username varchar(32) not null,
-    email text unique not null,
-    long decimal not null,
-    lat decimal not null,
-    password char(60) not null,
-    role char(1) not null,
+    first_name varchar(32),
+    last_name varchar(32),
+    username varchar(32),
+    email text unique,
+    long decimal,
+    lat decimal,
+    password char(60),
+    role char(1),
 
     PRIMARY KEY (username)
 );
@@ -155,10 +155,13 @@ CREATE TABLE PointCases (
 Entidade que representa uma notificação para um utilizador no caso de ter surgido um novo caso perto do mesmo.
 
 ```sql
+CREATE TYPE not_type AS ENUM ('region', 'proximity');
+
 CREATE TABLE Notifications (
 
     ID serial,
     notification_time timestamp,
+    notification_type not_type,
     is_read boolean,
 
     PRIMARY KEY (id)
