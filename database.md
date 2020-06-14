@@ -190,7 +190,7 @@ Esta é também uma entidade fraca, e pelo mesmo argumento fornecido para as res
 
 #### NewCase
 
-Relação que estabelece ligação entre um novo caso individual 
+Relação que estabelece ligação entre um novo caso individual. 
 
 ```sql
 CREATE TABLE NewCase (
